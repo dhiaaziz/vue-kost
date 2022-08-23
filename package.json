@@ -1,8 +1,8 @@
 {
-  "name": "vite-soft-ui-dashboard",
+  "name": "Kos Bang Ijal",
   "private": true,
   "version": "1.0.0",
-  "author": "Creative Tim (https://www.creative-tim.com/)",
+  "author": "Dhia Aziz and Oky Faishal",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
