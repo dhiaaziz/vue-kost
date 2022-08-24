@@ -24,6 +24,7 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
+                  <!-- login-forms -->
                   <form role="form" class="text-start">
                     <label>Email</label>
                     <vsud-input type="email" placeholder="Email" name="email" />
@@ -89,6 +90,10 @@ import VsudInput from "@/components/VsudInput.vue";
 import VsudSwitch from "@/components/VsudSwitch.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved9.jpg";
+// import { inject } from "vue";
+
+// import store from "@/store";
+
 const body = document.getElementsByTagName("body")[0];
 
 export default {
@@ -100,6 +105,7 @@ export default {
     VsudSwitch,
     VsudButton,
   },
+  inject: ["$axios", "$moment"],
   data() {
     return {
       bgImg,
@@ -111,6 +117,7 @@ export default {
     this.$store.state.showSidenav = false;
     this.$store.state.showFooter = false;
     body.classList.remove("bg-gray-100");
+    console.log(this.$moment);
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;

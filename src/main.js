@@ -9,18 +9,32 @@ Coded by www.creative-tim.com
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/ 
+*/
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
 import store from "./store";
 import router from "./router";
 import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
 import SoftUIDashboard from "./soft-ui-dashboard";
 
+import axios from "axios";
+import moment from "moment";
+
+axios.interceptors.request.use((config) => {
+  // config.baseURL = 'http://13.250.38.197:8800'
+  config.baseURL = "http://localhost:5000";
+  // config.withCredentials = true
+  return config;
+});
+
 createApp(App)
-    .use(store)
-    .use(router)
-    .use(SoftUIDashboard)
-    .mount('#app')
+  .use(store)
+  .use(router)
+  .use(SoftUIDashboard)
+  .provide("$axios", axios)
+  .provide("$moment", moment)
+  .mount("#app");
+
+// app.provide("$axios", axios);
