@@ -1,38 +1,25 @@
 <template>
   <div class="py-4 container-fluid">
     <div class="row">
-      <div class="mb-4 col-xl-3 col-sm-6 mb-xl-0">
+      <div class="mb-4 col-xl-4 col-sm-6 mb-xl-0">
         <card
           :title="stats.money.title"
           :value="stats.money.value"
-          :percentage="stats.money.percentage"
           :icon-class="stats.money.iconClass"
           :icon-background="stats.iconBackground"
           direction-reverse
         ></card>
       </div>
-      <div class="mb-4 col-xl-3 col-sm-6 mb-xl-0">
+      <div class="mb-4 col-xl-4 col-sm-6 mb-xl-0">
         <card
           :title="stats.users.title"
           :value="stats.users.value"
-          :percentage="stats.users.percentage"
           :icon-class="stats.users.iconClass"
           :icon-background="stats.iconBackground"
           direction-reverse
         ></card>
       </div>
-      <div class="mb-4 col-xl-3 col-sm-6 mb-xl-0">
-        <card
-          :title="stats.clients.title"
-          :value="stats.clients.value"
-          :percentage="stats.clients.percentage"
-          :icon-class="stats.clients.iconClass"
-          :icon-background="stats.iconBackground"
-          :percentage-color="stats.clients.percentageColor"
-          direction-reverse
-        ></card>
-      </div>
-      <div class="col-xl-3 col-sm-6 mb-xl-0">
+      <div class="col-xl-4 col-sm-6 mb-xl-0">
         <card
           :title="stats.sales.title"
           :value="stats.sales.value"
@@ -43,6 +30,7 @@
         ></card>
       </div>
     </div>
+    <!-- <div class="row">test</div> -->
     <div class="row">
       <div class="mb-4 col-lg-7 mb-lg-0">
         <div class="card">
@@ -71,7 +59,7 @@
               <div class="mt-5 text-center col-lg-5 ms-auto mt-lg-0">
                 <div class="bg-gradient-success border-radius-lg h-100">
                   <img
-                    src="../assets/img/shapes/waves-white.svg"
+                    src="../../assets/img/shapes/waves-white.svg"
                     class="top-0 position-absolute h-100 w-50 d-lg-block d-none"
                     alt="waves"
                   />
@@ -80,7 +68,7 @@
                   >
                     <img
                       class="pt-4 w-100 position-relative z-index-2"
-                      src="../assets/img/illustrations/rocket-white.png"
+                      src="../../assets/img/illustrations/rocket-white.png"
                       alt="rocket"
                     />
                   </div>
@@ -151,15 +139,17 @@
   </div>
 </template>
 <script>
-import Card from "@/examples/Cards/Card.vue";
+// import Card from "@/examples/Cards/Card.vue";
+import Card from "@/examples/Cards/CardKos.vue";
+
 import ActiveUsersChart from "@/examples/Charts/ActiveUsersChart.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
-import OrdersCard from "./components/OrdersCard.vue";
-import ProjectsCard from "./components/ProjectsCard.vue";
-import US from "../assets/img/icons/flags/US.png";
-import DE from "../assets/img/icons/flags/DE.png";
-import GB from "../assets/img/icons/flags/GB.png";
-import BR from "../assets/img/icons/flags/BR.png";
+import OrdersCard from "@/views/components/OrdersCard.vue";
+import ProjectsCard from "@/views/components/ProjectsCard.vue";
+import US from "@/assets/img/icons/flags/US.png";
+import DE from "@/assets/img/icons/flags/DE.png";
+import GB from "@/assets/img/icons/flags/GB.png";
+import BR from "@/assets/img/icons/flags/BR.png";
 
 export default {
   name: "DashboardDefault",
@@ -175,14 +165,14 @@ export default {
       stats: {
         iconBackground: "bg-gradient-success",
         money: {
-          title: "Today's Money",
-          value: "$53,000",
+          title: "Kamar Terisi",
+          value: "18/20",
           percentage: "+55%",
-          iconClass: "ni ni-money-coins",
+          iconClass: "ni ni-building",
         },
         users: {
-          title: "Today's Users",
-          value: "2,300",
+          title: "Total Users",
+          value: "120",
           percentage: "+3%",
           iconClass: "ni ni-world",
         },
@@ -194,10 +184,10 @@ export default {
           percentageColor: "text-danger",
         },
         sales: {
-          title: "Sales",
-          value: "$103,430",
-          percentage: "+5%",
-          iconClass: "ni ni-cart",
+          title: "Pemasukan",
+          value: "IDR 97.700.000",
+          percentage: "+7.000.000 Bulan ini",
+          iconClass: "ni ni-paper-diploma",
         },
       },
       sales: {

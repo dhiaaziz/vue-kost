@@ -10,6 +10,7 @@ import SignUp from "@/views/SignUp.vue";
 
 import UserPage from "@/views/User/UserExample.vue";
 import Kamar from "@/views/Admin/Kamar.vue";
+import DashboardKos from "@/views/Admin/Dashboard.vue";
 
 const routes = [
   {
@@ -20,6 +21,11 @@ const routes = [
   {
     path: "/dashboard",
     name: "Dashboard",
+    component: DashboardKos,
+  },
+  {
+    path: "/dashboard2",
+    name: "Dashboard2",
     component: Dashboard,
   },
   {

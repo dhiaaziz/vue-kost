@@ -24,11 +24,22 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" class="text-start">
+                  <!-- login-forms -->
+                  <form
+                    role="form"
+                    class="text-start"
+                    @submit.prevent="loginHandler"
+                  >
                     <label>Email</label>
-                    <vsud-input type="email" placeholder="Email" name="email" />
+                    <vsud-input
+                      v-model="form.email"
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                    />
                     <label>Password</label>
                     <vsud-input
+                      v-model="form.password"
                       type="password"
                       placeholder="Password"
                       name="password"
@@ -89,6 +100,10 @@ import VsudInput from "@/components/VsudInput.vue";
 import VsudSwitch from "@/components/VsudSwitch.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved9.jpg";
+// import { inject } from "vue";
+
+// import store from "@/store";
+
 const body = document.getElementsByTagName("body")[0];
 
 export default {
@@ -100,17 +115,27 @@ export default {
     VsudSwitch,
     VsudButton,
   },
+  inject: ["$axios", "$moment"],
   data() {
     return {
+      form: {
+        email: "",
+        password: "",
+        rememberMe: false,
+      },
       bgImg,
     };
   },
-  beforeMount() {
+  async beforeMount() {
     this.$store.state.hideConfigButton = true;
     this.$store.state.showNavbar = false;
     this.$store.state.showSidenav = false;
     this.$store.state.showFooter = false;
     body.classList.remove("bg-gray-100");
+    console.log(this.$moment);
+
+    const user = await this.$store.getters["auth/user"];
+    console.log(user);
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;
@@ -118,6 +143,21 @@ export default {
     this.$store.state.showSidenav = true;
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
+  },
+  methods: {
+    async loginHandler() {
+      try {
+        // e.preventDefault();
+        // const { email, password } = this.$refs.form.getValues();
+        console.log(this.form);
+        await this.$store.dispatch("auth/login", this.form);
+        const user = await this.$store.getters["auth/user"];
+        if (!user) throw new Error("Masukkan data dengan benar.");
+        console.log(user.status_user);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
   },
 };
 </script>
