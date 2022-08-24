@@ -25,11 +25,21 @@
                 </div>
                 <div class="card-body">
                   <!-- login-forms -->
-                  <form role="form" class="text-start">
+                  <form
+                    role="form"
+                    class="text-start"
+                    @submit.prevent="loginHandler"
+                  >
                     <label>Email</label>
-                    <vsud-input type="email" placeholder="Email" name="email" />
+                    <vsud-input
+                      v-model="form.email"
+                      type="email"
+                      placeholder="Email"
+                      name="email"
+                    />
                     <label>Password</label>
                     <vsud-input
+                      v-model="form.password"
                       type="password"
                       placeholder="Password"
                       name="password"
@@ -108,6 +118,11 @@ export default {
   inject: ["$axios", "$moment"],
   data() {
     return {
+      form: {
+        email: "",
+        password: "",
+        rememberMe: false,
+      },
       bgImg,
     };
   },
@@ -128,6 +143,21 @@ export default {
     this.$store.state.showSidenav = true;
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
+  },
+  methods: {
+    async loginHandler() {
+      try {
+        // e.preventDefault();
+        // const { email, password } = this.$refs.form.getValues();
+        console.log(this.form);
+        await this.$store.dispatch("auth/login", this.form);
+        const user = await this.$store.getters["auth/user"];
+        if (!user) throw new Error("Masukkan data dengan benar.");
+        console.log(user.status_user);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
   },
 };
 </script>

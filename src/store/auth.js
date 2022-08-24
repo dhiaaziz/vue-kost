@@ -13,9 +13,11 @@ export default {
     SET_USER: (state, user) => (state.user = user),
   },
   actions: {
-    async login({ commit }, { username, password }) {
-      const response = AuthApi.login(username, password);
-      console.log(response);
+    async login({ commit }, { email, password }) {
+      console.log(email, password);
+      const response = await AuthApi.login(email, password);
+      console.log(response.data);
+      // throw new Error("Not implemented");
       commit("SET_USER", response.data);
     },
   },
