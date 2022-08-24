@@ -3,7 +3,7 @@ import AuthApi from "../api/auth";
 export default {
   namespaced: true,
   state: {
-    user: "1",
+    user: null,
   },
   getters: {
     isLoggedIn: (state) => !!state.user,
@@ -14,9 +14,8 @@ export default {
   },
   actions: {
     async login({ commit }, { email, password }) {
-      console.log(email, password);
       const response = await AuthApi.login(email, password);
-      console.log(response.data);
+      // console.log(response.data);
       // throw new Error("Not implemented");
       commit("SET_USER", response.data);
     },
