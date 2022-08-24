@@ -63,8 +63,23 @@ const routes = [
     component: UserPage,
   },
   {
+    path: "/tipe-kamar",
+    name: "Tipe Kamar",
+    component: Kamar,
+  },
+  {
     path: "/kamar",
     name: "Kamar",
+    component: Kamar,
+  },
+  {
+    path: "/tipe-kamar",
+    name: "Tipe Kamar",
+    component: Kamar,
+  },
+  {
+    path: "/test",
+    name: "Test",
     component: Kamar,
   },
 ];
