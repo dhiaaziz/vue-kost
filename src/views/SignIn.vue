@@ -111,13 +111,16 @@ export default {
       bgImg,
     };
   },
-  beforeMount() {
+  async beforeMount() {
     this.$store.state.hideConfigButton = true;
     this.$store.state.showNavbar = false;
     this.$store.state.showSidenav = false;
     this.$store.state.showFooter = false;
     body.classList.remove("bg-gray-100");
     console.log(this.$moment);
+
+    const user = await this.$store.getters["auth/user"];
+    console.log(user);
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;

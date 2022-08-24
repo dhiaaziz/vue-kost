@@ -3,7 +3,7 @@ import AuthApi from "../api/auth";
 export default {
   namespaced: true,
   state: {
-    user: null,
+    user: "1",
   },
   getters: {
     isLoggedIn: (state) => !!state.user,
