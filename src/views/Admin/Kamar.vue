@@ -2,26 +2,28 @@
   <div class="py-4 container-fluid">
     <div class="row">
       <div class="col-12">
-        <authors-table />
+        <kamar-table />
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12">
         <projects-table />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import AuthorsTable from "@/views/components/AuthorsTable.vue";
-import ProjectsTable from "@/views/components/ProjectsTable.vue";
+// import AuthorsTable from "@/views/components/AuthorsTable.vue";
+// import ProjectsTable from "@/views/components/ProjectsTable.vue";
+import KamarTable from "@/views/components/KamarTable.vue";
 
 export default {
-  name: "TablesPage",
+  name: "KamarPage",
   components: {
-    AuthorsTable,
-    ProjectsTable,
+    // AuthorsTable,
+    KamarTable,
+    // ProjectsTable,
   },
 };
 </script>

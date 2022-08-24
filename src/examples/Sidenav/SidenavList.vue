@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidenav-collapse-main"
-    class="w-auto h-auto collapse navbar-collapse max-height-vh-100 h-100"
+    class="w-auto h-auto collapse navbar-collapse h-100"
   >
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -11,12 +11,23 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item">
+      <li class="nav-item dropdown">
         <sidenav-collapse nav-text="Kamar" :to="{ name: 'Kamar' }">
           <template #icon>
             <icon name="dashboard" />
           </template>
         </sidenav-collapse>
+        <div class="dropdown-menu2">
+          <router-link class="dropdown-item" :to="{ name: 'Kamar' }">
+            Kelola Kamar
+          </router-link>
+          <router-link class="dropdown-item" :to="{ name: 'Tipe Kamar' }"
+            >Tipe Kamar</router-link
+          >
+          <router-link class="dropdown-item" :to="{ name: 'Test' }"
+            >test</router-link
+          >
+        </div>
       </li>
       <li class="nav-item">
         <sidenav-collapse nav-text="User" :to="{ name: 'User Example' }">
@@ -138,3 +149,20 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.dropdown {
+  .dropdown-menu2 {
+    display: block;
+    .dropdown-item {
+      border-radius: 8px;
+      margin: 10px 0 10px 30px;
+      width: 100%;
+      &.active {
+        background-color: green;
+        color: #f5f5f5;
+      }
+    }
+  }
+}
+</style>
+
