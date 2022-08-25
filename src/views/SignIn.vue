@@ -126,6 +126,11 @@ export default {
       bgImg,
     };
   },
+  metaInfo() {
+    return {
+      title: "Sign in",
+    };
+  },
   async beforeMount() {
     this.$store.state.hideConfigButton = true;
     this.$store.state.showNavbar = false;
