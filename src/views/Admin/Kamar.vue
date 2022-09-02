@@ -16,7 +16,7 @@
 <script>
 // import AuthorsTable from "@/views/components/AuthorsTable.vue";
 // import ProjectsTable from "@/views/components/ProjectsTable.vue";
-import KamarTable from "@/views/components/KamarTable.vue";
+import KamarTable from "@/views/components/Kamar/KamarTable.vue";
 
 export default {
   name: "KamarPage",

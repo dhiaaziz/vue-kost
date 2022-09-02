@@ -61,7 +61,7 @@
             </a>
             <span>
               <!-- {{ user }} -->
-              {{ user2 }}
+              <!-- {{ user2 }} -->
             </span>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
