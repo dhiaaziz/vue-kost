@@ -1,4 +1,7 @@
 <template>
+  <!-- <vsud-alert icon="ni ni-like-2 ni-lg" dismissible>
+    <strong>Primary!</strong> This is a primary alert—check it out!
+  </vsud-alert> -->
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Kamar table</h6>
@@ -40,6 +43,11 @@
               <th
                 class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
+                Dihuni Oleh
+              </th>
+              <th
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+              >
                 Dihuni Hingga
               </th>
               <th class="text-secondary opacity-7"></th>
@@ -66,16 +74,16 @@
                   size="sm"
                   >Tersedia</vsud-badge
                 >
-                <div
+                <vsud-badge
                   v-else
-                  class="px-2 py-1 align-items-center flex-column d-flex"
+                  color="secondary"
+                  variant="gradient"
+                  size="sm"
+                  >Dihuni</vsud-badge
                 >
-                  <div style="min-width: 100px">
-                    <vsud-badge color="secondary" variant="gradient" size="sm"
-                      >Dihuni</vsud-badge
-                    >
-                  </div>
-
+              </td>
+              <td class="align-middle">
+                <div class="px-2 py-1 align-items-center flex-column d-flex">
                   <div class="px-2 py-1 d-flex justify-content-center">
                     <!-- <div>
                       <vsud-avatar
@@ -86,13 +94,22 @@
                         alt="user1"
                       />
                     </div> -->
-                    <div class="d-flex flex-column justify-content-center">
-                      <a href="">
+                    <div
+                      v-if="kamar.start_kos"
+                      class="d-flex flex-column justify-content-center"
+                    >
+                      <a class="text-center" href="">
                         <h6 class="mb-0 text-sm">John Michael</h6>
                         <p class="mb-0 text-xs text-secondary">
                           john@creative-tim.com
                         </p>
                       </a>
+                    </div>
+                    <div
+                      v-else
+                      class="d-flex flex-column justify-content-center"
+                    >
+                      -
                     </div>
                   </div>
                 </div>
@@ -122,6 +139,7 @@
                   data-original-title="Edit user"
                   data-bs-toggle="modal"
                   data-bs-target="#deleteModal"
+                  @click="setDeleteData(kamar)"
                   >Delete</a
                 >
               </td>
@@ -143,7 +161,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 id="exampleModalLabel" class="modal-title">Hapus Kamar</h5>
           <button
             type="button"
             class="btn-close"
@@ -151,16 +169,25 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">Apakah anda yakin akan menghapus ini?</div>
+        <div class="modal-body">
+          Apakah anda yakin akan menghapus ini {{ deleteModal.name }}?
+        </div>
         <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Close
+            Batal
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            @click="handleDelete(deleteModal.id)"
+          >
+            Hapus
+          </button>
         </div>
       </div>
     </div>
@@ -246,42 +273,33 @@
 </template>
 
 <script>
-// import VsudAvatar from "@/components/VsudAvatar.vue";
 import VsudBadge from "@/components/VsudBadge.vue";
-// import img1 from "@/assets/img/team-2.jpg";
-// import img2 from "@/assets/img/team-3.jpg";
-// import img3 from "@/assets/img/team-4.jpg";
-// import img4 from "@/assets/img/team-3.jpg";
-// import img5 from "@/assets/img/team-2.jpg";
-// import img6 from "@/assets/img/team-4.jpg";
 import KamarApi from "@/api/kamar.js";
 import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
+import VsudAlert from "@/components/VsudAlert.vue";
 
 import { onMounted, reactive, ref } from "vue";
 
 export default {
-  name: "AuthorsTable",
+  name: "KamarTable",
   components: {
-    // VsudAvatar,
+    VsudAlert,
     VsudBadge,
   },
-  // data() {
-  //   return {
-  //     img1,
-  //     img2,
-  //     img3,
-  //     img4,
-  //     img5,
-  //     img6,
-  //   };
-  // },
-  setup() {
+  emits: ["alert-event"],
+  // eslint-disable-next-line no-unused-vars
+  setup(props, context) {
     let kamarList = ref([]);
     let formCreate = reactive({
       name: "",
       size: "",
       price: "",
+    });
+
+    let deleteModal = reactive({
+      id: "",
+      name: "",
     });
 
     const reformatList = (list) => {
@@ -310,20 +328,41 @@ export default {
       formCreate.size = "";
       formCreate.price = "";
     };
+    const setDeleteData = (kamar) => {
+      deleteModal.id = kamar.room_id;
+      deleteModal.name = kamar.name;
+      // console.log("delete");
+    };
+    const handleDelete = async (id) => {
+      const data = await KamarApi.destroy(id);
+      const deletedObj = removeFromList(id);
+      context.emit("alert-event", {
+        color: "success",
+        message: "Ruang " + deletedObj.name + " berhasil dihapus",
+      });
+      // console.log(data);
+    };
+    const removeFromList = (id) => {
+      let deletedObj = kamarList.value.find((item) => item.room_id == id);
+      kamarList.value = kamarList.value.filter((item) => item.room_id !== id);
+      // console.log(deletedObj);
+      context.emit("alert-event", {
+        color: "success",
+        message: "Data Kamar berhasil diperbaharui",
+      });
+      return deletedObj;
+    };
 
     onMounted(async () => {
       await fetchKamar();
     });
     return {
-      // img1,
-      // img2,
-      // img3,
-      // img4,
-      // img5,
-      // img6,
       kamarList,
       formCreate,
+      deleteModal,
       handleCreateSubmit,
+      setDeleteData,
+      handleDelete,
     };
   },
 };

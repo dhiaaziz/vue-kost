@@ -12,8 +12,8 @@ const getAll = async () => {
         build_id: build_id,
       },
     });
-    // console.log(response);
-    return response.data.data["kos jaya"];
+    // console.log(response.data.data);
+    return response.data.data[0].rooms;
   } catch (error) {
     console.log(error);
   }
@@ -34,7 +34,19 @@ const create = async (data) => {
   }
 };
 
+const destroy = async (id) => {
+  try {
+    const response = await axios.delete("/room/delete-room/" + id, {
+      headers: authHeader(),
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   getAll,
   create,
+  destroy,
 };

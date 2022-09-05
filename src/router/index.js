@@ -12,6 +12,11 @@ import UserPage from "@/views/User/UserExample.vue";
 import Kamar from "@/views/Admin/Kamar.vue";
 import DashboardKos from "@/views/Admin/Dashboard.vue";
 
+import store from "@/store";
+
+// lazyload
+const ContohComponent = () => import("@/views/Admin/ContohComponent.vue");
+
 const APP_NAME = "KosBangIjal";
 
 const routes = [
@@ -24,6 +29,10 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: DashboardKos,
+    meta: {
+      requiresAuth: true,
+      title: "Dashboard",
+    },
   },
   {
     path: "/dashboard2",
@@ -60,6 +69,7 @@ const routes = [
     name: "Sign In",
     component: SignIn,
     meta: {
+      requiresGuest: true,
       title: "Sign In @" + APP_NAME,
       metaTags: [
         {
@@ -77,6 +87,10 @@ const routes = [
     path: "/sign-up",
     name: "Sign Up",
     component: SignUp,
+    meta: {
+      requiresGuest: true,
+      title: "Sign Up @" + APP_NAME,
+    },
   },
   {
     path: "/user-example",
@@ -92,6 +106,10 @@ const routes = [
     path: "/kamar",
     name: "Kamar",
     component: Kamar,
+    meta: {
+      requiresAuth: true,
+      title: "Kamar @" + APP_NAME,
+    },
   },
   {
     path: "/tipe-kamar",
@@ -99,9 +117,19 @@ const routes = [
     component: Kamar,
   },
   {
+    path: "/bangunan",
+    name: "Bangunan",
+    component: ContohComponent,
+  },
+  {
     path: "/test",
     name: "Test",
     component: Kamar,
+  },
+  {
+    path: "/pembayaran",
+    name: "Pembayaran",
+    component: ContohComponent,
   },
 ];
 
@@ -111,6 +139,23 @@ const router = createRouter({
   linkActiveClass: "active",
 });
 
+const redirectCheckAuth = (to, from, next) => {
+  // console.log(store.getters["auth/isAuthenticated"]);
+  if (to.meta.requiresAuth && !store.getters["auth/isAuthenticated"]) {
+    next({ name: "Sign In" });
+    return;
+  } else if (to.meta.requiresGuest && store.getters["auth/isAuthenticated"]) {
+    next({ name: "Dashboard" });
+    return;
+  } else {
+    // console.log("sampai else");
+    next();
+    return;
+  }
+};
+const checkMeta = (to, from, next) => {};
+
+const renderMeta = (to, from, next) => {};
 // https://www.digitalocean.com/community/tutorials/vuejs-vue-router-modify-head
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {
@@ -146,7 +191,9 @@ router.beforeEach((to, from, next) => {
   );
 
   // Skip rendering meta tags if there are none.
-  if (!nearestWithMeta) return next();
+  if (!nearestWithMeta) {
+    redirectCheckAuth(to, from, next);
+  }
 
   // Turn the meta tag definitions into actual elements in the head.
   nearestWithMeta.meta.metaTags
@@ -164,9 +211,8 @@ router.beforeEach((to, from, next) => {
     })
     // Add the meta tags to the document head.
     .forEach((tag) => document.head.appendChild(tag));
-
-  fdsa;
-  next();
+  // console.log("sampai sini");
+  redirectCheckAuth(to, from, next);
 });
 
 export default router;

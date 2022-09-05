@@ -30,9 +30,9 @@
         </div>
         <ul class="navbar-nav justify-content-end">
           {{
-            isLoggedin
+            isAuthenticated
           }}
-          <li v-if="!isLoggedIn" class="nav-item d-flex align-items-center">
+          <li v-if="!isAuthenticated" class="nav-item d-flex align-items-center">
             <a
               class="px-0 nav-link font-weight-bold"
               :class="textWhite ? textWhite : 'text-body'"
@@ -160,7 +160,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="py-1 d-flex">
                     <div
-                      class="my-auto  avatar avatar-sm bg-gradient-secondary me-3"
+                      class="my-auto avatar avatar-sm bg-gradient-secondary me-3"
                     >
                       <svg
                         width="12px"
@@ -247,8 +247,8 @@ export default {
     currentRouteName() {
       return this.$route.name;
     },
-    isLoggedIn() {
-      return this.$store.getters["auth/isLoggedIn"];
+    isAuthenticated() {
+      return this.$store.getters["auth/isAuthenticated"];
     },
     // user() {
     //   return this.$store.getters["auth/user"];
@@ -275,8 +275,8 @@ export default {
     });
   },
   mounted() {
-    console.log(this.isLoggedIn);
-    //   this.$store.getters["auth/isLoggedin"];
+    console.log(this.isAuthenticated);
+    //   this.$store.getters["auth/isAuthenticated"];
   },
   methods: {
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),

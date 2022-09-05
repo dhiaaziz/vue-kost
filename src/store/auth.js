@@ -7,7 +7,7 @@ export default {
     token: null,
   },
   getters: {
-    isLoggedIn: (state) => !!state.user,
+    isAuthenticated: (state) => !!state.user,
     user: (state) => state.user,
     token: (state) => state.token,
   },
