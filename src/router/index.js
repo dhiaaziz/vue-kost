@@ -103,6 +103,11 @@ const routes = [
     component: Kamar,
   },
   {
+    path: "/kamar/create",
+    name: "Create Kamar",
+    component: ContohComponent,
+  },
+  {
     path: "/kamar",
     name: "Kamar",
     component: Kamar,
@@ -111,6 +116,7 @@ const routes = [
       title: "Kamar @" + APP_NAME,
     },
   },
+
   {
     path: "/tipe-kamar",
     name: "Tipe Kamar",

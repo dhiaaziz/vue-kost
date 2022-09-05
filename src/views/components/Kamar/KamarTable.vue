@@ -6,13 +6,12 @@
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Kamar table</h6>
       <div>
-        <button
+        <router-link
+          :to="{ name: 'Create Kamar' }"
           class="btn btn-sm btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#createModal"
         >
           Tambah Kamar <span class="">+</span>
-        </button>
+        </router-link>
       </div>
     </div>
     <div class="px-0 pt-0 pb-2 card-body">
@@ -170,7 +169,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          Apakah anda yakin akan menghapus ini {{ deleteModal.name }}?
+          Apakah anda yakin akan menghapus ruang {{ deleteModal.name }}?
         </div>
         <div class="modal-footer">
           <button
@@ -204,7 +203,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Kamar</h5>
+          <h5 id="exampleModalLabel" class="modal-title">Tambah Kamar</h5>
           <button
             type="button"
             class="btn-close"
@@ -277,14 +276,12 @@ import VsudBadge from "@/components/VsudBadge.vue";
 import KamarApi from "@/api/kamar.js";
 import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
-import VsudAlert from "@/components/VsudAlert.vue";
 
 import { onMounted, reactive, ref } from "vue";
 
 export default {
   name: "KamarTable",
   components: {
-    VsudAlert,
     VsudBadge,
   },
   emits: ["alert-event"],
@@ -334,7 +331,9 @@ export default {
       // console.log("delete");
     };
     const handleDelete = async (id) => {
-      const data = await KamarApi.destroy(id);
+      // const data = await KamarApi.destroy(id);
+      await KamarApi.destroy(id);
+
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
         color: "success",

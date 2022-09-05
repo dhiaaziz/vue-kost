@@ -29,10 +29,13 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-          {{
+          <!-- {{
             isAuthenticated
-          }}
-          <li v-if="!isAuthenticated" class="nav-item d-flex align-items-center">
+          }} -->
+          <li
+            v-if="!isAuthenticated"
+            class="nav-item d-flex align-items-center"
+          >
             <a
               class="px-0 nav-link font-weight-bold"
               :class="textWhite ? textWhite : 'text-body'"
@@ -160,7 +163,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="py-1 d-flex">
                     <div
-                      class="my-auto avatar avatar-sm bg-gradient-secondary me-3"
+                      class="my-auto  avatar avatar-sm bg-gradient-secondary me-3"
                     >
                       <svg
                         width="12px"
@@ -275,7 +278,7 @@ export default {
     });
   },
   mounted() {
-    console.log(this.isAuthenticated);
+    // console.log(this.isAuthenticated);
     //   this.$store.getters["auth/isAuthenticated"];
   },
   methods: {

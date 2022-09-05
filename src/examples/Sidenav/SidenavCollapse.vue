@@ -4,6 +4,7 @@
       class="text-center bg-white shadow  icon icon-shape icon-sm border-radius-md d-flex align-items-center justify-content-center"
       :class="$store.state.isRTL ? ' ms-2' : 'me-2'"
     >
+      <!-- {{ subIsActive }} -->
       <slot name="icon"></slot>
     </div>
     <span
@@ -24,6 +25,10 @@ export default {
     navText: {
       type: String,
       required: true,
+    },
+    subIsActive: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
