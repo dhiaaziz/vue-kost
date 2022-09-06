@@ -10,9 +10,10 @@
         to="/dashboard"
         v-bind="$attrs"
         :class="isBlur ? 'text-dark' : 'text-white'"
-      >Vite Soft UI Dashboard</router-link>
+        >Kos Bang Ijal</router-link
+      >
       <button
-        class="navbar-toggler shadow-none ms-2"
+        class="shadow-none navbar-toggler ms-2"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navigation"
@@ -20,15 +21,15 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon mt-2">
+        <span class="mt-2 navbar-toggler-icon">
           <span class="navbar-toggler-bar bar1"></span>
           <span class="navbar-toggler-bar bar2"></span>
           <span class="navbar-toggler-bar bar3"></span>
         </span>
       </button>
-      <div id="navigation" class="collapse navbar-collapse">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
+      <div id="navigation" class="collapse navbar-collapse justify-content-end">
+        <ul class="mx-auto mx-lg-0 navbar-nav">
+          <!-- <li class="nav-item">
             <router-link
               class="nav-link d-flex align-items-center me-2 active"
               aria-current="page"
@@ -51,7 +52,7 @@
               ></i>
               Profile
             </router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link class="nav-link me-2" to="/sign-up">
               <i
@@ -73,15 +74,15 @@
             </router-link>
           </li>
         </ul>
-        <ul class="navbar-nav d-lg-block d-none">
+        <!-- <ul class="navbar-nav d-lg-block d-none">
           <li class="nav-item">
             <a
               href="https://www.creative-tim.com/product/vue-soft-ui-dashboard"
-              class="btn btn-sm btn-round mb-0 me-1"
+              class="mb-0 btn btn-sm btn-round me-1"
               :class="isBlur ? 'bg-gradient-dark' : 'bg-gradient-success'"
             >Free download</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </nav>
@@ -97,11 +98,11 @@ export default {
   props: {
     btnBackground: {
       type: String,
-      default: ""
+      default: "",
     },
     isBlur: {
       type: String,
-      default: ""
+      default: "",
     },
     darkMode: {
       type: Boolean,

@@ -28,7 +28,7 @@
                   <form
                     role="form"
                     class="text-start"
-                    @submit.prevent="loginHandler"
+                    @submit.prevent="handleLogin"
                   >
                     <label>Email</label>
                     <vsud-input
@@ -134,8 +134,8 @@ export default {
     body.classList.remove("bg-gray-100");
     console.log(this.$moment);
 
-    const user = await this.$store.getters["auth/user"];
-    console.log(user);
+    // const user = await this.$store.getters["auth/user"];
+    // console.log(user);
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;
@@ -145,15 +145,19 @@ export default {
     body.classList.add("bg-gray-100");
   },
   methods: {
-    async loginHandler() {
+    async handleLogin() {
       try {
-        // e.preventDefault();
         // const { email, password } = this.$refs.form.getValues();
-        console.log(this.form);
         await this.$store.dispatch("auth/login", this.form);
         const user = await this.$store.getters["auth/user"];
         if (!user) throw new Error("Masukkan data dengan benar.");
-        console.log(user.status_user);
+
+        if (user.status_user === "admin") {
+          this.$router.push({ name: "Dashboard" });
+        } else {
+          // this.$router.push("/");
+          console.log("not eligible");
+        }
       } catch (error) {
         console.log(error.message);
       }

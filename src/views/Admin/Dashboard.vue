@@ -31,7 +31,7 @@
       </div>
     </div>
     <!-- <div class="row">test</div> -->
-    <div class="row">
+    <!-- <div class="row">
       <div class="mb-4 col-lg-7 mb-lg-0">
         <div class="card">
           <div class="p-3 card-body">
@@ -45,7 +45,7 @@
                     find the full documentation.
                   </p>
                   <a
-                    class="mt-auto mb-0 text-sm  text-body font-weight-bold icon-move-right"
+                    class="mt-auto mb-0 text-sm text-body font-weight-bold icon-move-right"
                     href="javascript:;"
                   >
                     Read More
@@ -81,14 +81,14 @@
       <div class="col-lg-5">
         <div class="p-3 card h-100">
           <div
-            class="overflow-hidden bg-cover  position-relative border-radius-lg h-100"
+            class="overflow-hidden bg-cover position-relative border-radius-lg h-100"
             style="
               background-image: url('https://demos.creative-tim.com/soft-ui-dashboard/assets/img/ivancik.jpg');
             "
           >
             <span class="mask bg-gradient-dark"></span>
             <div
-              class="p-3  card-body position-relative z-index-1 d-flex flex-column h-100"
+              class="p-3 card-body position-relative z-index-1 d-flex flex-column h-100"
             >
               <h5 class="pt-2 mb-4 text-white font-weight-bolder">
                 Work with the rockets
@@ -98,7 +98,7 @@
                 It is all about who take the opportunity first.
               </p>
               <a
-                class="mt-auto mb-0 text-sm text-white  font-weight-bold icon-move-right"
+                class="mt-auto mb-0 text-sm text-white font-weight-bold icon-move-right"
                 href="javascript:;"
               >
                 Read More
@@ -111,7 +111,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="mt-4 row">
       <div class="mb-4 col-lg-5 mb-lg-0">
         <div class="card z-index-2">

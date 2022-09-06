@@ -1,6 +1,7 @@
 <template>
   <div
-    class="alert text-white font-weight-bold"
+    v-show="showData"
+    class="text-white alert font-weight-bold"
     role="alert"
     :class="getClasses(color, dismissible)"
   >
@@ -15,11 +16,20 @@
       v-if="dismissible"
       type="button"
       class="btn-close d-flex justify-content-center align-items-center"
-      data-bs-dismiss="alert"
       aria-label="Close"
+      @click="showData = false"
     >
       <span aria-hidden="true" class="text-lg font-weight-bold">&times;</span>
     </button>
+    <!-- <button
+        v-if="dismissible"
+        type="button"
+        class="btn-close d-flex justify-content-center align-items-center"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true" class="text-lg font-weight-bold">&times;</span>
+      </button> -->
   </div>
 </template>
 
@@ -33,12 +43,32 @@ export default {
     },
     icon: {
       type: String,
-      default: ""
+      default: "",
     },
     dismissible: {
       type: Boolean,
       default: false,
     },
+    show: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      showData: this.show,
+    };
+  },
+  watch: {
+    show: function (val) {
+      this.showData = val;
+    },
+    showData: function (val) {
+      this.$emit("update:show", val);
+    },
+  },
+  mounted() {
+    // console.log(this.show);
   },
   methods: {
     getClasses: (color, dismissible) => {

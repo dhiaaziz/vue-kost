@@ -7,6 +7,7 @@
   >
     <div class="px-3 py-1 container-fluid">
       <breadcrumbs :current-page="currentRouteName" :text-white="textWhite" />
+      <div></div>
       <div
         id="navbar"
         class="mt-2 collapse navbar-collapse mt-sm-0 me-md-0 me-sm-4"
@@ -28,9 +29,14 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <router-link
-              :to="{ name: 'Sign In' }"
+          <!-- {{
+            isAuthenticated
+          }} -->
+          <li
+            v-if="!isAuthenticated"
+            class="nav-item d-flex align-items-center"
+          >
+            <a
               class="px-0 nav-link font-weight-bold"
               :class="textWhite ? textWhite : 'text-body'"
             >
@@ -42,7 +48,24 @@
                 >يسجل دخول</span
               >
               <span v-else class="d-sm-inline d-none">Sign In</span>
-            </router-link>
+            </a>
+          </li>
+          <li v-else class="nav-item d-flex align-items-center">
+            <a
+              href="javascript:void(0)"
+              class="px-0 nav-link font-weight-bold"
+              :class="textWhite ? textWhite : 'text-body'"
+              @click="handleLogout"
+            >
+              <span v-if="$store.state.isRTL" class="d-sm-inline d-none"
+                >يسجل دخول</span
+              >
+              <span v-else class="d-sm-inline d-none">Logout</span>
+            </a>
+            <span>
+              <!-- {{ user }} -->
+              <!-- {{ user2 }} -->
+            </span>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a
@@ -227,6 +250,15 @@ export default {
     currentRouteName() {
       return this.$route.name;
     },
+    isAuthenticated() {
+      return this.$store.getters["auth/isAuthenticated"];
+    },
+    // user() {
+    //   return this.$store.getters["auth/user"];
+    // },
+    user2() {
+      return this.$store.state["auth"].token;
+    },
   },
   created() {
     this.minNav;
@@ -245,6 +277,10 @@ export default {
       }
     });
   },
+  mounted() {
+    // console.log(this.isAuthenticated);
+    //   this.$store.getters["auth/isAuthenticated"];
+  },
   methods: {
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),
     ...mapActions(["toggleSidebarColor"]),
@@ -252,6 +288,11 @@ export default {
     toggleSidebar() {
       this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
+    },
+
+    handleLogout() {
+      this.$store.dispatch("auth/logout");
+      this.$router.push({ name: "Sign In" });
     },
   },
 };

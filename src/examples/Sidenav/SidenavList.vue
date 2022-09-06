@@ -3,6 +3,8 @@
     id="sidenav-collapse-main"
     class="w-auto h-auto collapse navbar-collapse h-100"
   >
+    <!-- {{ currentRoute }} -->
+    <!-- {{ currentRouteParent }} -->
     <ul class="navbar-nav">
       <li class="nav-item">
         <sidenav-collapse nav-text="Dashboard" :to="{ name: 'Dashboard' }">
@@ -11,13 +13,35 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="nav-item dropdown">
-        <sidenav-collapse nav-text="Kamar" :to="{ name: 'Kamar' }">
+
+      <li class="mt-4 nav-item">
+        <h6
+          class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
+          :class="$store.state.isRTL ? 'me-4' : 'ms-2'"
+        >
+          Kelola Kos
+        </h6>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse nav-text="Bangunan" :to="{ name: 'Bangunan' }">
           <template #icon>
             <icon name="dashboard" />
           </template>
         </sidenav-collapse>
-        <div class="dropdown-menu2">
+      </li>
+      <!-- <li class="nav-item dropdown"> -->
+      <li class="nav-item">
+        <sidenav-collapse
+          nav-text="Kamar"
+          :to="{ name: 'Kamar' }"
+          :sub-is-active="subIsActive('/kamar')"
+          :class="{ true: 'active', false: '' }[subIsActive('/kamar')]"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <!-- <div class="dropdown-menu2">
           <router-link class="dropdown-item" :to="{ name: 'Kamar' }">
             Kelola Kamar
           </router-link>
@@ -27,14 +51,39 @@
           <router-link class="dropdown-item" :to="{ name: 'Test' }"
             >test</router-link
           >
-        </div>
+        </div> -->
       </li>
+
       <li class="nav-item">
         <sidenav-collapse nav-text="User" :to="{ name: 'User Example' }">
           <template #icon>
             <icon name="dashboard" />
           </template>
         </sidenav-collapse>
+      </li>
+
+      <li class="mt-4 nav-item">
+        <h6
+          class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
+          :class="$store.state.isRTL ? 'me-4' : 'ms-2'"
+        >
+          Kelola Keuangan
+        </h6>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse nav-text="Pembayaran" :to="{ name: 'Pembayaran' }">
+          <template #icon>
+            <icon name="billing" />
+          </template>
+        </sidenav-collapse>
+      </li>
+      <li class="mt-4 nav-item">
+        <h6
+          class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
+          :class="$store.state.isRTL ? 'me-4' : 'ms-2'"
+        >
+          Contoh Pages
+        </h6>
       </li>
       <li class="nav-item">
         <sidenav-collapse nav-text="Tables" :to="{ name: 'Tables' }">
@@ -141,10 +190,36 @@ export default {
       isActive: "active",
     };
   },
+  computed: {
+    currentRoute() {
+      return this.$route.path;
+    },
+    currentRouteParent() {
+      return this.$route.path.split("/")[1];
+    },
+  },
+  watch: {
+    currentRoute() {
+      console.log(this.currentRouteParent);
+      console.log(this.subIsActive("/kamar"));
+    },
+  },
+  mounted() {
+    console.log(this.currentRoute);
+    // console.log(this.subIsActive("/test"));
+  },
+
   methods: {
-    getRoute() {
-      const routeArr = this.$route.path.split("/");
-      return routeArr[1];
+    // getRoute() {
+    //   const routeArr = this.$route.path.split("/");
+    //   return routeArr[1];
+    // },
+    // https://forum.vuejs.org/t/router-active-class-on-submenu-parent/7027
+    subIsActive(input) {
+      const paths = Array.isArray(input) ? input : [input];
+      return paths.some((path) => {
+        return this.$route.path.indexOf(path) === 0; // current path starts with this path string
+      });
     },
   },
 };
