@@ -20,6 +20,9 @@ const CreateKamar = () => import("@/views/Admin/Kamar/CreateKamar.vue");
 const EditKamar = () => import("@/views/Admin/Kamar/EditKamar.vue");
 
 const IndexBangunan = () => import("@/views/Admin/Bangunan/IndexBangunan.vue");
+const EditBangunan = () => import("@/views/Admin/Bangunan/EditBangunan.vue");
+const CreateBangunan = () =>
+  import("@/views/Admin/Bangunan/CreateBangunan.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -132,6 +135,16 @@ const routes = [
     path: "/bangunan",
     name: "Bangunan",
     component: IndexBangunan,
+  },
+  {
+    path: "/bangunan/create",
+    name: "Input Bangunan",
+    component: CreateBangunan,
+  },
+  {
+    path: "/bangunan/:id/edit",
+    name: "Edit Bangunan",
+    component: EditBangunan,
   },
   // Route Pembayaran
   {

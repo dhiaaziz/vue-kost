@@ -201,7 +201,7 @@ export default {
   watch: {
     currentRoute() {
       console.log(this.currentRouteParent);
-      console.log(this.subIsActive("/kamar"));
+      // console.log(this.subIsActive("/kamar"));
     },
   },
   mounted() {

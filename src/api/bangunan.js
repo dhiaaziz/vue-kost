@@ -14,13 +14,22 @@ const getAll = async () => {
 };
 
 const create = async (data) => {
-  console.log(authHeader());
   try {
-    const response = await axios.post("/build/create-build", {
+    const response = await axios.post("/build/create-build", data, {
       headers: authHeader(),
-      data: {
-        ...data,
-      },
+    });
+
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const destroy = async (id) => {
+  try {
+    const response = await axios.delete("/build/delete-build/" + id, {
+      headers: authHeader(),
     });
     return response.data;
   } catch (error) {
@@ -31,4 +40,5 @@ const create = async (data) => {
 export default {
   getAll,
   create,
+  destroy,
 };

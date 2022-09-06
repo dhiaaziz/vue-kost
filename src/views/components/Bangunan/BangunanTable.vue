@@ -7,10 +7,10 @@
       <h6>Bangunan table</h6>
       <div>
         <router-link
-          :to="{ name: 'Input Kamar' }"
+          :to="{ name: 'Input Bangunan' }"
           class="btn btn-sm btn-primary"
         >
-          Tambah Kamar <span class="">+</span>
+          Tambah Bangunan <span class="">+</span>
         </router-link>
       </div>
     </div>
@@ -22,113 +22,43 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                Name
+                Nama
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Address
+                Alamat
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Harga
+                Tanggal Dibuat
               </th>
-              <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Status
-              </th>
-              <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Dihuni Oleh
-              </th>
-              <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Dihuni Hingga
-              </th>
+
               <th class="text-secondary opacity-7"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="kamar in kamarList" :key="kamar.room_id">
+            <tr v-for="item in itemList" :key="item.id">
               <td>
                 <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ kamar.name }}</p>
+                  <p class="mb-0 text-xs font-weight-bold">{{ item.name }}</p>
                 </div>
               </td>
               <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ kamar.size }}</p>
+                <p class="mb-0 text-xs font-weight-bold">{{ item.address }}</p>
               </td>
               <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ kamar.price }}</p>
-              </td>
-              <td class="text-sm text-center align-middle">
-                <vsud-badge
-                  v-if="!kamar.start_kos"
-                  color="success"
-                  variant="gradient"
-                  size="sm"
-                  >Tersedia</vsud-badge
-                >
-                <vsud-badge
-                  v-else
-                  color="secondary"
-                  variant="gradient"
-                  size="sm"
-                  >Dihuni</vsud-badge
-                >
-              </td>
-              <td class="align-middle">
-                <div class="px-2 py-1 align-items-center flex-column d-flex">
-                  <div class="px-2 py-1 d-flex justify-content-center">
-                    <!-- <div>
-                      <vsud-avatar
-                        :img="img1"
-                        size="sm"
-                        border-radius="lg"
-                        class="me-3"
-                        alt="user1"
-                      />
-                    </div> -->
-                    <div
-                      v-if="kamar.start_kos"
-                      class="d-flex flex-column justify-content-center"
-                    >
-                      <a class="text-center" href="">
-                        <h6 class="mb-0 text-sm">John Michael</h6>
-                        <p class="mb-0 text-xs text-secondary">
-                          john@creative-tim.com
-                        </p>
-                      </a>
-                    </div>
-                    <div
-                      v-else
-                      class="d-flex flex-column justify-content-center"
-                    >
-                      -
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-center align-middle">
-                <span
-                  v-if="kamar.end_kos"
-                  class="text-xs text-secondary font-weight-bold"
-                  >{{ kamar.end_kos }}</span
-                >
-                <span v-else class="text-xs text-secondary font-weight-bold">
-                  -
-                </span>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.created_at }}
+                </p>
               </td>
               <td class="align-middle">
                 <router-link
-                  :to="{ name: 'Edit Kamar', params: { id: kamar.room_id } }"
+                  :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
                   class="mx-1 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
-                  data-original-title="Edit user"
+                  data-original-title="Edit Bangunan"
                   >Edit</router-link
                 >
                 <a
@@ -138,7 +68,7 @@
                   data-original-title="Delete user"
                   data-bs-toggle="modal"
                   data-bs-target="#deleteModal"
-                  @click="setDeleteData(kamar)"
+                  @click="setDeleteData(item)"
                   >Delete</a
                 >
               </td>
@@ -169,7 +99,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          Apakah anda yakin akan menghapus ruang {{ deleteModal.name }}?
+          Apakah anda yakin akan menghapus bangunan {{ deleteModal.name }}?
         </div>
         <div class="modal-footer">
           <button
@@ -191,103 +121,22 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal Add -->
-  <div
-    id="createModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="exampleModalLabel" class="modal-title">Tambah Kamar</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form @submit.prevent>
-            <div class="mb-3">
-              <label for="inputNama" class="form-label">Nama Kamar</label>
-              <input
-                v-model="formCreate.name"
-                type="text"
-                class="form-control"
-                id="inputNama"
-              />
-              <div class="form-text">contoh: 101</div>
-            </div>
-            <div class="mb-3">
-              <label for="inputUkuran" class="form-label">Ukuran Kamar</label>
-              <input
-                v-model="formCreate.size"
-                type="text"
-                class="form-control"
-                id="inputUkuran"
-              />
-              <div class="form-text">contoh: 4x4</div>
-            </div>
-            <div class="mb-3">
-              <label for="inputUkuran" class="form-label">Harga</label>
-              <input
-                v-model="formCreate.price"
-                type="number"
-                class="form-control"
-                id="inputUkuran"
-              />
-              <div class="form-text">contoh: 700000</div>
-            </div>
-            <!-- <div class="mb-3">
-              <label for="inputUkuran" class="form-label">Ukuran Kamar</label>
-              <input type="text" class="form-control" id="inputUkuran" />
-              <div class="form-text">contoh: 4x4</div>
-            </div> -->
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="handleCreateSubmit"
-          >
-            Tambah Kamar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
-import VsudBadge from "@/components/VsudBadge.vue";
 import BangunanApi from "@/api/bangunan.js";
-import priceFormatter from "@/utils/priceFormatter";
+// import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
 import { onMounted, reactive, ref } from "vue";
 
 export default {
-  name: "KamarTable",
-  components: {
-    VsudBadge,
-  },
+  name: "BangunanTable",
+  components: {},
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
   setup(props, context) {
-    let kamarList = ref([]);
+    let itemList = ref([]);
     let formCreate = reactive({
       name: "",
       size: "",
@@ -301,36 +150,24 @@ export default {
 
     const reformatList = (list) => {
       return list.map((item) => {
-        if (item.start_kos) {
-          item.start_kos = dateFormatter(item.start_kos);
-        }
-        if (item.end_kos) {
-          item.end_kos = dateFormatter(item.end_kos);
-        }
-        item.price = priceFormatter(item.price);
+        item.created_at = dateFormatter(item.created_at);
         return item;
       });
     };
 
     const fetchKamar = async () => {
       const data = await BangunanApi.getAll();
-      // kamarList.value = reformatList(data);
-      kamarList.value = data;
+      itemList.value = reformatList(data);
+      // itemList.value = data;
       // console.log(test);
     };
 
-    const handleCreateSubmit = async () => {
-      const data = await BangunanApi.create(formCreate);
-      kamarList.value.push(data[0]);
-      formCreate.name = "";
-      formCreate.size = "";
-      formCreate.price = "";
-    };
     const setDeleteData = (kamar) => {
-      deleteModal.id = kamar.room_id;
+      deleteModal.id = kamar.id;
       deleteModal.name = kamar.name;
       // console.log("delete");
     };
+
     const handleDelete = async (id) => {
       // const data = await BangunanApi.destroy(id);
       await BangunanApi.destroy(id);
@@ -338,13 +175,13 @@ export default {
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
         color: "success",
-        message: "Ruang " + deletedObj.name + " berhasil dihapus",
+        message: "Bangunan " + deletedObj.name + " berhasil dihapus",
       });
       // console.log(data);
     };
     const removeFromList = (id) => {
-      let deletedObj = kamarList.value.find((item) => item.room_id == id);
-      kamarList.value = kamarList.value.filter((item) => item.room_id !== id);
+      let deletedObj = itemList.value.find((item) => item.id == id);
+      itemList.value = itemList.value.filter((item) => item.id !== id);
       // console.log(deletedObj);
       context.emit("alert-event", {
         color: "success",
@@ -357,10 +194,9 @@ export default {
       await fetchKamar();
     });
     return {
-      kamarList,
+      itemList,
       formCreate,
       deleteModal,
-      handleCreateSubmit,
       setDeleteData,
       handleDelete,
     };
