@@ -30,7 +30,6 @@
       >
         <span aria-hidden="true" class="text-lg font-weight-bold">&times;</span>
       </button> -->
-    testalert
   </div>
 </template>
 

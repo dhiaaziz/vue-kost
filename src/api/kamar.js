@@ -12,8 +12,15 @@ const getAll = async () => {
         build_id: build_id,
       },
     });
-    // console.log(response.data.data);
-    return response.data.data[0].rooms;
+    console.log(response.data.data);
+    let allRooms = [];
+    //push rooms from all bangunan
+    response.data.data.forEach((room) => {
+      allRooms = [...allRooms, ...room.rooms];
+    });
+    // console.log(allRooms);
+    // return response.data.data[0].rooms;
+    return allRooms;
   } catch (error) {
     console.log(error);
   }
@@ -21,12 +28,20 @@ const getAll = async () => {
 
 const create = async (data) => {
   try {
-    const response = await axios.post("/room/create-room", {
+    console.log(data);
+    const response = await axios.post("/room/create-room", data, {
       headers: authHeader(),
-      data: {
-        build_id: build_id,
-        ...data,
-      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const edit = async (id, data) => {
+  try {
+    const response = await axios.put("/room/update-room/" + id, data, {
+      headers: authHeader(),
     });
     return response.data;
   } catch (error) {
@@ -48,5 +63,6 @@ const destroy = async (id) => {
 export default {
   getAll,
   create,
+  edit,
   destroy,
 };

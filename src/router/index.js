@@ -9,13 +9,17 @@ import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
 
 import UserPage from "@/views/User/UserExample.vue";
-import Kamar from "@/views/Admin/Kamar.vue";
 import DashboardKos from "@/views/Admin/Dashboard.vue";
 
 import store from "@/store";
 
 // lazyload
 const ContohComponent = () => import("@/views/Admin/ContohComponent.vue");
+const IndexKamar = () => import("@/views/Admin/Kamar/IndexKamar.vue");
+const CreateKamar = () => import("@/views/Admin/Kamar/CreateKamar.vue");
+const EditKamar = () => import("@/views/Admin/Kamar/EditKamar.vue");
+
+const IndexBangunan = () => import("@/views/Admin/Bangunan/IndexBangunan.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -92,46 +96,44 @@ const routes = [
       title: "Sign Up @" + APP_NAME,
     },
   },
+  //Route User
   {
     path: "/user-example",
     name: "User Example",
     component: UserPage,
   },
-  {
-    path: "/tipe-kamar",
-    name: "Tipe Kamar",
-    component: Kamar,
-  },
-  {
-    path: "/kamar/create",
-    name: "Create Kamar",
-    component: ContohComponent,
-  },
+  // Route Kamar
   {
     path: "/kamar",
     name: "Kamar",
-    component: Kamar,
+    component: IndexKamar,
     meta: {
       requiresAuth: true,
       title: "Kamar @" + APP_NAME,
     },
   },
-
+  {
+    path: "/kamar/create",
+    name: "Input Kamar",
+    component: CreateKamar,
+  },
+  {
+    path: "/kamar/:id/edit",
+    name: "Edit Kamar",
+    component: EditKamar,
+  },
   {
     path: "/tipe-kamar",
     name: "Tipe Kamar",
-    component: Kamar,
+    component: IndexKamar,
   },
+  // Route Bangunan
   {
     path: "/bangunan",
     name: "Bangunan",
-    component: ContohComponent,
+    component: IndexBangunan,
   },
-  {
-    path: "/test",
-    name: "Test",
-    component: Kamar,
-  },
+  // Route Pembayaran
   {
     path: "/pembayaran",
     name: "Pembayaran",

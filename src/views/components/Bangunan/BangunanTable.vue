@@ -4,7 +4,7 @@
   </vsud-alert> -->
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
-      <h6>Kamar table</h6>
+      <h6>Bangunan table</h6>
       <div>
         <router-link
           :to="{ name: 'Input Kamar' }"
@@ -20,58 +20,32 @@
           <thead>
             <tr>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                Kamar
+                Name
               </th>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                  ps-2
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Ukuran
+                Address
               </th>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                  ps-2
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
                 Harga
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Status
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Dihuni Oleh
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Dihuni Hingga
               </th>
@@ -299,7 +273,7 @@
 
 <script>
 import VsudBadge from "@/components/VsudBadge.vue";
-import KamarApi from "@/api/kamar.js";
+import BangunanApi from "@/api/bangunan.js";
 import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
@@ -339,13 +313,14 @@ export default {
     };
 
     const fetchKamar = async () => {
-      const data = await KamarApi.getAll();
-      kamarList.value = reformatList(data);
+      const data = await BangunanApi.getAll();
+      // kamarList.value = reformatList(data);
+      kamarList.value = data;
       // console.log(test);
     };
 
     const handleCreateSubmit = async () => {
-      const data = await KamarApi.create(formCreate);
+      const data = await BangunanApi.create(formCreate);
       kamarList.value.push(data[0]);
       formCreate.name = "";
       formCreate.size = "";
@@ -357,8 +332,8 @@ export default {
       // console.log("delete");
     };
     const handleDelete = async (id) => {
-      // const data = await KamarApi.destroy(id);
-      await KamarApi.destroy(id);
+      // const data = await BangunanApi.destroy(id);
+      await BangunanApi.destroy(id);
 
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
