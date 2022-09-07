@@ -23,7 +23,12 @@
         </h6>
       </li>
       <li class="nav-item">
-        <sidenav-collapse nav-text="Bangunan" :to="{ name: 'Bangunan' }">
+        <sidenav-collapse
+          nav-text="Bangunan"
+          :to="{ name: 'Bangunan' }"
+          :sub-is-active="subIsActive('/bangunan')"
+          :class="{ true: 'active', false: '' }[subIsActive('/bangunan')]"
+        >
           <template #icon>
             <icon name="dashboard" />
           </template>
@@ -55,7 +60,7 @@
       </li>
 
       <li class="nav-item">
-        <sidenav-collapse nav-text="User" :to="{ name: 'User Example' }">
+        <sidenav-collapse nav-text="User" :to="{ name: 'User' }">
           <template #icon>
             <icon name="dashboard" />
           </template>
@@ -71,7 +76,21 @@
         </h6>
       </li>
       <li class="nav-item">
+        <sidenav-collapse nav-text="Paket" :to="{ name: 'Paket' }">
+          <template #icon>
+            <icon name="billing" />
+          </template>
+        </sidenav-collapse>
+      </li>
+      <li class="nav-item">
         <sidenav-collapse nav-text="Pembayaran" :to="{ name: 'Pembayaran' }">
+          <template #icon>
+            <icon name="billing" />
+          </template>
+        </sidenav-collapse>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse nav-text="Riwayat" :to="{ name: 'Riwayat' }">
           <template #icon>
             <icon name="billing" />
           </template>
@@ -84,6 +103,16 @@
         >
           Contoh Pages
         </h6>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse
+          nav-text="User Example"
+          :to="{ name: 'User Example' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
       </li>
       <li class="nav-item">
         <sidenav-collapse nav-text="Tables" :to="{ name: 'Tables' }">
@@ -201,7 +230,7 @@ export default {
   watch: {
     currentRoute() {
       console.log(this.currentRouteParent);
-      console.log(this.subIsActive("/kamar"));
+      // console.log(this.subIsActive("/kamar"));
     },
   },
   mounted() {

@@ -20,58 +20,32 @@
           <thead>
             <tr>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Kamar
               </th>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                  ps-2
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
                 Ukuran
               </th>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                  ps-2
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
                 Harga
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Status
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Dihuni Oleh
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Dihuni Hingga
               </th>
@@ -152,18 +126,18 @@
               <td class="align-middle">
                 <router-link
                   :to="{ name: 'Edit Kamar', params: { id: kamar.room_id } }"
-                  class="mx-1 text-xs text-secondary font-weight-bold"
+                  class="mx-2 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
                   >Edit</router-link
                 >
                 <a
                   href="javascript:;"
-                  class="mx-1 text-xs text-danger font-weight-bold"
+                  class="mx-2 text-xs text-danger font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Delete user"
                   data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"
+                  :data-bs-target="'#' + deleteModal.modalId"
                   @click="setDeleteData(kamar)"
                   >Delete</a
                 >
@@ -174,52 +148,42 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal -->
-  <div
-    id="deleteModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
+  <modal-component
+    :modal-id="deleteModal.modalId"
+    :modal-title="'Hapus Bangunan'"
   >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="exampleModalLabel" class="modal-title">Hapus Kamar</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          Apakah anda yakin akan menghapus ruang {{ deleteModal.name }}?
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Batal
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            @click="handleDelete(deleteModal.id)"
-          >
-            Hapus
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <template #modal-body>
+      <p>Apakah anda yakin ingin menghapus bangunan {{ deleteModal.name }}?</p>
+    </template>
+    <template #modal-footer>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        @click="resetDeleteData"
+      >
+        Batal
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        :disabled="deleteModal.isLoading"
+        data-bs-dismiss="modal"
+        @click="handleDelete(deleteModal.id)"
+      >
+        <span
+          v-if="deleteModal.isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span v-else>Hapus</span>
+      </button>
+    </template>
+  </modal-component>
 
   <!-- Modal Add -->
-  <div
+  <!-- <div
     id="createModal"
     class="modal fade"
     tabindex="-1"
@@ -269,11 +233,6 @@
               />
               <div class="form-text">contoh: 700000</div>
             </div>
-            <!-- <div class="mb-3">
-              <label for="inputUkuran" class="form-label">Ukuran Kamar</label>
-              <input type="text" class="form-control" id="inputUkuran" />
-              <div class="form-text">contoh: 4x4</div>
-            </div> -->
           </form>
         </div>
         <div class="modal-footer">
@@ -294,7 +253,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -323,6 +282,7 @@ export default {
     let deleteModal = reactive({
       id: "",
       name: "",
+      modalId: "deleteModal",
     });
 
     const reformatList = (list) => {

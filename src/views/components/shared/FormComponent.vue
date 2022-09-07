@@ -38,7 +38,7 @@ export default {
   setup(props, { emit }) {
     const handleSubmit = (e) => {
       e.preventDefault();
-      console.log("submit dalam component");
+      // console.log("submit dalam component");
       emit("handleSubmit");
     };
 

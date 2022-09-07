@@ -20,6 +20,12 @@ const CreateKamar = () => import("@/views/Admin/Kamar/CreateKamar.vue");
 const EditKamar = () => import("@/views/Admin/Kamar/EditKamar.vue");
 
 const IndexBangunan = () => import("@/views/Admin/Bangunan/IndexBangunan.vue");
+const EditBangunan = () => import("@/views/Admin/Bangunan/EditBangunan.vue");
+const CreateBangunan = () =>
+  import("@/views/Admin/Bangunan/CreateBangunan.vue");
+
+const IndexUser = () => import("@/views/Admin/User/IndexUser.vue");
+const DetailUser = () => import("@/views/Admin/User/DetailUser.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -133,10 +139,43 @@ const routes = [
     name: "Bangunan",
     component: IndexBangunan,
   },
+  {
+    path: "/bangunan/create",
+    name: "Input Bangunan",
+    component: CreateBangunan,
+  },
+  {
+    path: "/bangunan/:id/edit",
+    name: "Edit Bangunan",
+    component: EditBangunan,
+  },
+  // Route Pembayaran
+  {
+    path: "/user",
+    name: "User",
+    component: IndexUser,
+  },
+  {
+    path: "/user/:id",
+    name: "Detail User",
+    component: DetailUser,
+  },
   // Route Pembayaran
   {
     path: "/pembayaran",
     name: "Pembayaran",
+    component: ContohComponent,
+  },
+  //route package
+  {
+    path: "/paket",
+    name: "Paket",
+    component: ContohComponent,
+  },
+  //route package
+  {
+    path: "/riwayat",
+    name: "Riwayat",
     component: ContohComponent,
   },
 ];
