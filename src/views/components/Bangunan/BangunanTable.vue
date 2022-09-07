@@ -67,7 +67,7 @@
                   data-toggle="tooltip"
                   data-original-title="Delete user"
                   data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"
+                  :data-bs-target="'#' + deleteModal.modalId"
                   @click="setDeleteData(item)"
                   >Delete</a
                 >
@@ -79,7 +79,41 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <modal-component
+    :modal-id="deleteModal.modalId"
+    :modal-title="'Hapus Bangunan'"
+  >
+    <template #modal-body>
+      <p>Apakah anda yakin ingin menghapus bangunan {{ deleteModal.name }}?</p>
+    </template>
+    <template #modal-footer>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        @click="resetDeleteData"
+      >
+        Batal
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        :disabled="deleteModal.isLoading"
+        data-bs-dismiss="modal"
+        @click="handleDelete(deleteModal.id)"
+      >
+        <span
+          v-if="deleteModal.isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span v-else>Hapus</span>
+      </button>
+    </template>
+  </modal-component>
+
+  <!-- Modal
   <div
     id="deleteModal"
     class="modal fade"
@@ -120,7 +154,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -129,10 +163,11 @@ import BangunanApi from "@/api/bangunan.js";
 import dateFormatter from "@/utils/dateFormatter";
 
 import { onMounted, reactive, ref } from "vue";
+import ModalComponent from "../shared/ModalComponent.vue";
 
 export default {
   name: "BangunanTable",
-  components: {},
+  components: { ModalComponent },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
   setup(props, context) {
@@ -146,6 +181,7 @@ export default {
     let deleteModal = reactive({
       id: "",
       name: "",
+      modalId: "modalDelete",
     });
 
     const reformatList = (list) => {
