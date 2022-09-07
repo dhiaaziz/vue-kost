@@ -1,13 +1,13 @@
 <template>
   <!-- Button trigger modal -->
-  <button
+  <!-- <button
     type="button"
     class="btn btn-primary"
     data-bs-toggle="modal"
     :data-bs-target="'#' + modalId"
   >
     Launch demo modal
-  </button>
+  </button> -->
 
   <!-- Modal -->
   <div

@@ -3,7 +3,7 @@
     <div
       class="mt-4 page-header min-height-300 border-radius-xl"
       :style="{
-        backgroundImage:`url(${bgImg})`,
+        backgroundImage: `url(${bgImg})`,
 
         backgroundPositionY: '50%',
       }"
@@ -286,7 +286,14 @@
           <div class="p-3 card-body">
             <ul class="list-group">
               <li
-                class="px-0 mb-2 border-0 list-group-item d-flex align-items-center"
+                class="
+                  px-0
+                  mb-2
+                  border-0
+                  list-group-item
+                  d-flex
+                  align-items-center
+                "
               >
                 <vsud-avatar
                   class="me-3"
@@ -296,7 +303,12 @@
                   shadow="regular"
                 />
                 <div
-                  class="d-flex align-items-start flex-column justify-content-center"
+                  class="
+                    d-flex
+                    align-items-start
+                    flex-column
+                    justify-content-center
+                  "
                 >
                   <h6 class="mb-0 text-sm">Sophie B.</h6>
                   <p class="mb-0 text-xs">Hi! I need more information..</p>
@@ -308,7 +320,14 @@
                 >
               </li>
               <li
-                class="px-0 mb-2 border-0 list-group-item d-flex align-items-center"
+                class="
+                  px-0
+                  mb-2
+                  border-0
+                  list-group-item
+                  d-flex
+                  align-items-center
+                "
               >
                 <vsud-avatar
                   class="me-3"
@@ -318,7 +337,12 @@
                   shadow="regular"
                 />
                 <div
-                  class="d-flex align-items-start flex-column justify-content-center"
+                  class="
+                    d-flex
+                    align-items-start
+                    flex-column
+                    justify-content-center
+                  "
                 >
                   <h6 class="mb-0 text-sm">Anne Marie</h6>
                   <p class="mb-0 text-xs">Awesome work, can you..</p>
@@ -330,7 +354,14 @@
                 >
               </li>
               <li
-                class="px-0 mb-2 border-0 list-group-item d-flex align-items-center"
+                class="
+                  px-0
+                  mb-2
+                  border-0
+                  list-group-item
+                  d-flex
+                  align-items-center
+                "
               >
                 <vsud-avatar
                   class="me-3"
@@ -340,7 +371,12 @@
                   shadow="regular"
                 />
                 <div
-                  class="d-flex align-items-start flex-column justify-content-center"
+                  class="
+                    d-flex
+                    align-items-start
+                    flex-column
+                    justify-content-center
+                  "
                 >
                   <h6 class="mb-0 text-sm">Ivanna</h6>
                   <p class="mb-0 text-xs">About files I can..</p>
@@ -352,7 +388,14 @@
                 >
               </li>
               <li
-                class="px-0 mb-2 border-0 list-group-item d-flex align-items-center"
+                class="
+                  px-0
+                  mb-2
+                  border-0
+                  list-group-item
+                  d-flex
+                  align-items-center
+                "
               >
                 <vsud-avatar
                   class="me-3"
@@ -362,7 +405,12 @@
                   shadow="regular"
                 />
                 <div
-                  class="d-flex align-items-start flex-column justify-content-center"
+                  class="
+                    d-flex
+                    align-items-start
+                    flex-column
+                    justify-content-center
+                  "
                 >
                   <h6 class="mb-0 text-sm">Peterson</h6>
                   <p class="mb-0 text-xs">Have a great afternoon..</p>
@@ -384,7 +432,12 @@
                   shadow="regular"
                 />
                 <div
-                  class="d-flex align-items-start flex-column justify-content-center"
+                  class="
+                    d-flex
+                    align-items-start
+                    flex-column
+                    justify-content-center
+                  "
                 >
                   <h6 class="mb-0 text-sm">Nick Daniel</h6>
                   <p class="mb-0 text-xs">Hi! I need more information..</p>
@@ -463,7 +516,13 @@
               <div class="mb-4 col-xl-3 col-md-6 mb-xl-0">
                 <div class="border card h-100 card-plain">
                   <div
-                    class="text-center card-body d-flex flex-column justify-content-center"
+                    class="
+                      text-center
+                      card-body
+                      d-flex
+                      flex-column
+                      justify-content-center
+                    "
                   >
                     <a href="javascript:;">
                       <i class="mb-3 fa fa-plus text-secondary"></i>
@@ -496,7 +555,7 @@ import team1 from "@/assets/img/team-1.jpg";
 import team2 from "@/assets/img/team-2.jpg";
 import team3 from "@/assets/img/team-3.jpg";
 import team4 from "@/assets/img/team-4.jpg";
-import bgImg from "@/assets/img/curved-images/curved14.jpg"
+import bgImg from "@/assets/img/curved-images/curved14.jpg";
 import ProjectsCard from "./components/ProjectOverviewCard.vue";
 
 import setNavPills from "@/assets/js/nav-pills.js";
@@ -525,7 +584,7 @@ export default {
       team4,
       img2,
       img3,
-      bgImg
+      bgImg,
     };
   },
 

@@ -4,15 +4,15 @@
   </vsud-alert> -->
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
-      <h6>Bangunan table</h6>
-      <div>
+      <h6>User table</h6>
+      <!-- <div>
         <router-link
           :to="{ name: 'Input Bangunan' }"
           class="btn btn-sm btn-primary"
         >
           Tambah Bangunan <span class="">+</span>
         </router-link>
-      </div>
+      </div> -->
     </div>
     <div class="px-0 pt-0 pb-2 card-body">
       <div class="p-0 table-responsive">
@@ -20,19 +20,53 @@
           <thead>
             <tr>
               <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                "
               >
                 Nama
               </th>
               <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                  ps-2
+                "
               >
-                Alamat
+                Kelamin
               </th>
               <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                  ps-2
+                "
               >
-                Tanggal Dibuat
+                Status
+              </th>
+              <th
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                  ps-2
+                "
+              >
+                Email
+              </th>
+              <th
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                  ps-2
+                "
+              >
+                Contact
               </th>
 
               <th class="text-secondary opacity-7"></th>
@@ -42,26 +76,47 @@
             <tr v-for="item in itemList" :key="item.id">
               <td>
                 <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ item.name }}</p>
+                  <p class="mb-0 text-xs font-weight-bold">
+                    {{ item.username }}
+                  </p>
                 </div>
               </td>
               <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ item.address }}</p>
+                <p class="mb-0 text-xs font-weight-bold">{{ item.gender }}</p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.created_at }}
+                  {{ item.status }}
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.email }}
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.contact }}
                 </p>
               </td>
               <td class="align-middle">
                 <router-link
+                  v-if="item.status !== 'admin'"
+                  :to="{ name: 'Detail User', params: { id: item.id } }"
+                  class="mx-2 text-xs text-secondary font-weight-bold"
+                  data-toggle="tooltip"
+                  data-original-title="Edit Bangunan"
+                  >Detail</router-link
+                >
+                <router-link
+                  v-if="item.status !== 'admin'"
                   :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
                   class="mx-2 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit Bangunan"
                   >Edit</router-link
                 >
-                <a
+                <!-- <a
                   href="javascript:;"
                   class="mx-2 text-xs text-danger font-weight-bold"
                   data-toggle="tooltip"
@@ -70,7 +125,7 @@
                   :data-bs-target="'#' + deleteModal.modalId"
                   @click="setDeleteData(item)"
                   >Delete</a
-                >
+                > -->
               </td>
             </tr>
           </tbody>
@@ -112,55 +167,12 @@
       </button>
     </template>
   </modal-component>
-
-  <!-- Modal
-  <div
-    id="deleteModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="exampleModalLabel" class="modal-title">Hapus Kamar</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          Apakah anda yakin akan menghapus bangunan {{ deleteModal.name }}?
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Batal
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            @click="handleDelete(deleteModal.id)"
-          >
-            Hapus
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
-import BangunanApi from "@/api/bangunan.js";
+import UserApi from "@/api/user.js";
 // import priceFormatter from "@/utils/priceFormatter";
-import dateFormatter from "@/utils/dateFormatter";
+// import dateFormatter from "@/utils/dateFormatter";
 
 import { onMounted, reactive, ref } from "vue";
 import ModalComponent from "../shared/ModalComponent.vue";
@@ -186,14 +198,15 @@ export default {
 
     const reformatList = (list) => {
       return list.map((item) => {
-        item.created_at = dateFormatter(item.created_at);
+        // item.created_at = dateFormatter(item.created_at);
         return item;
       });
     };
 
-    const fetchKamar = async () => {
-      const data = await BangunanApi.getAll();
+    const fetchData = async () => {
+      const data = await UserApi.getAll();
       itemList.value = reformatList(data);
+
       // itemList.value = data;
       // console.log(test);
     };
@@ -206,7 +219,7 @@ export default {
 
     const handleDelete = async (id) => {
       // const data = await BangunanApi.destroy(id);
-      await BangunanApi.destroy(id);
+      // await BangunanApi.destroy(id);
 
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
@@ -227,7 +240,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchKamar();
+      await fetchData();
     });
     return {
       itemList,
