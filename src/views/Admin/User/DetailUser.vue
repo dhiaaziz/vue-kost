@@ -15,7 +15,7 @@
         <div class="col-auto">
           <div class="avatar avatar-xl position-relative">
             <img
-              src="@/assets/img/bruce-mars.jpg"
+              :src="user.image_profile"
               alt="profile_image"
               class="shadow-sm w-100 border-radius-lg"
             />
@@ -23,8 +23,10 @@
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
-            <h5 class="mb-1">{{ user.username }}</h5>
-            <p class="mb-0 text-sm font-weight-bold">{{ user.status }}</p>
+            <h4 class="mb-1 text-capitalize">{{ user.username }}</h4>
+            <p class="mb-0 text-sm font-weight-bold text-capitalize">
+              {{ user.status }}
+            </p>
           </div>
         </div>
       </div>
@@ -34,7 +36,7 @@
     <div class="mt-3 row">
       <div class="mt-4 col-12 col-xl-4 mt-md-0">
         <!-- <profile-card /> -->
-        <card-component title="Informasi Profil">
+        <card-component title="Informasi User">
           <template #body>
             <!-- <p class="text-sm">
               Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer
@@ -42,24 +44,81 @@
               in the short term (pain avoidance is creating an illusion of
               equality).
             </p> -->
-            <hr class="my-3 horizontal gray-light" />
+            <hr class="my-0 horizontal gray-light" />
+            <h6 class="mt-0 text-lg text-dark"><strong>Biodata</strong></h6>
+
             <ul class="list-group">
-              <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Full Name:</strong> &nbsp;
-                {{ user.username }}
-              </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Mobile:</strong> &nbsp;
-                {{ user.contact }}
+                <strong class="text-dark">Nama:</strong> &nbsp;
+                <span class="text-capitalize">{{ user.username }}</span>
               </li>
+
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Email:</strong> &nbsp;
-                {{ user.email }}
+                <strong class="text-dark">Tempat/Tanggal Lahir:</strong> &nbsp;
+                <span class="text-capitalize">{{ user.birth_place }}</span
+                >, {{ user.birth_date }}
               </li>
+
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Location:</strong> &nbsp; USA
+                <strong class="text-dark">Agama:</strong> &nbsp;
+                <span class="text-capitalize">{{ user.religion }}</span>
               </li>
-              <li class="pb-0 border-0 list-group-item ps-0">
+
+              <li class="text-sm border-0 list-group-item ps-0">
+                <strong class="text-dark">Status:</strong> &nbsp;
+                <span class="text-capitalize">{{ user.status }}</span>
+              </li>
+
+              <h6 class="mt-4 text-lg text-dark"><strong>Kontak</strong></h6>
+              <ul class="list-group">
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Telepon:</strong> &nbsp;
+                  {{ user.contact }}
+                </li>
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Email:</strong> &nbsp;
+                  {{ user.email }}
+                </li>
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Kontak Darurat:</strong> &nbsp;
+                  <span v-if="user.emergency_contact"
+                    >{{ user.emergency_contact }} ({{
+                      user.emergency_name
+                    }})</span
+                  >
+                  <span v-else> - </span>
+                </li>
+              </ul>
+              <h6 class="mt-4 text-lg text-dark">
+                <strong>Informasi Lainnya</strong>
+              </h6>
+              <ul class="list-group" v-if="user.status === 'mahasiswa'">
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Universitas</strong> &nbsp;
+                  <span class="text-capitalize">{{
+                    user.name_university
+                  }}</span>
+                </li>
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Jenjang</strong> &nbsp;
+                  <span class="text-capitalize">{{ user.degree }}</span>
+                </li>
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Jurusan</strong> &nbsp;
+                  <span class="text-capitalize">{{ user.major }}</span>
+                </li>
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Angkatan</strong> &nbsp;
+                  <span class="text-capitalize">{{ user.generation }}</span>
+                </li>
+              </ul>
+              <ul class="list-group" v-if="user.status === 'pekerja'">
+                <li class="text-sm border-0 list-group-item ps-0">
+                  <strong class="text-dark">Tempat Bekerja</strong> &nbsp;
+                  <span class="text-capitalize">{{ user.name_company }}</span>
+                </li>
+              </ul>
+              <!-- <li class="pb-0 border-0 list-group-item ps-0">
                 <strong class="text-sm text-dark">Social:</strong> &nbsp;
                 <a
                   class="py-0 mb-0 btn btn-facebook btn-simple ps-1 pe-2"
@@ -79,22 +138,28 @@
                 >
                   <i class="fab fa-instagram fa-lg"></i>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </template>
         </card-component>
       </div>
-      <div class="mt-4 col-12 col-xl-8 mt-lg-0">
+      <div class="mt-4 col-12 col-xl-8 mt-md-4 mt-lg-0">
         <div class="h-100 card">
           <div class="p-3 pb-0 card-header">
-            <h6 class="mb-1">Foto KTP</h6>
+            <h4 class="mb-1">Data KTP</h4>
+            <p class="mt-3 mb-0 text-sm ps-0">
+              <strong class="text-dark">NIK:</strong> &nbsp;
+              {{ user.nik }}
+            </p>
             <!-- <p class="text-sm">Architects design houses</p> -->
           </div>
           <div class="p-3 card-body">
             <div class="row">
               <div class="mb-4 col-12">
-                <!-- {{ user.im }} -->
-                <card-photo :img="user.image_ktp" />
+                <card-photo
+                  :img="user.image_ktp"
+                  style="width: 100%; max-height: 500px; object-fit: fill"
+                />
               </div>
             </div>
           </div>
@@ -127,6 +192,7 @@ import CardPhoto from "@/views/components/shared/CardPhoto.vue";
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
 import { onBeforeMount, onMounted, reactive } from "vue";
+import dateFormatter from "@/utils/dateFormatter";
 
 import UserApi from "@/api/user.js";
 
@@ -151,7 +217,13 @@ export default {
     const fetchProfile = async () => {
       const data = await UserApi.getById(currentId);
       Object.assign(user, data);
-      user.image_ktp = "http://localhost:5000/image/ktp/default.jpg";
+      // user.image_ktp = "http://localhost:5000/image/ktp/default.jpg";
+      // user.image_ktp = "http://localhost:5000/image/ktp/" + user.image_ktp;
+      user.image_ktp =
+        "https://cdn-2.tstatic.net/jabar/foto/bank/images/foto-ktp-redi-alamsyah-merem-ternyata-editan-ini-faktanya.jpg";
+      user.image_profile =
+        "http://localhost:5000/image/profile/" + user.image_profile;
+      user.birth_date = dateFormatter(user.birth_date);
     };
     onBeforeMount(async () => {
       await fetchProfile();

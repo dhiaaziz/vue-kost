@@ -5,6 +5,7 @@
         <i :class="getIcon(icon)"></i>
       </span>
       <input
+        v-bind="$attrs"
         :id="id"
         :type="type"
         class="form-control"

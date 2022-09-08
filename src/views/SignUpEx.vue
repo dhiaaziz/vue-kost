@@ -10,9 +10,10 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="mx-auto text-center col-lg-5">
-          <h1 class="mt-5 mb-2 text-white">Selamat Datang!</h1>
+          <h1 class="mt-5 mb-2 text-white">Welcome!</h1>
           <p class="text-white text-lead">
-            Silahkan lakukan registrasi apabila belum mempunyai akun sebelumnya.
+            Use these awesome forms to login or create new account in your
+            project for free.
           </p>
         </div>
       </div>
@@ -20,12 +21,12 @@
   </div>
   <div class="container">
     <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
-      <div class="mx-auto col-lg-10 col-12">
+      <div class="mx-auto col-xl-4 col-lg-5 col-md-7">
         <div class="card z-index-0">
           <div class="pt-4 text-center card-header">
-            <h5>Registrasi Penghuni Kos</h5>
+            <h5>Register with</h5>
           </div>
-          <!-- <div class="px-3 row px-xl-5 px-sm-4">
+          <div class="px-3 row px-xl-5 px-sm-4">
             <div class="px-1 col-3 ms-auto">
               <a class="btn btn-outline-light w-100" href="javascript:;">
                 <svg
@@ -127,134 +128,40 @@
             </div>
             <div class="mt-2 text-center position-relative">
               <p
-                class="px-3 mb-2 text-sm bg-white font-weight-bold text-secondary text-border d-inline z-index-2"
+                class="px-3 mb-2 text-sm bg-white  font-weight-bold text-secondary text-border d-inline z-index-2"
               >
                 or
               </p>
             </div>
-          </div> -->
+          </div>
 
           <div class="card-body">
             <!-- register-form -->
             <form role="form">
-              <div class="mb-5 row">
-                <div class="mb-2 offset-lg-1">
-                  <span class="text-lg"><strong>Biodata</strong></span>
-                </div>
-                <div class="mb-2 offset-lg-1 col-lg-5">
-                  <label>Nama</label>
-                  <vsud-input
-                    v-model="form.username"
-                    type="text"
-                    placeholder="Rijal Fadhila"
-                  />
-                </div>
-                <div class="mb-2 col-lg-5">
-                  <label>Agama</label>
-                  <vsud-input
-                    v-model="form.religion"
-                    type="text"
-                    placeholder="Islam"
-                  />
-                </div>
-                <div class="mb-2 offset-lg-1 col-lg-5">
-                  <label>Nama</label>
-                  <vsud-input
-                    v-model="form.birth_place"
-                    type="text"
-                    placeholder="Kos Ijal"
-                  />
-                </div>
-                <div class="mb-2 col-lg-5">
-                  <label>Tanggal Lahir</label>
-                  <vsud-input v-model="form.birth_date" type="date" />
-                </div>
-                <div class="offset-lg-1 col-lg-10">
-                  <div class="form-group">
-                    <label>Status</label>
-                    <select v-model="form.status" class="form-control">
-                      <option disabled>Pilih Status</option>
-                      <option
-                        v-for="option in selectOptions.status"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.text }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <!-- Kontak-->
-                <div class="mt-4 mb-2 offset-lg-1">
-                  <span class="text-lg"><strong>Kontak</strong></span>
-                </div>
-                <div class="mb-2 offset-lg-1 col-lg-5">
-                  <label>Telepon</label>
-                  <vsud-input v-model="form.contact" type="text" />
-                </div>
-                <div class="mb-2 col-lg-5">
-                  <label>Email</label>
-                  <vsud-input v-model="form.email" type="email" />
-                </div>
-                <!-- Kontak Darurat -->
-                <div class="mt-4 mb-2 offset-lg-1">
-                  <span class="text-lg"><strong>Kontak Darurat</strong></span>
-                </div>
-                <div class="mb-2 offset-lg-1 col-lg-5">
-                  <label>Telepon</label>
-                  <vsud-input v-model="form.emergency_contact" type="text" />
-                </div>
-                <div class="mb-2 col-lg-5">
-                  <label
-                    >Hubungan (orangtua / saudara / teman / atau yang
-                    lainnya)</label
-                  >
-                  <vsud-input v-model="form.emergency_name" type="text" />
-                </div>
-                <!-- Informasi lainnya mahasiswa -->
-                <div class="offset-lg-1" v-if="form.status === 'mahasiswa'">
-                  <div class="row">
-                    <div class="mt-4 mb-2">
-                      <span class="text-lg"
-                        ><strong>Informasi Lainnya</strong></span
-                      >
-                    </div>
-                    <div class="mb-2 col-lg-5">
-                      <label>Universitas</label>
-                      <vsud-input v-model="form.name_university" type="text" />
-                    </div>
-                    <div class="mb-2 col-lg-5">
-                      <label>Jenjang</label>
-                      <vsud-input v-model="form.degree" type="text" />
-                    </div>
-                    <div class="mb-2 col-lg-5">
-                      <label>Jurusan</label>
-                      <vsud-input v-model="form.major" type="text" />
-                    </div>
-                    <div class="mb-2 col-lg-5">
-                      <label>Angkatan</label>
-                      <vsud-input v-model="form.generation" type="text" />
-                    </div>
-                  </div>
-                </div>
-                <!-- Informasi lainnya pekerja -->
-                <div class="offset-lg-1" v-if="form.status === 'pekerja'">
-                  <div class="row">
-                    <div class="mt-4 mb-2">
-                      <span class="text-lg"
-                        ><strong>Informasi Lainnya</strong></span
-                      >
-                    </div>
-                    <div class="mb-2 col-lg-5">
-                      <label>Tempat Bekerja</label>
-                      <vsud-input v-model="form.name_company" type="text" />
-                    </div>
-                  </div>
-                </div>
-                <!-- {{ typeof form.birth_date }}
-        {{ form.birth_date }} -->
-                <!-- {{ form.status }} -->
+              <div class="mb-3">
+                <vsud-input type="text" placeholder="Name" aria-label="Name" />
               </div>
+              <div class="mb-3">
+                <vsud-input
+                  type="email"
+                  placeholder="Email"
+                  aria-label="Email"
+                />
+              </div>
+              <div class="mb-3">
+                <vsud-input
+                  type="password"
+                  placeholder="Password"
+                  aria-label="Password"
+                />
+              </div>
+              <vsud-checkbox id="flexCheckDefault" checked>
+                I agree the
+                <a href="javascript:;" class="text-dark font-weight-bolder"
+                  >Terms and Conditions</a
+                >
+              </vsud-checkbox>
+
               <div class="text-center">
                 <vsud-button
                   color="dark"
@@ -264,12 +171,10 @@
                   >Sign up</vsud-button
                 >
               </div>
-              <p class="mt-3 mb-0 text-sm text-center">
-                Sudah punya akun?
-                <router-link
-                  :to="{ name: 'Sign In' }"
-                  class="text-dark font-weight-bolder"
-                  >Sign in</router-link
+              <p class="mt-3 mb-0 text-sm">
+                Already have an account?
+                <a href="javascript:;" class="text-dark font-weight-bolder"
+                  >Sign in</a
                 >
               </p>
             </form>
@@ -288,7 +193,6 @@ import VsudInput from "@/components/VsudInput.vue";
 import VsudCheckbox from "@/components/VsudCheckbox.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved6.jpg";
-import { reactive } from "@vue/reactivity";
 export default {
   name: "SignUp",
   components: {
@@ -298,47 +202,9 @@ export default {
     VsudCheckbox,
     VsudButton,
   },
-  // data() {
-  //   return {
-  //     bgImg,
-  //   };
-  // },
-  setup() {
-    // const bgImg = bgImg;
-    const form = reactive({
-      name: "",
-      birth_place: "",
-      birth_date: "",
-      status: "",
-      contact: "",
-      email: "",
-      emergency_contact: "",
-      emergency_name: "",
-      name_university: "",
-      degree: "",
-      major: "",
-      generation: "",
-      name_company: "",
-    });
-    const selectOptions = reactive({
-      religion: [
-        { value: "Islam", text: "Islam" },
-        { value: "Kristen", text: "Kristen" },
-        { value: "Katolik", text: "Katolik" },
-        { value: "Hindu", text: "Hindu" },
-        { value: "Budha", text: "Budha" },
-        { value: "Konghucu", text: "Konghucu" },
-      ],
-      status: [
-        { value: "mahasiswa", text: "Mahasiswa" },
-        { value: "pekerja", text: "Pekerja" },
-      ],
-    });
-
+  data() {
     return {
       bgImg,
-      form,
-      selectOptions,
     };
   },
   created() {

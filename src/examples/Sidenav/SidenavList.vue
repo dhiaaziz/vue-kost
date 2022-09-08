@@ -229,12 +229,12 @@ export default {
   },
   watch: {
     currentRoute() {
-      console.log(this.currentRouteParent);
+      // console.log(this.currentRouteParent);
       // console.log(this.subIsActive("/kamar"));
     },
   },
   mounted() {
-    console.log(this.currentRoute);
+    // console.log(this.currentRoute);
     // console.log(this.subIsActive("/test"));
   },
 

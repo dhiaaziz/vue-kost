@@ -3,7 +3,7 @@
     <div class="p-3 pb-0 card-header">
       <div class="row">
         <div class="col-md-8 d-flex align-items-center">
-          <h6 class="mb-0">{{ title }}</h6>
+          <h4 class="mb-0">{{ title }}</h4>
         </div>
         <div v-if="isEditable" class="col-md-4 text-end">
           <a href="javascript:;">
