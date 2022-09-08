@@ -26,6 +26,10 @@ const CreateBangunan = () =>
 
 const IndexUser = () => import("@/views/Admin/User/IndexUser.vue");
 const DetailUser = () => import("@/views/Admin/User/DetailUser.vue");
+const EditUser = () => import("@/views/Admin/User/EditUser.vue");
+
+const IndexPaket = () => import("@/views/Admin/Paket/IndexPaket.vue");
+const CreatePaket = () => import("@/views/Admin/Paket/CreatePaket.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -160,17 +164,27 @@ const routes = [
     name: "Detail User",
     component: DetailUser,
   },
+  {
+    path: "/user/:id/edit",
+    name: "Edit User",
+    component: EditUser,
+  },
   // Route Pembayaran
   {
     path: "/pembayaran",
     name: "Pembayaran",
-    component: ContohComponent,
+    component: IndexPaket,
   },
   //route package
   {
     path: "/paket",
     name: "Paket",
-    component: ContohComponent,
+    component: IndexPaket,
+  },
+  {
+    path: "/paket/create",
+    name: "Input Paket",
+    component: CreatePaket,
   },
   //route package
   {

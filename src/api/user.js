@@ -1,4 +1,5 @@
 import axios from "axios";
+import { compileScript } from "vue/compiler-sfc";
 import authHeader from "./_authHeader";
 
 const getAll = async () => {
@@ -25,7 +26,24 @@ const getById = async (id) => {
   }
 };
 
+const update = async (id, data) => {
+  try {
+    const headers = authHeader();
+    headers["Content-Type"] = "multipart/form-data";
+    // console.log(headers);
+    // console.log(data);
+    const response = await axios.put(`/user/update-user/${id}`, data, {
+      headers: headers,
+    });
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   getAll,
   getById,
+  update,
 };

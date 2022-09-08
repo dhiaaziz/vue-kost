@@ -5,7 +5,7 @@
         <!-- <h6>Kamar table</h6> -->
       </div>
       <div class="card-body">
-        <form @submit.prevent="handleSubmit">
+        <form v-bind="$attrs" @submit.prevent="handleSubmit">
           <slot name="input-detail"></slot>
           <div class="row">
             <div class="col-3 offset-lg-1">

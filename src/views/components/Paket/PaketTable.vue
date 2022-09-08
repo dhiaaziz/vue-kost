@@ -4,15 +4,15 @@
   </vsud-alert> -->
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
-      <h6>User table</h6>
-      <!-- <div>
+      <h6>Paket table</h6>
+      <div>
         <router-link
-          :to="{ name: 'Input Bangunan' }"
+          :to="{ name: 'Input Paket' }"
           class="btn btn-sm btn-primary"
         >
-          Tambah Bangunan <span class="">+</span>
+          Tambah Paket <span class="">+</span>
         </router-link>
-      </div> -->
+      </div>
     </div>
     <div class="px-0 pt-0 pb-2 card-body">
       <div class="p-0 table-responsive">
@@ -27,22 +27,17 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Kelamin
+                Deskripsi
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Status
+                Durasi
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Email
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Contact
+                Diskon
               </th>
 
               <th class="text-secondary opacity-7"></th>
@@ -52,47 +47,36 @@
             <tr v-for="item in itemList" :key="item.id">
               <td>
                 <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">
-                    {{ item.username }}
-                  </p>
+                  <p class="mb-0 text-xs font-weight-bold">{{ item.name }}</p>
                 </div>
               </td>
               <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ item.gender }}</p>
-              </td>
-              <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.status }}
+                  {{ item.description }}
                 </p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.email }}
+                  {{ item.duration }} bulan
                 </p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.contact }}
+                  <span v-if="item.discount > 0"
+                    >{{ item.discount }} bulan</span
+                  >
+                  <span v-else>-</span>
                 </p>
               </td>
               <td class="align-middle">
                 <router-link
-                  v-if="item.status !== 'admin'"
-                  :to="{ name: 'Detail User', params: { id: item.id } }"
-                  class="mx-2 text-xs text-info font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Edit Bangunan"
-                  >Detail</router-link
-                >
-                <router-link
-                  v-if="item.status !== 'admin'"
-                  :to="{ name: 'Edit User', params: { id: item.id } }"
+                  :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
                   class="mx-2 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit Bangunan"
                   >Edit</router-link
                 >
-                <!-- <a
+                <a
                   href="javascript:;"
                   class="mx-2 text-xs text-danger font-weight-bold"
                   data-toggle="tooltip"
@@ -101,7 +85,7 @@
                   :data-bs-target="'#' + deleteModal.modalId"
                   @click="setDeleteData(item)"
                   >Delete</a
-                > -->
+                >
               </td>
             </tr>
           </tbody>
@@ -115,7 +99,7 @@
     :modal-title="'Hapus Bangunan'"
   >
     <template #modal-body>
-      <p>Apakah anda yakin ingin menghapus bangunan {{ deleteModal.name }}?</p>
+      <p>Apakah anda yakin ingin menghapus paket {{ deleteModal.name }}?</p>
     </template>
     <template #modal-footer>
       <button
@@ -146,15 +130,15 @@
 </template>
 
 <script>
-import UserApi from "@/api/user.js";
+import PaketApi from "@/api/paket.js";
 // import priceFormatter from "@/utils/priceFormatter";
-// import dateFormatter from "@/utils/dateFormatter";
+import dateFormatter from "@/utils/dateFormatter";
 
 import { onMounted, reactive, ref } from "vue";
 import ModalComponent from "../shared/ModalComponent.vue";
 
 export default {
-  name: "BangunanTable",
+  name: "PaketTable",
   components: { ModalComponent },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
@@ -174,15 +158,14 @@ export default {
 
     const reformatList = (list) => {
       return list.map((item) => {
-        // item.created_at = dateFormatter(item.created_at);
+        item.created_at = dateFormatter(item.created_at);
         return item;
       });
     };
 
-    const fetchData = async () => {
-      const data = await UserApi.getAll();
+    const fetchKamar = async () => {
+      const data = await PaketApi.getAll();
       itemList.value = reformatList(data);
-
       // itemList.value = data;
       // console.log(test);
     };
@@ -195,7 +178,7 @@ export default {
 
     const handleDelete = async (id) => {
       // const data = await BangunanApi.destroy(id);
-      // await BangunanApi.destroy(id);
+      await PaketApi.destroy(id);
 
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
@@ -216,7 +199,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchData();
+      await fetchKamar();
     });
     return {
       itemList,

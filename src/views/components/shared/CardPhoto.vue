@@ -4,6 +4,7 @@
       <a class="shadow-xl d-block border-radius-xl">
         <img
           :src="img"
+          v-bind="$attrs"
           alt="img-blur-shadow"
           class="shadow img-fluid border-radius-xl"
         />
