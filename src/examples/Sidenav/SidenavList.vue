@@ -90,7 +90,7 @@
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse nav-text="Riwayat" :to="{ name: 'Riwayat' }">
+        <sidenav-collapse nav-text="Tagihan" :to="{ name: 'Riwayat' }">
           <template #icon>
             <icon name="billing" />
           </template>

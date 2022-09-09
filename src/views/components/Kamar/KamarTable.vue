@@ -5,15 +5,36 @@
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Kamar table</h6>
-      <div>
-        <router-link
-          :to="{ name: 'Input Kamar' }"
-          class="btn btn-sm btn-primary"
-        >
-          Tambah Kamar <span class="">+</span>
-        </router-link>
+    </div>
+    <!-- button and search section -->
+    <div class="pt-4 pb-3 container-fluid">
+      <div class="row justify-content-between">
+        <div class="col-md-4">
+          <div class="gap-2 d-grid d-md-block">
+            <router-link
+              :to="{ name: 'Input Kamar' }"
+              class="btn btn-sm btn-primary"
+            >
+              Tambah Kamar <span class="">+</span>
+            </router-link>
+          </div>
+        </div>
+        <div class="mt-4 mt-md-0 col-12 col-md-4">
+          <div class="input-group">
+            <span class="input-group-text text-body">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              :placeholder="$store.state.isRTL ? 'أكتب هنا...' : 'Cari Kamar..'"
+              @keyup="handleSearch"
+            />
+          </div>
+        </div>
       </div>
     </div>
+    <!-- end-button and search section  -->
     <div class="px-0 pt-0 pb-2 card-body">
       <div class="p-0 table-responsive">
         <table class="table mb-0 align-items-center">
@@ -298,9 +319,16 @@ export default {
       });
     };
 
-    const fetchKamar = async () => {
-      const data = await KamarApi.getAll();
+    const fetchKamar = async (search = "") => {
+      let data;
+      console.log(search);
+      if (!search) {
+        data = await KamarApi.getAll();
+      } else if (search) {
+        data = await KamarApi.getAll(search);
+      }
       kamarList.value = reformatList(data);
+
       // console.log(test);
     };
 
@@ -316,6 +344,36 @@ export default {
       deleteModal.name = kamar.name;
       // console.log("delete");
     };
+
+    const delay = (callback, ms) => {
+      var timer = 0;
+      return function () {
+        var context = this,
+          args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          callback.apply(context, args);
+        }, ms || 0);
+      };
+    };
+
+    const delay2 = (fn, ms) => {
+      let timer = 0;
+      return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(fn.bind(this, ...args), ms || 0);
+      };
+    };
+
+    const handleSearch = delay2(async (e) => {
+      if (e.target.value === "") {
+        fetchKamar();
+      } else {
+        // console.log(e.target.value);
+        fetchKamar(e.target.value);
+      }
+    }, 800);
+
     const handleDelete = async (id) => {
       // const data = await KamarApi.destroy(id);
       await KamarApi.destroy(id);
@@ -345,9 +403,10 @@ export default {
       kamarList,
       formCreate,
       deleteModal,
-      handleCreateSubmit,
       setDeleteData,
+      handleCreateSubmit,
       handleDelete,
+      handleSearch,
     };
   },
 };

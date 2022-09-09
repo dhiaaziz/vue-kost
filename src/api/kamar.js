@@ -3,10 +3,14 @@ import authHeader from "./_authHeader";
 
 const build_id = 1;
 
-const getAll = async () => {
+const getAll = async (search) => {
   // console.log(authHeader());
+  console.log(search);
+  let url = "/room/show-room";
+  url = search ? url + `?name=${search}` : url;
+  console.log("url: " + url);
   try {
-    const response = await axios.get("/room/show-room", {
+    const response = await axios.get(url, {
       headers: authHeader(),
       data: {
         build_id: build_id,
