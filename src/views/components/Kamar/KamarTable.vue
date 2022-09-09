@@ -20,6 +20,12 @@
           </div>
         </div>
         <div class="mt-4 mt-md-0 col-12 col-md-4">
+          <search-component
+            :placeholder="'Cari kamar...'"
+            @search="handleSearch"
+          />
+        </div>
+        <div class="mt-4 mt-md-0 col-12 col-md-4">
           <div class="input-group">
             <span class="input-group-text text-body">
               <i class="fas fa-search" aria-hidden="true"></i>
@@ -283,12 +289,15 @@ import KamarApi from "@/api/kamar.js";
 import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
+import SearchComponent from "@/views/components/shared/SearchComponent.vue";
+
 import { onMounted, reactive, ref } from "vue";
 
 export default {
   name: "KamarTable",
   components: {
     VsudBadge,
+    SearchComponent,
   },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
@@ -345,34 +354,14 @@ export default {
       // console.log("delete");
     };
 
-    const delay = (callback, ms) => {
-      var timer = 0;
-      return function () {
-        var context = this,
-          args = arguments;
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          callback.apply(context, args);
-        }, ms || 0);
-      };
-    };
-
-    const delay2 = (fn, ms) => {
-      let timer = 0;
-      return function (...args) {
-        clearTimeout(timer);
-        timer = setTimeout(fn.bind(this, ...args), ms || 0);
-      };
-    };
-
-    const handleSearch = delay2(async (e) => {
-      if (e.target.value === "") {
+    const handleSearch = async (searchValue) => {
+      if (searchValue === "") {
         fetchKamar();
       } else {
         // console.log(e.target.value);
-        fetchKamar(e.target.value);
+        fetchKamar(searchValue);
       }
-    }, 800);
+    };
 
     const handleDelete = async (id) => {
       // const data = await KamarApi.destroy(id);
