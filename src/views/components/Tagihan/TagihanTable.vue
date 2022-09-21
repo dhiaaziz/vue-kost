@@ -22,22 +22,27 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
+                ID Tagihan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
+               Kamar
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
                 Nama
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Deskripsi
+                Tagihan
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Durasi
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Diskon
+                Kekurangan
               </th>
 
               <th class="text-secondary opacity-7"></th>

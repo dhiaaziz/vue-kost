@@ -22,22 +22,32 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
+                Id Tagihan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
                 Nama
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Deskripsi
+                Email
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Durasi
+               Tipe Pembayaran
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Diskon
+                Terbayar
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
+                Tanggal Bayar
               </th>
 
               <th class="text-secondary opacity-7"></th>
