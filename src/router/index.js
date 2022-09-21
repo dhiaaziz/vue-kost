@@ -1,15 +1,26 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Dashboard from "@/views/Dashboard.vue";
-import Tables from "@/views/Tables.vue";
-import Billing from "@/views/Billing.vue";
-import VirtualReality from "@/views/VirtualReality.vue";
-import Profile from "@/views/Profile.vue";
-import Rtl from "@/views/Rtl.vue";
-import SignIn from "@/views/SignIn.vue";
-import SignUp from "@/views/SignUp.vue";
+// import Dashboard from "@/views/Dashboard.vue";
+const Dashboard = () => import("@/views/Dashboard.vue");
+// import Tables from "@/views/Tables.vue";
+const Tables = () => import("@/views/Tables.vue");
+// import Billing from "@/views/Billing.vue";
+const Billing = () => import("@/views/Billing.vue");
+// import VirtualReality from "@/views/VirtualReality.vue";
+const VirtualReality = () => import("@/views/VirtualReality.vue");
+// import Profile from "@/views/Profile.vue";
+const Profile = () => import("@/views/Profile.vue");
+// import Rtl from "@/views/Rtl.vue";
+const Rtl = () => import("@/views/Rtl.vue");
+// import SignIn from "@/views/SignIn.vue";
+const SignIn = () => import("@/views/SignIn.vue");
+// import SignUp from "@/views/SignUp.vue";
+const SignUp = () => import("@/views/SignUp.vue");
 
-import UserPage from "@/views/User/UserExample.vue";
-import DashboardKos from "@/views/Admin/Dashboard.vue";
+// import UserPage from "@/views/User/UserExample.vue";
+const UserPage = () => import("@/views/User/UserExample.vue");
+// import DashboardKos from "@/views/Admin/Dashboard.vue";
+const DashboardKos = () => import("@/views/Admin/Dashboard.vue");
+
 
 import store from "@/store";
 
@@ -30,6 +41,12 @@ const EditUser = () => import("@/views/Admin/User/EditUser.vue");
 
 const IndexPaket = () => import("@/views/Admin/Paket/IndexPaket.vue");
 const CreatePaket = () => import("@/views/Admin/Paket/CreatePaket.vue");
+
+const IndexPembayaran = () => import("@/views/Admin/Pembayaran/IndexPembayaran.vue");
+const CreatePembayaran = () => import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
+
+const IndexTagihan = () => import("@/views/Admin/Tagihan/IndexTagihan.vue");
+const CreateTagihan = () => import("@/views/Admin/Tagihan/CreateTagihan.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -153,7 +170,7 @@ const routes = [
     name: "Edit Bangunan",
     component: EditBangunan,
   },
-  // Route Pembayaran
+  // Route user
   {
     path: "/user",
     name: "User",
@@ -173,7 +190,12 @@ const routes = [
   {
     path: "/pembayaran",
     name: "Pembayaran",
-    component: IndexPaket,
+    component: IndexPembayaran,
+  },
+  {
+    path: "/pembayaran/create",
+    name: "Input Pembayaran",
+    component: CreatePembayaran,
   },
   //route package
   {
@@ -188,10 +210,15 @@ const routes = [
   },
   //route package
   {
-    path: "/riwayat",
-    name: "Riwayat",
-    component: ContohComponent,
+    path: "/tagihan",
+    name: "Tagihan",
+    component: IndexTagihan,
   },
+  {
+    path: "/tagihan/create",
+    name: "Input Tagihan",
+    component: CreateTagihan,
+  }
 ];
 
 const router = createRouter({

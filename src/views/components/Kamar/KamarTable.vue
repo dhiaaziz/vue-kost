@@ -25,19 +25,6 @@
             @search="handleSearch"
           />
         </div>
-        <div class="mt-4 mt-md-0 col-12 col-md-4">
-          <div class="input-group">
-            <span class="input-group-text text-body">
-              <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
-            <input
-              type="text"
-              class="form-control"
-              :placeholder="$store.state.isRTL ? 'أكتب هنا...' : 'Cari Kamar..'"
-              @keyup="handleSearch"
-            />
-          </div>
-        </div>
       </div>
     </div>
     <!-- end-button and search section  -->
@@ -47,32 +34,58 @@
           <thead>
             <tr>
               <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                "
               >
                 Kamar
               </th>
               <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                  ps-2
+                "
               >
                 Ukuran
               </th>
               <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                class="
+                  text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                  ps-2
+                "
               >
                 Harga
               </th>
               <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="
+                  text-center text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                "
               >
                 Status
               </th>
               <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="
+                  text-center text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                "
               >
                 Dihuni Oleh
               </th>
               <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                class="
+                  text-center text-uppercase text-secondary text-xxs
+                  font-weight-bolder
+                  opacity-7
+                "
               >
                 Dihuni Hingga
               </th>
@@ -150,17 +163,33 @@
                   -
                 </span>
               </td>
-              <td class="align-middle">
+              <td class="align-middle d-flex align-items-center">
                 <router-link
                   :to="{ name: 'Edit Kamar', params: { id: kamar.room_id } }"
-                  class="mx-2 text-xs text-secondary font-weight-bold"
+                  class="
+                    px-2
+                    py-1
+                    mx-1
+                    my-0
+                    text-xs text-secondary
+                    font-weight-bold
+                  "
                   data-toggle="tooltip"
                   data-original-title="Edit user"
                   >Edit</router-link
                 >
                 <a
                   href="javascript:;"
-                  class="mx-2 text-xs text-danger font-weight-bold"
+                  class="
+                    px-2
+                    py-1
+                    mx-1
+                    my-0
+                    text-xs
+                    rounded-lg
+                    text-danger
+                    font-weight-bold
+                  "
                   data-toggle="tooltip"
                   data-original-title="Delete user"
                   data-bs-toggle="modal"
@@ -170,8 +199,22 @@
                 >
               </td>
             </tr>
+            <tr v-if="kamarList.length == 0">
+              <td colspan="7" class="text-center">List kamar kosong</td>
+            </tr>
           </tbody>
         </table>
+      </div>
+      <div class="mt-3 pe-3 d-flex justify-content-between container-fluid">
+        <div>test</div>
+        <!-- {{ pagination }} -->
+        <page-component
+          :total="pagination.count"
+          :per-page="pagination.limit"
+          :current-page="pagination.pageNow"
+          :last-page="pagination.pageLast"
+          @page-change="handlePageChange"
+        />
       </div>
     </div>
   </div>
@@ -290,6 +333,7 @@ import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
 import SearchComponent from "@/views/components/shared/SearchComponent.vue";
+import PageComponent from "@/views/components/shared/PageComponent.vue";
 
 import { onMounted, reactive, ref } from "vue";
 
@@ -298,11 +342,18 @@ export default {
   components: {
     VsudBadge,
     SearchComponent,
+    PageComponent,
   },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
   setup(props, context) {
     let kamarList = ref([]);
+    let pagination = reactive({
+      count: 0,
+      limit: 0,
+      pageLast: 0,
+      pageNow: 1,
+    });
     let formCreate = reactive({
       name: "",
       size: "",
@@ -328,15 +379,27 @@ export default {
       });
     };
 
-    const fetchKamar = async (search = "") => {
+    const fetchKamar = async (search = "", page = 1, limit = 3) => {
       let data;
-      console.log(search);
+      // console.log(search);
       if (!search) {
-        data = await KamarApi.getAll();
+        data = await KamarApi.getAll(null, page, limit);
       } else if (search) {
-        data = await KamarApi.getAll(search);
+        data = await KamarApi.getAll(search, page, limit);
       }
-      kamarList.value = reformatList(data);
+      if (!data) {
+        kamarList.value = [];
+        return;
+      }
+      // console.log(data.data_payment);
+      pagination.pageNow = data.pageNow;
+      pagination.count = data.count;
+      pagination.pageLast = data.pageLast;
+      pagination.limit = data.limit;
+      console.log(data);
+      console.log(pagination);
+
+      kamarList.value = reformatList(data.data_payment);
 
       // console.log(test);
     };
@@ -353,7 +416,10 @@ export default {
       deleteModal.name = kamar.name;
       // console.log("delete");
     };
-
+    const handlePageChange = (page) => {
+      // fetchKamar("", page, pagination.limit);
+      console.log("page", page);
+    };
     const handleSearch = async (searchValue) => {
       if (searchValue === "") {
         fetchKamar();
@@ -396,6 +462,8 @@ export default {
       handleCreateSubmit,
       handleDelete,
       handleSearch,
+      handlePageChange,
+      pagination,
     };
   },
 };

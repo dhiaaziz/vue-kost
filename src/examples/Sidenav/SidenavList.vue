@@ -83,19 +83,20 @@
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse nav-text="Pembayaran" :to="{ name: 'Pembayaran' }">
+        <sidenav-collapse nav-text="Tagihan" :to="{ name: 'Tagihan' }">
           <template #icon>
             <icon name="billing" />
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse nav-text="Tagihan" :to="{ name: 'Riwayat' }">
+        <sidenav-collapse nav-text="Pembayaran" :to="{ name: 'Pembayaran' }">
           <template #icon>
             <icon name="billing" />
           </template>
         </sidenav-collapse>
       </li>
+   
       <li class="mt-4 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"

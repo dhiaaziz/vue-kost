@@ -11,7 +11,7 @@ const getAll = async (search, page, limit) => {
     if(page < 1) page = 1;
     if (limit < 1) limit = 10;
     
-    let url = "/room/show-room";
+    let url = "/history/show-history";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
     // console.log("url: " + url);
@@ -21,17 +21,7 @@ const getAll = async (search, page, limit) => {
         build_id: build_id,
       },
     });
-    // console.log(response.data.data);
-    //push rooms from all bangunan
-    // let allRooms = [];
 
-    // response.data.data.forEach((room) => {
-    //   allRooms = [...allRooms, ...room.rooms];
-    // });
-
-    // console.log(allRooms);
-    // return allRooms;
-    
     return response.data.data
   } catch (error) {
     // console.log(error);
@@ -42,7 +32,7 @@ const getAll = async (search, page, limit) => {
 const create = async (data) => {
   try {
     console.log(data);
-    const response = await axios.post("/room/create-room", data, {
+    const response = await axios.post("/history/create-history", data, {
       headers: authHeader(),
     });
     return response.data;
@@ -53,7 +43,7 @@ const create = async (data) => {
 
 const edit = async (id, data) => {
   try {
-    const response = await axios.put("/room/update-room/" + id, data, {
+    const response = await axios.put("/history/update-history/" + id, data, {
       headers: authHeader(),
     });
     return response.data;
@@ -64,7 +54,7 @@ const edit = async (id, data) => {
 
 const destroy = async (id) => {
   try {
-    const response = await axios.delete("/room/delete-room/" + id, {
+    const response = await axios.delete("/history/delete-history/" + id, {
       headers: authHeader(),
     });
     return response.data;
