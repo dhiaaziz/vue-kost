@@ -113,6 +113,38 @@
             <icon name="dashboard" />
           </template>
         </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="History"
+          :to="{ name: 'History' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="Tetangga"
+          :to="{ name: 'Tetangga' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="User Profile"
+          :to="{ name: 'User Profile' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="User Dashboard"
+          :to="{ name: 'User Dashboard' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
       </li>
       <li class="nav-item">
         <sidenav-collapse nav-text="Tables" :to="{ name: 'Tables' }">

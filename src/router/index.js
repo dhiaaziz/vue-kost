@@ -9,6 +9,10 @@ import SignIn from "@/views/SignIn.vue";
 import SignUp from "@/views/SignUp.vue";
 
 import UserPage from "@/views/User/UserExample.vue";
+import historyUser from "@/views/User/history/index.vue";
+import tetanggaUser from "@/views/User/tetangga/index.vue";
+import profileUser from "@/views/User/profile/index.vue";
+import dashboardUser from "@/views/User/dashboard/index.vue";
 import DashboardKos from "@/views/Admin/Dashboard.vue";
 
 import store from "@/store";
@@ -111,6 +115,26 @@ const routes = [
     path: "/user-example",
     name: "User Example",
     component: UserPage,
+  },
+  {
+    path: "/user-history",
+    name: "History",
+    component: historyUser,
+  },
+  {
+    path: "/user-tetangga",
+    name: "Tetangga",
+    component: tetanggaUser,
+  },
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    component: profileUser,
+  },
+  {
+    path: "/user-dashboard",
+    name: "User Dashboard",
+    component: dashboardUser,
   },
   // Route Kamar
   {
