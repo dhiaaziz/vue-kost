@@ -135,7 +135,7 @@ import PaketApi from "@/api/paket.js";
 import dateFormatter from "@/utils/dateFormatter";
 
 import { onMounted, reactive, ref } from "vue";
-import ModalComponent from "../shared/ModalComponent.vue";
+import ModalComponent from "@/views/components/shared/ModalComponent.vue";
 
 export default {
   name: "PaketTable",
@@ -163,9 +163,10 @@ export default {
       });
     };
 
-    const fetchKamar = async () => {
+    const fetchData = async () => {
       const data = await PaketApi.getAll();
-      itemList.value = reformatList(data);
+      console.log(data);
+      itemList.value = reformatList(data.data_package);
       // itemList.value = data;
       // console.log(test);
     };
@@ -199,7 +200,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchKamar();
+      await fetchData();
     });
     return {
       itemList,

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { compileScript } from "vue/compiler-sfc";
 import authHeader from "./_authHeader";
 
 const getAll = async () => {
@@ -16,11 +15,14 @@ const getAll = async () => {
 
 const getById = async (id) => {
   try {
-    const response = await axios.get(`/user/show-user?user_id=${id}`, {
+    // const response = await axios.get(`/user/show-user?user_id=${id}`, {
+    //   headers: authHeader(),
+    // });
+    const response = await axios.get(`/user/show-detail-user/${id}`, {
       headers: authHeader(),
     });
-    console.log(response.data.data[0]);
-    return response.data.data[0];
+    console.log(response.data.data);
+    return response.data.data;
   } catch (error) {
     console.log(error);
   }

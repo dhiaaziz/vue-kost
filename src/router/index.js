@@ -46,7 +46,7 @@ const IndexPembayaran = () => import("@/views/Admin/Pembayaran/IndexPembayaran.v
 const CreatePembayaran = () => import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
 
 const IndexTagihan = () => import("@/views/Admin/Tagihan/IndexTagihan.vue");
-const CreateTagihan = () => import("@/views/Admin/Tagihan/CreateTagihan.vue");
+// const CreateTagihan = () => import("@/views/Admin/Tagihan/CreateTagihan.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -214,11 +214,6 @@ const routes = [
     name: "Tagihan",
     component: IndexTagihan,
   },
-  {
-    path: "/tagihan/create",
-    name: "Input Tagihan",
-    component: CreateTagihan,
-  }
 ];
 
 const router = createRouter({

@@ -6,11 +6,11 @@ const build_id = 1;
 const getAll = async (search, page, limit) => {
   // console.log(authHeader());
   // console.log(search);
-  
+
   try {
-    if(page < 1) page = 1;
-    if (limit < 1) limit = 10;
-    
+    // if(page < 1) page = 1;
+    // if (limit < 1) limit = 10;
+
     let url = "/room/show-room";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
@@ -31,8 +31,8 @@ const getAll = async (search, page, limit) => {
 
     // console.log(allRooms);
     // return allRooms;
-    
-    return response.data.data
+
+    return response.data.data;
   } catch (error) {
     // console.log(error);
     // console.log("error")

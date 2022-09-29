@@ -6,10 +6,11 @@ const build_id = 1;
 const getAll = async (search, page, limit) => {
   // console.log(authHeader());
   // console.log(search);
+  // console.log('masuk');
   
   try {
-    if(page < 1) page = 1;
-    if (limit < 1) limit = 10;
+    // if(page < 1) page = 1;
+    // if (limit < 1) limit = 10;
     
     let url = "/history/show-history";
     url = url + "?page=" + page + "&limit=" + limit;

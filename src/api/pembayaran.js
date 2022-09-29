@@ -6,11 +6,11 @@ const build_id = 1;
 const getAll = async (search, page, limit) => {
   // console.log(authHeader());
   // console.log(search);
-  
+
   try {
-    if(page < 1) page = 1;
-    if (limit < 1) limit = 10;
-    
+    // if (page < 1) page = 1;
+    // if (limit < 1) limit = 10;
+
     let url = "/payment/show-payment";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
@@ -21,18 +21,18 @@ const getAll = async (search, page, limit) => {
         build_id: build_id,
       },
     });
-
-    return response.data.data
+    console.log(response.data);
+    return response.data.data;
   } catch (error) {
     // console.log(error);
     // console.log("error")
   }
 };
 
-const create = async (data) => {
+const create = async (data, type) => {
   try {
-    console.log(data);
-    const response = await axios.post("/payment/create-payment", data, {
+    console.log(data.payment);
+    const response = await axios.post("/payment/create-payment-" + type, data, {
       headers: authHeader(),
     });
     return response.data;

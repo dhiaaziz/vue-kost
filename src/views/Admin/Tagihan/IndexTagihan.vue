@@ -10,30 +10,15 @@
       >
         <span v-html="alert.message"></span>
       </vsud-alert>
-      <!-- 
-      <vsud-alert
-        :show="true"
-        :color="alert.color"
-        icon="ni ni-like-2 ni-lg"
-        dismissible
-      >
-        <span v-html="alert.message"></span>
-      </vsud-alert> -->
+    
     </Transition>
-    <!-- <Transition>
-      <p v-show="alert.show">test</p>
-    </Transition> -->
+
     <div class="row">
       <div class="col-12">
         <tagihan-table @alert-event="alertListener" />
       </div>
     </div>
-    <!-- <button @click="toggleTest">Toggle test</button> -->
-    <!-- <div class="row">
-      <div class="col-12">
-        <projects-table />
-      </div>
-    </div> -->
+  
   </div>
 </template>
 

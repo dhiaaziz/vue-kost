@@ -34,58 +34,32 @@
           <thead>
             <tr>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Kamar
               </th>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                  ps-2
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
                 Ukuran
               </th>
               <th
-                class="
-                  text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                  ps-2
-                "
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
                 Harga
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Status
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Dihuni Oleh
               </th>
               <th
-                class="
-                  text-center text-uppercase text-secondary text-xxs
-                  font-weight-bolder
-                  opacity-7
-                "
+                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
                 Dihuni Hingga
               </th>
@@ -137,12 +111,19 @@
                       v-if="kamar.start_kos"
                       class="d-flex flex-column justify-content-center"
                     >
-                      <a class="text-center" href="">
-                        <h6 class="mb-0 text-sm">John Michael</h6>
+                      <router-link
+                        :to="{
+                          name: 'Detail User',
+                          params: { id: kamar.user_id },
+                        }"
+                        class="text-center"
+                        href=""
+                      >
+                        <h6 class="mb-0 text-sm">{{ kamar.username }}</h6>
                         <p class="mb-0 text-xs text-secondary">
-                          john@creative-tim.com
+                          {{ kamar.email }}
                         </p>
-                      </a>
+                      </router-link>
                     </div>
                     <div
                       v-else
@@ -166,30 +147,14 @@
               <td class="align-middle d-flex align-items-center">
                 <router-link
                   :to="{ name: 'Edit Kamar', params: { id: kamar.room_id } }"
-                  class="
-                    px-2
-                    py-1
-                    mx-1
-                    my-0
-                    text-xs text-secondary
-                    font-weight-bold
-                  "
+                  class="px-2 py-1 mx-1 my-0 text-xs  text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit user"
                   >Edit</router-link
                 >
                 <a
                   href="javascript:;"
-                  class="
-                    px-2
-                    py-1
-                    mx-1
-                    my-0
-                    text-xs
-                    rounded-lg
-                    text-danger
-                    font-weight-bold
-                  "
+                  class="px-2 py-1 mx-1 my-0 text-xs rounded-lg  text-danger font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Delete user"
                   data-bs-toggle="modal"
@@ -334,6 +299,7 @@ import dateFormatter from "@/utils/dateFormatter";
 
 import SearchComponent from "@/views/components/shared/SearchComponent.vue";
 import PageComponent from "@/views/components/shared/PageComponent.vue";
+import ModalComponent from "@/views/components/shared/ModalComponent.vue";
 
 import { onMounted, reactive, ref } from "vue";
 
@@ -343,6 +309,7 @@ export default {
     VsudBadge,
     SearchComponent,
     PageComponent,
+    ModalComponent,
   },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
@@ -379,7 +346,7 @@ export default {
       });
     };
 
-    const fetchKamar = async (search = "", page = 1, limit = 3) => {
+    const fetchKamar = async (search, page, limit) => {
       let data;
       // console.log(search);
       if (!search) {
@@ -422,10 +389,10 @@ export default {
     };
     const handleSearch = async (searchValue) => {
       if (searchValue === "") {
-        fetchKamar();
+        fetchKamar(null, null, null);
       } else {
         // console.log(e.target.value);
-        fetchKamar(searchValue);
+        fetchKamar(searchValue, null, null);
       }
     };
 
@@ -452,7 +419,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchKamar();
+      await fetchKamar(null, null, null);
     });
     return {
       kamarList,
