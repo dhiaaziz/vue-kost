@@ -16,6 +16,7 @@
     tabindex="-1"
     :aria-labelledby="modalId + 'Label'"
     aria-hidden="true"
+    data-bs-backdrop="static"
   >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -61,6 +62,8 @@
 </template>
 
 <script>
+import 'bootstrap';
+
 export default {
   name: "ModalComponent",
   props: {

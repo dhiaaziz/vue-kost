@@ -92,7 +92,7 @@
               <h6 class="mt-4 text-lg text-dark">
                 <strong>Informasi Lainnya</strong>
               </h6>
-              <ul class="list-group" v-if="user.status === 'mahasiswa'">
+              <ul v-if="user.status === 'mahasiswa'" class="list-group">
                 <li class="text-sm border-0 list-group-item ps-0">
                   <strong class="text-dark">Universitas</strong> &nbsp;
                   <span class="text-capitalize">{{
@@ -112,7 +112,7 @@
                   <span class="text-capitalize">{{ user.generation }}</span>
                 </li>
               </ul>
-              <ul class="list-group" v-if="user.status === 'pekerja'">
+              <ul v-if="user.status === 'pekerja'" class="list-group">
                 <li class="text-sm border-0 list-group-item ps-0">
                   <strong class="text-dark">Tempat Bekerja</strong> &nbsp;
                   <span class="text-capitalize">{{ user.name_company }}</span>
@@ -216,11 +216,12 @@ export default {
 
     const fetchProfile = async () => {
       const data = await UserApi.getById(currentId);
-      Object.assign(user, data);
+      console.log(data);
+      Object.assign(user, data.dataUser);
       // user.image_ktp = "http://localhost:5000/image/ktp/default.jpg";
-      // user.image_ktp = "http://localhost:5000/image/ktp/" + user.image_ktp;
-      user.image_ktp =
-        "https://cdn-2.tstatic.net/jabar/foto/bank/images/foto-ktp-redi-alamsyah-merem-ternyata-editan-ini-faktanya.jpg";
+      user.image_ktp = "http://localhost:5000/image/ktp/" + user.image_ktp;
+      // user.image_ktp =
+      //   "https://cdn-2.tstatic.net/jabar/foto/bank/images/foto-ktp-redi-alamsyah-merem-ternyata-editan-ini-faktanya.jpg";
       user.image_profile =
         "http://localhost:5000/image/profile/" + user.image_profile;
       user.birth_date = dateFormatter(user.birth_date);

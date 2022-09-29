@@ -8,10 +8,10 @@ const getAll = async (search, page, limit) => {
   // console.log(search);
 
   try {
-    // if(page < 1) page = 1;
+    // if (page < 1) page = 1;
     // if (limit < 1) limit = 10;
 
-    let url = "/room/show-room";
+    let url = "/payment/show-payment";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
     // console.log("url: " + url);
@@ -21,17 +21,7 @@ const getAll = async (search, page, limit) => {
         build_id: build_id,
       },
     });
-    // console.log(response.data.data);
-    //push rooms from all bangunan
-    // let allRooms = [];
-
-    // response.data.data.forEach((room) => {
-    //   allRooms = [...allRooms, ...room.rooms];
-    // });
-
-    // console.log(allRooms);
-    // return allRooms;
-
+    console.log(response.data);
     return response.data.data;
   } catch (error) {
     // console.log(error);
@@ -39,10 +29,10 @@ const getAll = async (search, page, limit) => {
   }
 };
 
-const create = async (data) => {
+const create = async (data, type) => {
   try {
-    console.log(data);
-    const response = await axios.post("/room/create-room", data, {
+    console.log(data.payment);
+    const response = await axios.post("/payment/create-payment-" + type, data, {
       headers: authHeader(),
     });
     return response.data;
@@ -53,7 +43,7 @@ const create = async (data) => {
 
 const edit = async (id, data) => {
   try {
-    const response = await axios.put("/room/update-room/" + id, data, {
+    const response = await axios.put("/payment/update-payment/" + id, data, {
       headers: authHeader(),
     });
     return response.data;
@@ -64,7 +54,7 @@ const edit = async (id, data) => {
 
 const destroy = async (id) => {
   try {
-    const response = await axios.delete("/room/delete-room/" + id, {
+    const response = await axios.delete("/payment/delete-payment/" + id, {
       headers: authHeader(),
     });
     return response.data;

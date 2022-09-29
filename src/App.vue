@@ -63,3 +63,10 @@ export default {
   },
 };
 </script>
+
+<style>
+.vs__selected-options {
+  padding: 0 30px !important;
+  font-size: 14px !important;
+}
+</style>

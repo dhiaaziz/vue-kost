@@ -179,9 +179,9 @@ export default {
       });
     };
 
-    const fetchData = async () => {
-      const data = await UserApi.getAll();
-      itemList.value = reformatList(data);
+    const fetchData = async (search, page, limit) => {
+      const data = await UserApi.getAll(search, page, limit);
+      itemList.value = reformatList(data.data_user);
 
       // itemList.value = data;
       // console.log(test);
@@ -216,7 +216,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchData();
+      await fetchData(null, null, null);
     });
     return {
       itemList,

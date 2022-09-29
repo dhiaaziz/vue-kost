@@ -2,17 +2,18 @@
   <!-- <vsud-alert icon="ni ni-like-2 ni-lg" dismissible>
     <strong>Primary!</strong> This is a primary alert—check it out!
   </vsud-alert> -->
+  
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
-      <h6>Paket table</h6>
-      <div>
+      <h6>Tagihan table</h6>
+      <!-- <div>
         <router-link
-          :to="{ name: 'Input Paket' }"
+          :to="{ name: 'Input Tagihan' }"
           class="btn btn-sm btn-primary"
         >
-          Tambah Paket <span class="">+</span>
+          Tambah Tagihan <span class="">+</span>
         </router-link>
-      </div>
+      </div> -->
     </div>
     <div class="px-0 pt-0 pb-2 card-body">
       <div class="p-0 table-responsive">
@@ -22,55 +23,85 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                Nama
+                ID Tagihan
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Deskripsi
+                Email
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Durasi
+                Nama Kos
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Diskon
+                Ruangan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
+                Tagihan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
+                Kekurangan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
+                Berakhir Pada
               </th>
 
               <th class="text-secondary opacity-7"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in itemList" :key="item.id">
+            <tr v-for="item in itemList" :key="item.history_id">
               <td>
                 <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ item.name }}</p>
+                  <p class="mb-0 text-xs font-weight-bold">{{ item.history_id }}</p>
                 </div>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.description }}
+                  {{ item.email }}
                 </p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.duration }} bulan
+                  {{ item.build_name }}
                 </p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  <span v-if="item.discount > 0"
-                    >{{ item.discount }} bulan</span
+                  {{ item.room_name }}
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.total_price }}
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  <span v-if="item.deficiency > 0"
+                    >{{ item.deficiency }}</span
                   >
-                  <span v-else>-</span>
+                  <span v-else>{{item.deficiency}}</span>
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.end_kos }}
                 </p>
               </td>
               <td class="align-middle">
                 <router-link
-                  :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
+                  :to="{ name: 'Edit Bangunan', params: { id: item.history_id } }"
                   class="mx-2 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit Bangunan"
@@ -80,7 +111,7 @@
                   href="javascript:;"
                   class="mx-2 text-xs text-danger font-weight-bold"
                   data-toggle="tooltip"
-                  data-original-title="Delete user"
+                  data-original-title="Delete data"
                   data-bs-toggle="modal"
                   :data-bs-target="'#' + deleteModal.modalId"
                   @click="setDeleteData(item)"
@@ -96,10 +127,10 @@
 
   <modal-component
     :modal-id="deleteModal.modalId"
-    :modal-title="'Hapus Bangunan'"
+    :modal-title="'Hapus Tagihan'"
   >
     <template #modal-body>
-      <p>Apakah anda yakin ingin menghapus paket {{ deleteModal.name }}?</p>
+      <p>Apakah anda yakin ingin menghapus tagihan {{ deleteModal.name }}?</p>
     </template>
     <template #modal-footer>
       <button
@@ -130,15 +161,17 @@
 </template>
 
 <script>
-import PaketApi from "@/api/paket.js";
+import TagihanApi from "@/api/tagihan.js";
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
+import priceFormater from "@/utils/priceFormatter";
 
 import { onMounted, reactive, ref } from "vue";
 import ModalComponent from "@/views/components/shared/ModalComponent.vue";
+// import 'bootstrap';
 
 export default {
-  name: "PaketTable",
+  name: "TagihanTable",
   components: { ModalComponent },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
@@ -156,51 +189,82 @@ export default {
       modalId: "modalDelete",
     });
 
+    let pagination = reactive({
+      count: 0,
+      limit: 0,
+      pageLast: 0,
+      pageNow: 1,
+    });
+
     const reformatList = (list) => {
+      // console.log(list);
       return list.map((item) => {
-        item.created_at = dateFormatter(item.created_at);
+        // item.created_at = dateFormatter(item.created_at);
+        item.end_kos = dateFormatter(item.end_kos);
+        item.total_price = priceFormater(item.total_price);
+        item.deficiency = priceFormater(item.deficiency);
+
         return item;
       });
     };
 
-    const fetchData = async () => {
-      const data = await PaketApi.getAll();
-      console.log(data);
-      itemList.value = reformatList(data.data_package);
-      // itemList.value = data;
+    const fetchData = async (search = "", page = 1, limit = 10) => {
+      let data;
+      // console.log(search);
+      if (!search) {
+        data = await TagihanApi.getAll(null, page, limit);
+      } else if (search) {
+        data = await TagihanApi.getAll(search, page, limit);
+      }
+      if (!data) {
+        itemList.value = [];
+        return;
+      }
+      // console.log(data.data_payment);
+      pagination.pageNow = data.pageNow;
+      pagination.count = data.count;
+      pagination.pageLast = data.pageLast;
+      pagination.limit = data.limit;
+      // console.log(data);
+      // console.log(pagination);
+
+      itemList.value = reformatList(data.data_history);
+
       // console.log(test);
     };
 
-    const setDeleteData = (kamar) => {
-      deleteModal.id = kamar.id;
-      deleteModal.name = kamar.name;
+    const setDeleteData = (tagihan) => {
+      console.log(tagihan);
+      deleteModal.id = tagihan.history_id;
+      deleteModal.name = tagihan.history_id;
       // console.log("delete");
     };
 
     const handleDelete = async (id) => {
       // const data = await BangunanApi.destroy(id);
-      await PaketApi.destroy(id);
+      await TagihanApi.destroy(id);
 
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
         color: "success",
-        message: "Bangunan " + deletedObj.name + " berhasil dihapus",
+        message: "Tagihan " + deletedObj.history_id + " berhasil dihapus",
       });
       // console.log(data);
     };
     const removeFromList = (id) => {
-      let deletedObj = itemList.value.find((item) => item.id == id);
-      itemList.value = itemList.value.filter((item) => item.id !== id);
+      let deletedObj = itemList.value.find((item) => item.history_id == id);
+      itemList.value = itemList.value.filter((item) => item.history_id !== id);
       // console.log(deletedObj);
-      context.emit("alert-event", {
-        color: "success",
-        message: "Data Kamar berhasil diperbaharui",
-      });
+      // context.emit("alert-event", {
+      //   color: "success",
+      //   message: "Data Tagihan berhasil diperbaharui",
+      // });
       return deletedObj;
     };
 
     onMounted(async () => {
       await fetchData();
+      // console.log(bootstrap);
     });
     return {
       itemList,

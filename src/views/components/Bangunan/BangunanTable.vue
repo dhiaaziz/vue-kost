@@ -193,7 +193,7 @@ export default {
 
     const fetchKamar = async () => {
       const data = await BangunanApi.getAll();
-      itemList.value = reformatList(data);
+      itemList.value = reformatList(data.data_kamar);
       // itemList.value = data;
       // console.log(test);
     };

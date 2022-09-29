@@ -28,7 +28,7 @@ export default {
   name: "VsudInput",
   props: {
     modelValue: {
-      type: String,
+      type: [String, Number],
       default: "",
     },
     size: {

@@ -4,6 +4,14 @@
       {{ prev || next ? null : label }}
       <i v-if="prev" class="fa fa-angle-left"></i>
       <i v-if="next" class="fa fa-angle-right"></i>
+      <span v-if="first">
+        <i class="fa fa-angle-left"></i>
+        <i class="fa fa-angle-left"></i>
+      </span>
+      <span v-if="last">
+        <i class="fa fa-angle-right"></i>
+        <i class="fa fa-angle-right"></i>
+      </span>
     </a>
   </li>
 </template>
@@ -14,7 +22,7 @@ export default {
   props: {
     label: {
       type: String,
-      default: ""
+      default: "",
     },
     active: {
       type: Boolean,
@@ -29,6 +37,14 @@ export default {
       default: false,
     },
     next: {
+      type: Boolean,
+      default: false,
+    },
+    first: {
+      type: Boolean,
+      default: false,
+    },
+    last: {
       type: Boolean,
       default: false,
     },

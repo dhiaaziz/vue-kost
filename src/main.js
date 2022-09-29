@@ -18,10 +18,12 @@ import router from "./router";
 import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
 import SoftUIDashboard from "./soft-ui-dashboard";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
 import axios from "axios";
 import moment from "moment";
-import ModalComponent from "./views/components/shared/ModalComponent.vue";
+// import ModalComponent from "./views/components/shared/ModalComponent.vue";
 
 axios.interceptors.request.use((config) => {
   // config.baseURL = 'http://13.250.38.197:8800'
@@ -36,7 +38,8 @@ createApp(App)
   .use(SoftUIDashboard)
   .provide("$axios", axios)
   .provide("$moment", moment)
-  .component("ModalComponent", ModalComponent)
+  // .component("ModalComponent", ModalComponent)
+  .component("v-select", vSelect)
   .mount("#app");
 
 // app.provide("$axios", axios);

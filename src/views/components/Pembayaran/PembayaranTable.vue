@@ -4,13 +4,13 @@
   </vsud-alert> -->
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
-      <h6>Paket table</h6>
+      <h6>Pembayaran table</h6>
       <div>
         <router-link
-          :to="{ name: 'Input Paket' }"
+          :to="{ name: 'Input Pembayaran' }"
           class="btn btn-sm btn-primary"
         >
-          Tambah Paket <span class="">+</span>
+          Tambah pembayaran <span class="">+</span>
         </router-link>
       </div>
     </div>
@@ -22,60 +22,87 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
+                Id Tagihan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
                 Nama
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Deskripsi
+                Email
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Durasi
+                Tipe Pembayaran
               </th>
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
-                Diskon
+                Terbayar
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
+                Tanggal Bayar
               </th>
 
               <th class="text-secondary opacity-7"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in itemList" :key="item.id">
+            <tr v-for="item in itemList" :key="item.payment_id">
               <td>
                 <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ item.name }}</p>
+                  <p class="mb-0 text-xs font-weight-bold">
+                    {{ item.history_id }}
+                  </p>
                 </div>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.description }}
+                  {{ item.username }}
                 </p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.duration }} bulan
+                  {{ item.email }}
                 </p>
               </td>
               <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.type_payment }}
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.payment }}
+                </p>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ item.date }}
+                </p>
+              </td>
+              <!-- <td>
                 <p class="mb-0 text-xs font-weight-bold">
                   <span v-if="item.discount > 0"
                     >{{ item.discount }} bulan</span
                   >
                   <span v-else>-</span>
                 </p>
-              </td>
+              </td> -->
               <td class="align-middle">
-                <router-link
+                <!-- <router-link
                   :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
                   class="mx-2 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit Bangunan"
                   >Edit</router-link
-                >
+                > -->
                 <a
                   href="javascript:;"
                   class="mx-2 text-xs text-danger font-weight-bold"
@@ -99,7 +126,9 @@
     :modal-title="'Hapus Bangunan'"
   >
     <template #modal-body>
-      <p>Apakah anda yakin ingin menghapus paket {{ deleteModal.name }}?</p>
+      <p>
+        Apakah anda yakin ingin menghapus pembayaran {{ deleteModal.name }}?
+      </p>
     </template>
     <template #modal-footer>
       <button
@@ -130,20 +159,27 @@
 </template>
 
 <script>
-import PaketApi from "@/api/paket.js";
+import PembayaranApi from "@/api/pembayaran.js";
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
 import { onMounted, reactive, ref } from "vue";
-import ModalComponent from "@/views/components/shared/ModalComponent.vue";
+import priceFormater from "../../../utils/priceFormatter";
+import ModalComponent from "../shared/ModalComponent.vue";
 
 export default {
-  name: "PaketTable",
+  name: "PembayaranTable",
   components: { ModalComponent },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
   setup(props, context) {
     let itemList = ref([]);
+    let pagination = reactive({
+      count: 0,
+      limit: 0,
+      pageLast: 0,
+      pageNow: 1,
+    });
     let formCreate = reactive({
       name: "",
       size: "",
@@ -158,28 +194,45 @@ export default {
 
     const reformatList = (list) => {
       return list.map((item) => {
-        item.created_at = dateFormatter(item.created_at);
+        // item.created_at = dateFormatter(item.created_at);
+        item.date = dateFormatter(item.date);
+        item.payment = priceFormater(item.payment);
         return item;
       });
     };
 
-    const fetchData = async () => {
-      const data = await PaketApi.getAll();
+    const fetchData = async (search = "", page = 1, limit = 100) => {
+      let data;
+      // console.log(search);
+      if (!search) {
+        data = await PembayaranApi.getAll(null, page, limit);
+      } else if (search) {
+        data = await PembayaranApi.getAll(search, page, limit);
+      }
+      if (!data) {
+        itemList.value = [];
+        return;
+      }
+      // console.log(data.data_payment);
+      pagination.pageNow = data.pageNow;
+      pagination.count = data.count;
+      pagination.pageLast = data.pageLast;
+      pagination.limit = data.limit;
       console.log(data);
-      itemList.value = reformatList(data.data_package);
-      // itemList.value = data;
-      // console.log(test);
+      console.log(pagination);
+
+      itemList.value = reformatList(data.data_payment);
     };
 
-    const setDeleteData = (kamar) => {
-      deleteModal.id = kamar.id;
-      deleteModal.name = kamar.name;
+    const setDeleteData = (data) => {
+      deleteModal.id = data.id;
+      deleteModal.name = data.name;
       // console.log("delete");
     };
 
     const handleDelete = async (id) => {
       // const data = await BangunanApi.destroy(id);
-      await PaketApi.destroy(id);
+      await PembayaranApi.destroy(id);
 
       const deletedObj = removeFromList(id);
       context.emit("alert-event", {
@@ -194,7 +247,7 @@ export default {
       // console.log(deletedObj);
       context.emit("alert-event", {
         color: "success",
-        message: "Data Kamar berhasil diperbaharui",
+        message: "Data data berhasil diperbaharui",
       });
       return deletedObj;
     };
