@@ -191,8 +191,9 @@ export default {
       });
     };
 
-    const fetchKamar = async () => {
-      const data = await BangunanApi.getAll();
+    const fetchData = async (search, page, limit) => {
+      const data = await BangunanApi.getAll(search, page, limit);
+      console.log(data);
       itemList.value = reformatList(data.data_kamar);
       // itemList.value = data;
       // console.log(test);
@@ -227,7 +228,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchKamar();
+      await fetchData(null, null, null);
     });
     return {
       itemList,

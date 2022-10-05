@@ -136,7 +136,7 @@
 
           <div class="card-body">
             <!-- register-form -->
-            <form role="form">
+            <form role="form" @submit.prevent="handleRegister">
               <div class="mb-5 row">
                 <div class="mb-2 offset-lg-1">
                   <span class="text-lg"><strong>Biodata</strong></span>
@@ -145,6 +145,7 @@
                   <label>Nama</label>
                   <vsud-input
                     v-model="form.username"
+                    required
                     type="text"
                     placeholder="Rijal Fadhila"
                   />
@@ -153,6 +154,7 @@
                   <label>Agama</label>
                   <vsud-input
                     v-model="form.religion"
+                    required
                     type="text"
                     placeholder="Islam"
                   />
@@ -161,13 +163,14 @@
                   <label>Nama</label>
                   <vsud-input
                     v-model="form.birth_place"
+                    required
                     type="text"
                     placeholder="Kos Ijal"
                   />
                 </div>
                 <div class="mb-2 col-lg-5">
                   <label>Tanggal Lahir</label>
-                  <vsud-input v-model="form.birth_date" type="date" />
+                  <vsud-input v-model="form.birth_date" required type="date" />
                 </div>
                 <div class="offset-lg-1 col-lg-10">
                   <div class="form-group">
@@ -190,11 +193,11 @@
                 </div>
                 <div class="mb-2 offset-lg-1 col-lg-5">
                   <label>Telepon</label>
-                  <vsud-input v-model="form.contact" type="text" />
+                  <vsud-input v-model="form.contact" required type="text" />
                 </div>
                 <div class="mb-2 col-lg-5">
                   <label>Email</label>
-                  <vsud-input v-model="form.email" type="email" />
+                  <vsud-input v-model="form.email" required type="email" />
                 </div>
                 <!-- Kontak Darurat -->
                 <div class="mt-4 mb-2 offset-lg-1">
@@ -202,17 +205,25 @@
                 </div>
                 <div class="mb-2 offset-lg-1 col-lg-5">
                   <label>Telepon</label>
-                  <vsud-input v-model="form.emergency_contact" type="text" />
+                  <vsud-input
+                    v-model="form.emergency_contact"
+                    required
+                    type="text"
+                  />
                 </div>
                 <div class="mb-2 col-lg-5">
                   <label
                     >Hubungan (orangtua / saudara / teman / atau yang
                     lainnya)</label
                   >
-                  <vsud-input v-model="form.emergency_name" type="text" />
+                  <vsud-input
+                    v-model="form.emergency_name"
+                    required
+                    type="text"
+                  />
                 </div>
                 <!-- Informasi lainnya mahasiswa -->
-                <div class="offset-lg-1" v-if="form.status === 'mahasiswa'">
+                <div v-if="form.status === 'mahasiswa'" class="offset-lg-1">
                   <div class="row">
                     <div class="mt-4 mb-2">
                       <span class="text-lg"
@@ -221,24 +232,32 @@
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Universitas</label>
-                      <vsud-input v-model="form.name_university" type="text" />
+                      <vsud-input
+                        v-model="form.name_university"
+                        required
+                        type="text"
+                      />
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Jenjang</label>
-                      <vsud-input v-model="form.degree" type="text" />
+                      <vsud-input v-model="form.degree" required type="text" />
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Jurusan</label>
-                      <vsud-input v-model="form.major" type="text" />
+                      <vsud-input v-model="form.major" required type="text" />
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Angkatan</label>
-                      <vsud-input v-model="form.generation" type="text" />
+                      <vsud-input
+                        v-model="form.generation"
+                        required
+                        type="text"
+                      />
                     </div>
                   </div>
                 </div>
                 <!-- Informasi lainnya pekerja -->
-                <div class="offset-lg-1" v-if="form.status === 'pekerja'">
+                <div v-if="form.status === 'pekerja'" class="offset-lg-1">
                   <div class="row">
                     <div class="mt-4 mb-2">
                       <span class="text-lg"
@@ -247,7 +266,35 @@
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Tempat Bekerja</label>
-                      <vsud-input v-model="form.name_company" type="text" />
+                      <vsud-input
+                        v-model="form.name_company"
+                        required
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="offset-lg-1">
+                  <div class="row">
+                    <div class="mt-4 mb-2">
+                      <span class="text-lg"><strong>Foto</strong></span>
+                    </div>
+                    <div class="mb-2 col-lg-5">
+                      <label>Foto KTP</label>
+                      <vsud-input
+                        v-model="form.image_ktp"
+                        required
+                        :type="'file'"
+                      />
+                    </div>
+                    <div class="mb-2 col-lg-5">
+                      <label>Foto Profil</label>
+                      <vsud-input
+                        v-model="form.image_profile"
+                        required
+                        :type="'file'"
+                      />
                     </div>
                   </div>
                 </div>
@@ -255,7 +302,7 @@
         {{ form.birth_date }} -->
                 <!-- {{ form.status }} -->
               </div>
-              <div class="text-center">
+              <div class="text-center offset-lg-1 col-lg-10">
                 <vsud-button
                   color="dark"
                   full-width
@@ -285,7 +332,7 @@
 import Navbar from "@/examples/PageLayout/Navbar.vue";
 import AppFooter from "@/examples/PageLayout/Footer.vue";
 import VsudInput from "@/components/VsudInput.vue";
-import VsudCheckbox from "@/components/VsudCheckbox.vue";
+// import VsudCheckbox from "@/components/VsudCheckbox.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved6.jpg";
 import { reactive } from "@vue/reactivity";
@@ -295,7 +342,7 @@ export default {
     Navbar,
     AppFooter,
     VsudInput,
-    VsudCheckbox,
+    // VsudCheckbox,
     VsudButton,
   },
   // data() {
@@ -335,12 +382,19 @@ export default {
       ],
     });
 
+    const handleRegister = (e) => {
+      e.preventDefault();
+      console.log(form);
+    };
+
     return {
       bgImg,
       form,
       selectOptions,
+      handleRegister,
     };
   },
+
   created() {
     this.$store.state.hideConfigButton = true;
     this.$store.state.showNavbar = false;

@@ -41,6 +41,11 @@
               <th
                 class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
               >
+                Bangunan
+              </th>
+              <th
+                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+              >
                 Ukuran
               </th>
               <th
@@ -72,6 +77,11 @@
                 <div class="px-3 py-1 d-flex">
                   <p class="mb-0 text-xs font-weight-bold">{{ kamar.name }}</p>
                 </div>
+              </td>
+              <td>
+                <p class="mb-0 text-xs font-weight-bold">
+                  {{ kamar.build_name }}
+                </p>
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">{{ kamar.size }}</p>

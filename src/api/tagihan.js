@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./_authHeader";
 
-const build_id = 1;
+// const build_id = 1;
 
 const getAll = async (search, page, limit) => {
   // console.log(authHeader());
@@ -18,9 +18,9 @@ const getAll = async (search, page, limit) => {
     // console.log("url: " + url);
     const response = await axios.get(url, {
       headers: authHeader(),
-      data: {
-        build_id: build_id,
-      },
+      // data: {
+      //   build_id: build_id,
+      // },
     });
 
     return response.data.data

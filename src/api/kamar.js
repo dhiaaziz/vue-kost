@@ -39,6 +39,20 @@ const getAll = async (search, page, limit) => {
   }
 };
 
+const getByBangunanId = async (build_id, search, page, limit) => {
+  try {
+    let url = "/room/show-room";
+    url = url + "?page=" + page + "&limit=" + limit;
+    url = search ? url + `&name=${search}` : url;
+    url = url + `&build_id=${build_id}`;
+    const response = await axios.get(url, {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 const create = async (data) => {
   try {
     console.log(data);
@@ -75,6 +89,7 @@ const destroy = async (id) => {
 
 export default {
   getAll,
+  getByBangunanId,
   create,
   edit,
   destroy,

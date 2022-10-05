@@ -6,6 +6,14 @@
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Pembayaran table</h6>
       <div>
+        <button
+          class="btn btn-sm btn-secondary me-2"
+          data-original-title="Export to Excel"
+          data-bs-toggle="modal"
+          :data-bs-target="'#exportModal'"
+        >
+          Export ke Excel
+        </button>
         <router-link
           :to="{ name: 'Input Pembayaran' }"
           class="btn btn-sm btn-primary"
@@ -156,9 +164,42 @@
       </button>
     </template>
   </modal-component>
+
+  <!-- Modal Export -->
+  <modal-component :modal-id="'exportModal'" :modal-title="'Export ke Excel'">
+    <template #modal-body>
+      <p>Export data ke excel</p>
+    </template>
+    <template #modal-footer>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        @click="resetDeleteData"
+      >
+        Batal
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        :disabled="deleteModal.isLoading"
+        data-bs-dismiss="modal"
+        @click="handleExportXlsx()"
+      >
+        <span
+          v-if="deleteModal.isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span v-else>Export</span>
+      </button>
+    </template>
+  </modal-component>
 </template>
 
 <script>
+import { IP_BACKEND } from "@/config/ip.js";
 import PembayaranApi from "@/api/pembayaran.js";
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
@@ -241,6 +282,11 @@ export default {
       });
       // console.log(data);
     };
+
+    const handleExportXlsx = () => {
+      const href = IP_BACKEND + "/payment/export-xlsx?mode=all";
+      window.open(href, "_blank").focus();
+    };
     const removeFromList = (id) => {
       let deletedObj = itemList.value.find((item) => item.id == id);
       itemList.value = itemList.value.filter((item) => item.id !== id);
@@ -261,6 +307,7 @@ export default {
       deleteModal,
       setDeleteData,
       handleDelete,
+      handleExportXlsx,
     };
   },
 };
