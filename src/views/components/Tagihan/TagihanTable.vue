@@ -14,6 +14,14 @@
           Tambah Tagihan <span class="">+</span>
         </router-link>
       </div> -->
+      <div>
+        <router-link
+          :to="{ name: 'Input Tagihan' }"
+          class="btn btn-sm btn-primary"
+        >
+          Buat Tagihan Baru <span class="">+</span>
+        </router-link>
+      </div>
     </div>
     <div class="px-0 pt-0 pb-2 card-body">
       <div class="p-0 table-responsive">

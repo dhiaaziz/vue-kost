@@ -1,10 +1,10 @@
 <template>
-  <kamar-form @handle-submit="handleSubmit">
+  <pembayaran-form @handle-submit="handleSubmit">
     <template #input-detail>
-      <div class="mb-5 row">
+      <!-- <div class="mb-5 row">
         <div class="mb-2 offset-lg-1 col-lg-10">
           <label>Tipe Pembayaran</label>
-          <!-- {{ computedVSelect }} -->
+          {{ computedVSelect }}
           <select
             v-model="type_pembayaran"
             name="type_pembayaran"
@@ -14,7 +14,7 @@
             <option value="angsuran">Angsuran</option>
           </select>
         </div>
-      </div>
+      </div> -->
       <div v-if="type_pembayaran == 'dp'" class="mb-5 row">
         <div class="mb-2 offset-lg-1 col-lg-5">
           <label>Nama</label>
@@ -160,12 +160,12 @@
         </div>
       </div>
     </template>
-  </kamar-form>
+  </pembayaran-form>
 </template>
 
 <script>
 import VsudInput from "@/components/VsudInput.vue";
-import KamarForm from "@/views/components/shared/FormComponent.vue";
+import PembayaranForm from "@/views/components/shared/FormComponent.vue";
 
 // import KamarApi from "@/api/bangunan.js";
 // import BangunanApi from "@/api/bangunan.js";
@@ -180,11 +180,11 @@ import { useRouter } from "vue-router";
 export default {
   components: {
     VsudInput,
-    KamarForm,
+    PembayaranForm,
   },
   setup() {
     const router = useRouter();
-    const type_pembayaran = ref("dp");
+    const type_pembayaran = ref("angsuran");
     const includePast = ref(false);
     const form = reactive({
       name: "",

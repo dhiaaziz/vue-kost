@@ -31,13 +31,14 @@ const getAll = async (search, page, limit) => {
 
 const create = async (data, type) => {
   try {
-    console.log(data.payment);
+    console.log(type);
     const response = await axios.post("/payment/create-payment-" + type, data, {
       headers: authHeader(),
     });
     return response.data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
