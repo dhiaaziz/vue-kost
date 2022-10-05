@@ -39,12 +39,18 @@ const getAll = async (search, page, limit) => {
   }
 };
 
-const getByBangunanId = async (build_id, search, page, limit) => {
+const getByCriteria = async (objParams, search, page, limit) => {
   try {
     let url = "/room/show-room";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
-    url = url + `&build_id=${build_id}`;
+    // url = url + `&build_id=${build_id}`;
+    url = objParams.build_id ? url + `&build_id=${objParams.build_id}` : url;
+    url = objParams.start_date
+      ? url + `&start_date=${objParams.start_date}`
+      : url;
+    url = objParams.end_date ? url + `&end_date=${objParams.end_date}` : url;
+    console.log("url", url);
     const response = await axios.get(url, {
       headers: authHeader(),
     });
@@ -89,7 +95,7 @@ const destroy = async (id) => {
 
 export default {
   getAll,
-  getByBangunanId,
+  getByCriteria,
   create,
   edit,
   destroy,

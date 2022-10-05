@@ -24,7 +24,7 @@ import PembayaranTable from "@/views/components/Pembayaran/PembayaranTable.vue";
 import VsudAlert from "@/components/VsudAlert.vue";
 import { reactive } from "vue";
 export default {
-  name: "KamarPage",
+  name: "PembayaranPage",
   components: {
     // AuthorsTable,
     PembayaranTable,

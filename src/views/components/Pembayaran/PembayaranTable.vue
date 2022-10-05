@@ -131,12 +131,18 @@
 
   <modal-component
     :modal-id="deleteModal.modalId"
-    :modal-title="'Hapus Bangunan'"
+    :modal-title="'Hapus Pembayaran'"
   >
     <template #modal-body>
-      <p>
-        Apakah anda yakin ingin menghapus pembayaran {{ deleteModal.name }}?
-      </p>
+      <p>Detail Data:</p>
+      <ul>
+        <li>Id Tagihan: {{ deleteModal.history_id }}</li>
+        <li>Tanggal Bayar: {{ deleteModal.date }}</li>
+        <li>Email: {{ deleteModal.email }}</li>
+        <li>Name: {{ deleteModal.username }}</li>
+        <li>Name: {{ deleteModal.payment }}</li>
+      </ul>
+      <p>Apakah anda yakin ingin menghapus pembayaran dengan data tersebut?</p>
     </template>
     <template #modal-footer>
       <button
@@ -152,7 +158,7 @@
         class="btn btn-danger"
         :disabled="deleteModal.isLoading"
         data-bs-dismiss="modal"
-        @click="handleDelete(deleteModal.id)"
+        @click="handleDelete(deleteModal.payment_id)"
       >
         <span
           v-if="deleteModal.isLoading"
@@ -266,8 +272,16 @@ export default {
     };
 
     const setDeleteData = (data) => {
-      deleteModal.id = data.id;
-      deleteModal.name = data.name;
+      console.log(data);
+      Object.assign(deleteModal, data);
+      // deleteModal = {
+      //   ...data,
+      //   id: data.payment_id,
+      // };
+      deleteModal.id = data.payment_id;
+      // deleteModal.name = data.name;
+      deleteModal.name = `Tagihan ID: ${data.history_id} / Tanggal: ${data.date} / Tipe: ${data.type_payment} / Pembayaran: ${data.payment}`;
+
       // console.log("delete");
     };
 
@@ -288,8 +302,8 @@ export default {
       window.open(href, "_blank").focus();
     };
     const removeFromList = (id) => {
-      let deletedObj = itemList.value.find((item) => item.id == id);
-      itemList.value = itemList.value.filter((item) => item.id !== id);
+      let deletedObj = itemList.value.find((item) => item.payment_id == id);
+      itemList.value = itemList.value.filter((item) => item.payment_id !== id);
       // console.log(deletedObj);
       context.emit("alert-event", {
         color: "success",
@@ -299,7 +313,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchData();
+      await fetchData(null, null, null);
     });
     return {
       itemList,
