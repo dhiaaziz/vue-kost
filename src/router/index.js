@@ -21,11 +21,17 @@ const UserPage = () => import("@/views/User/UserExample.vue");
 // import DashboardKos from "@/views/Admin/Dashboard.vue";
 const DashboardKos = () => import("@/views/Admin/Dashboard.vue");
 
+// import UserPage from "@/views/User/UserExample.vue";
+import historyUser from "@/views/User/history/index.vue";
+import tetanggaUser from "@/views/User/tetangga/index.vue";
+import profileUser from "@/views/User/profile/index.vue";
+import dashboardUser from "@/views/User/dashboard/index.vue";
+// import DashboardKos from "@/views/Admin/Dashboard.vue";
 
 import store from "@/store";
 
 // lazyload
-const ContohComponent = () => import("@/views/Admin/ContohComponent.vue");
+// const ContohComponent = () => import("@/views/Admin/ContohComponent.vue");
 const IndexKamar = () => import("@/views/Admin/Kamar/IndexKamar.vue");
 const CreateKamar = () => import("@/views/Admin/Kamar/CreateKamar.vue");
 const EditKamar = () => import("@/views/Admin/Kamar/EditKamar.vue");
@@ -42,8 +48,10 @@ const EditUser = () => import("@/views/Admin/User/EditUser.vue");
 const IndexPaket = () => import("@/views/Admin/Paket/IndexPaket.vue");
 const CreatePaket = () => import("@/views/Admin/Paket/CreatePaket.vue");
 
-const IndexPembayaran = () => import("@/views/Admin/Pembayaran/IndexPembayaran.vue");
-const CreatePembayaran = () => import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
+const IndexPembayaran = () =>
+  import("@/views/Admin/Pembayaran/IndexPembayaran.vue");
+const CreatePembayaran = () =>
+  import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
 
 const IndexTagihan = () => import("@/views/Admin/Tagihan/IndexTagihan.vue");
 const CreateTagihan = () => import("@/views/Admin/Tagihan/CreateTagihan.vue");
@@ -128,6 +136,26 @@ const routes = [
     path: "/user-example",
     name: "User Example",
     component: UserPage,
+  },
+  {
+    path: "/user-history",
+    name: "History",
+    component: historyUser,
+  },
+  {
+    path: "/user-tetangga",
+    name: "Tetangga",
+    component: tetanggaUser,
+  },
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    component: profileUser,
+  },
+  {
+    path: "/user-dashboard",
+    name: "User Dashboard",
+    component: dashboardUser,
   },
   // Route Kamar
   {
