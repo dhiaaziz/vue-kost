@@ -93,7 +93,7 @@
           <v-select
             v-model="selectedKamar.v_select"
             :options="listKamarEmpty"
-            label="name"
+            label="room_full_info"
             :disabled="!canContinue"
           >
             <template #search="{ attributes, events }">
@@ -307,17 +307,30 @@ export default {
     const fetchKamar = async (search, page, limit) => {
       const response = await KamarApi.getAll(search, page, limit);
       listKamar.value = reformatList(response.data_payment);
+      listKamar.value = listKamar.value.map((kamar) => {
+        return {
+          ...kamar,
+          room_full_info: `${kamar.room_name} - ${kamar.room_type}`,
+        };
+      });
       // console.log(listKamar.value);
     };
 
-    const fetchKamarByBangunan = async (build_id, search, page, limit) => {
-      const response = await KamarApi.getByBangunanId(
-        build_id,
+    const fetchKamarByBangunan = async (objParams, search, page, limit) => {
+      const response = await KamarApi.getByCriteria(
+        objParams,
         search,
         page,
         limit
       );
-      listKamar.value = reformatList(response.data_payment);
+      console.log("ini", response);
+      listKamar.value = reformatList(response.data_room);
+      listKamar.value = listKamar.value.map((kamar) => {
+        return {
+          ...kamar,
+          room_full_info: `${kamar.build_name} / ${kamar.name} / ${kamar.price_reformat}`,
+        };
+      });
       // console.log(listKamar.value);
     };
 
@@ -357,6 +370,7 @@ export default {
     const computedVSelectBangunan = computed(() => {
       return selectedBangunan.v_select;
     });
+
     const canContinue = computed(() => {
       return (
         form.start_kos && selectedPaket.v_select && selectedBangunan.v_select
@@ -393,13 +407,23 @@ export default {
       if (computedVSelectBangunan.value) {
         Object.assign(selectedBangunan, computedVSelectBangunan.value);
         resetKamar();
-        await fetchKamarByBangunan(selectedBangunan.id, null, null, null);
+        await fetchKamarByBangunan(
+          {
+            build_id: selectedBangunan.id,
+            start_date: form.start_kos,
+            end_date: form.end_kos,
+          },
+          null,
+          null,
+          null
+        );
       }
     });
     watchEffect(() => {
       if (form.start_kos && computedVSelectPaket.value) {
         form.end_kos = moment(form.start_kos)
           .add(computedVSelectPaket.value.duration, "month")
+          .subtract(1, "days")
           .format("YYYY-MM-DD");
         console.log("end", form.end_kos);
       }

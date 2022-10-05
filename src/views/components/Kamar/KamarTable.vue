@@ -376,7 +376,7 @@ export default {
       console.log(data);
       console.log(pagination);
 
-      kamarList.value = reformatList(data.data_payment);
+      kamarList.value = reformatList(data.data_room);
 
       // console.log(test);
     };

@@ -2,7 +2,7 @@
   <!-- <vsud-alert icon="ni ni-like-2 ni-lg" dismissible>
     <strong>Primary!</strong> This is a primary alert—check it out!
   </vsud-alert> -->
-  
+
   <div class="mb-4 card">
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Tagihan table</h6>
@@ -71,7 +71,9 @@
             <tr v-for="item in itemList" :key="item.history_id">
               <td>
                 <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ item.history_id }}</p>
+                  <p class="mb-0 text-xs font-weight-bold">
+                    {{ item.history_id }}
+                  </p>
                 </div>
               </td>
               <td>
@@ -96,10 +98,8 @@
               </td>
               <td>
                 <p class="mb-0 text-xs font-weight-bold">
-                  <span v-if="item.deficiency > 0"
-                    >{{ item.deficiency }}</span
-                  >
-                  <span v-else>{{item.deficiency}}</span>
+                  <span v-if="item.deficiency > 0">{{ item.deficiency }}</span>
+                  <span v-else>{{ item.deficiency }}</span>
                 </p>
               </td>
               <td>
@@ -109,7 +109,10 @@
               </td>
               <td class="align-middle">
                 <router-link
-                  :to="{ name: 'Edit Bangunan', params: { id: item.history_id } }"
+                  :to="{
+                    name: 'Edit Bangunan',
+                    params: { id: item.history_id },
+                  }"
                   class="mx-2 text-xs text-secondary font-weight-bold"
                   data-toggle="tooltip"
                   data-original-title="Edit Bangunan"
@@ -216,7 +219,7 @@ export default {
       });
     };
 
-    const fetchData = async (search = "", page = 1, limit = 10) => {
+    const fetchData = async (search = "", page = "", limit = "") => {
       let data;
       // console.log(search);
       if (!search) {
@@ -271,7 +274,7 @@ export default {
     };
 
     onMounted(async () => {
-      await fetchData();
+      await fetchData(null, null, null);
       // console.log(bootstrap);
     });
     return {
