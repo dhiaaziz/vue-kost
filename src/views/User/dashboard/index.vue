@@ -402,7 +402,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .row div {
   margin: 5px 0px;
 }

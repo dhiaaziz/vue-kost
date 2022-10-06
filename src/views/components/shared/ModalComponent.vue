@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import 'bootstrap';
+import "bootstrap";
 
 export default {
   name: "ModalComponent",
@@ -91,9 +91,9 @@ export default {
   // &-dialog {
   //   max-width: 800px;
   // }
-  z-index: 10001;
+  z-index: 10001 !important;
 }
 .modal-backdrop {
-  z-index: 10000;
+  z-index: 10000 !important;
 }
 </style>

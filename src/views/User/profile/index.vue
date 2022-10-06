@@ -1,6 +1,9 @@
 <template>
   <div class="container-fluid">
-    <div class="mt-4 page-header min-height-200 border-radius-xl" :style="{ backgroundImage: `url(${bgImg})`, backgroundPositionY: '50%'}">
+    <div
+      class="mt-4 page-header min-height-200 border-radius-xl"
+      :style="{ backgroundImage: `url(${bgImg})`, backgroundPositionY: '50%' }"
+    >
       <span class="mask bg-gradient-success opacity-6"></span>
     </div>
     <div class="mx-4 overflow-hidden card card-body blur shadow-blur mt-n6">
@@ -8,9 +11,22 @@
         <div class="col-auto my-auto">
           <div class="avatar avatar-x position-relative">
             <a href="#/user-dashboard">
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="36"
+                height="36"
+                fill="currentColor"
+                class="bi bi-house"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
+                />
               </svg>
               <!-- <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
@@ -21,18 +37,28 @@
         </div>
         <div class="col-auto">
           <div class="avatar avatar-xl position-relative">
-            <img v-bind:src="'http://localhost:5000/image/profile/'+data.image_profile" alt="profile_image" class="shadow-sm w-100 border-radius-lg"/>
+            <img
+              v-bind:src="
+                'http://localhost:5000/image/profile/' + data.image_profile
+              "
+              alt="profile_image"
+              class="shadow-sm w-100 border-radius-lg"
+            />
           </div>
         </div>
         <div class="col-auto my-auto">
           <div class="h-100">
-            <h5 class="mb-1">{{data.username}}</h5>
-            <p class="mb-0 text-sm font-weight-bold">{{data.email}}</p>
+            <h5 class="mb-1">{{ data.username }}</h5>
+            <p class="mb-0 text-sm font-weight-bold">{{ data.email }}</p>
           </div>
         </div>
-        <div class="mx-auto mt-3 col-lg-3 col-md-6 my-sm-auto ms-sm-auto me-sm-0">
+        <div
+          class="mx-auto mt-3 col-lg-3 col-md-6 my-sm-auto ms-sm-auto me-sm-0"
+        >
           <div class="nav-wrapper position-relative end-0">
-            <p class="m-0 p-0 text-center">{{data.start_kos + ' - ' + data.end_kos}}</p>
+            <p class="p-0 m-0 text-center">
+              {{ data.start_kos + " - " + data.end_kos }}
+            </p>
             <!-- <ul class="p-1 bg-transparent nav nav-pills nav-fill" role="tablist">
               <li class="nav-item">
                 <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
@@ -62,104 +88,133 @@
     <div class="mt-3 row">
       <div class="mt-4 col-12 col-md-6 col-xl-7 mt-md-0">
         <div class="card h-100">
-          <div class="py-0 px-2 m-0 card-header">
+          <div class="px-2 py-0 m-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
                 <h6 class="mb-0">Profile</h6>
               </div>
               <div class="col-md-4 text-end">
                 <a href="javascript:;">
-                  <i class="text-sm fas fa-user-edit text-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                  <i
+                    class="text-sm fas fa-user-edit text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Edit Profile"
+                  ></i>
                 </a>
               </div>
             </div>
           </div>
-          <div class="py-0 px-4 card-body">
+          <div class="px-4 py-0 card-body">
             <ul class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Username:</strong> &nbsp; {{data.username}}
+                <strong class="text-dark">Username:</strong> &nbsp;
+                {{ data.username }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Email:</strong> &nbsp; {{data.email}}
+                <strong class="text-dark">Email:</strong> &nbsp;
+                {{ data.email }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Contact:</strong> &nbsp; {{data.contact}}
+                <strong class="text-dark">Contact:</strong> &nbsp;
+                {{ data.contact }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">NIK:</strong> &nbsp; {{data.nik}}
+                <strong class="text-dark">NIK:</strong> &nbsp; {{ data.nik }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Tempat, Tanggal Lahir:</strong> &nbsp; {{data.birth_place + ', ' + data.birth_date}}
+                <strong class="text-dark">Tempat, Tanggal Lahir:</strong> &nbsp;
+                {{ data.birth_place + ", " + data.birth_date }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Agama:</strong> &nbsp; {{data.religion}}
+                <strong class="text-dark">Agama:</strong> &nbsp;
+                {{ data.religion }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Jenis Kelamin:</strong> &nbsp; {{data.gender}}
+                <strong class="text-dark">Jenis Kelamin:</strong> &nbsp;
+                {{ data.gender }}
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="col-12 col-md-6 col-xl-5">
-        <div class="card" style="max-height:100%">
-          <div class="py-0 px-2 m-0 card-header">
+        <div class="card" style="max-height: 100%">
+          <div class="px-2 py-0 m-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
                 <h6 class="mb-0">Emegency</h6>
               </div>
               <div class="col-md-4 text-end">
                 <a href="javascript:;">
-                  <i class="text-sm fas fa-user-edit text-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                  <i
+                    class="text-sm fas fa-user-edit text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Edit Profile"
+                  ></i>
                 </a>
               </div>
             </div>
           </div>
-          <div class="py-0 px-4 card-body">
+          <div class="px-4 py-0 card-body">
             <ul class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Name:</strong> &nbsp; {{data.emergency_contact||'-'}}
+                <strong class="text-dark">Name:</strong> &nbsp;
+                {{ data.emergency_contact || "-" }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Contact:</strong> &nbsp; {{data.emergency_contact||'-'}}
+                <strong class="text-dark">Contact:</strong> &nbsp;
+                {{ data.emergency_contact || "-" }}
               </li>
             </ul>
           </div>
         </div>
-        <div class="card mt-2" style="max-height:100%">
-          <div class="py-0 px-2 m-0 card-header">
+        <div class="mt-2 card" style="max-height: 100%">
+          <div class="px-2 py-0 m-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
                 <h6 class="mb-0">Status</h6>
               </div>
               <div class="col-md-4 text-end">
                 <a href="javascript:;">
-                  <i class="text-sm fas fa-user-edit text-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Status"></i>
+                  <i
+                    class="text-sm fas fa-user-edit text-secondary"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Edit Status"
+                  ></i>
                 </a>
               </div>
             </div>
           </div>
-          <div class="py-0 px-4 card-body">
-            <ul v-if="data.status=='mahasiswa'" class="list-group">
+          <div class="px-4 py-0 card-body">
+            <ul v-if="data.status == 'mahasiswa'" class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Status:</strong> &nbsp; {{data.status}}
+                <strong class="text-dark">Status:</strong> &nbsp;
+                {{ data.status }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Universitas:</strong> &nbsp; {{data.name_university}}
+                <strong class="text-dark">Universitas:</strong> &nbsp;
+                {{ data.name_university }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Mata Kuliah:</strong> &nbsp; {{data.major}}
+                <strong class="text-dark">Mata Kuliah:</strong> &nbsp;
+                {{ data.major }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Gelar:</strong> &nbsp; {{data.degree}}
+                <strong class="text-dark">Gelar:</strong> &nbsp;
+                {{ data.degree }}
               </li>
             </ul>
             <ul v-else class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Status:</strong> &nbsp; {{data.status}}
+                <strong class="text-dark">Status:</strong> &nbsp;
+                {{ data.status }}
               </li>
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Perusahaan:</strong> &nbsp; {{data.name_company}}
+                <strong class="text-dark">Perusahaan:</strong> &nbsp;
+                {{ data.name_company }}
               </li>
             </ul>
           </div>
@@ -172,12 +227,11 @@
 <script>
 import { onMounted, onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import axios from "axios";
-axios.defaults.headers.common['token'] = await store.getters["auth/token"]
+axios.defaults.headers.common["token"] = await store.getters["auth/token"];
 import moment from "moment";
 import UserTable from "@/views/components/User/UserTable.vue";
 import VsudAlert from "@/components/VsudAlert.vue";
 import store from "../../../store";
-
 
 import VsudSwitch from "@/components/VsudSwitch.vue";
 import ProfileCard from "../../components/ProfileCard.vue";
@@ -196,13 +250,13 @@ export default {
   },
   setup() {
     const body = document.getElementsByTagName("body")[0];
-    let data = ref(store.getters["auth/user"])
+    let data = ref(store.getters["auth/user"]);
 
-    const user = store.getters["auth/user"]
-    console.log(user)
-    console.log(data)
-    const token = store.getters["auth/token"]
-    console.log(token)
+    const user = store.getters["auth/user"];
+    console.log(user);
+    console.log(data);
+    const token = store.getters["auth/token"];
+    console.log(token);
     const alert = reactive({
       show: false,
       icon: "",
@@ -221,20 +275,20 @@ export default {
       store.state.showSidenav = false;
       store.state.showFooter = false;
       body.classList.remove("bg-gray-100");
-    })
-    onBeforeUnmount(()=>{
+    });
+    onBeforeUnmount(() => {
       store.state.hideConfigButton = false;
       store.state.showNavbar = true;
       store.state.showSidenav = true;
       store.state.showFooter = true;
       body.classList.add("bg-gray-100");
-    })
-    onMounted(async() => {
-      try{
+    });
+    onMounted(async () => {
+      try {
         console.log("mounted");
-      }catch(err){
-        console.log('error')
-        console.log(err)
+      } catch (err) {
+        console.log("error");
+        console.log(err);
       }
     });
     return {
@@ -242,15 +296,15 @@ export default {
       alert,
       alertListener,
       bgImg,
-      data
+      data,
       // toggleTest,
     };
   },
 };
 </script>
 
-<style>
-  .row div{
-    margin: 5px 0px;
-  }
+<style scoped>
+.row div {
+  margin: 5px 0px;
+}
 </style>

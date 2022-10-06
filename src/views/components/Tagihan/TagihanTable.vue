@@ -178,12 +178,12 @@ import dateFormatter from "@/utils/dateFormatter";
 import priceFormater from "@/utils/priceFormatter";
 
 import { onMounted, reactive, ref } from "vue";
-import ModalComponent from "@/views/components/shared/ModalComponent.vue";
+// import ModalComponent from "@/views/components/shared/ModalComponent.vue";
 // import 'bootstrap';
 
 export default {
   name: "TagihanTable",
-  components: { ModalComponent },
+  // components: { ModalComponent },
   emits: ["alert-event"],
   // eslint-disable-next-line no-unused-vars
   setup(props, context) {
