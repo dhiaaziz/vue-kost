@@ -81,7 +81,7 @@
                   <thead>
                     <tr>
                       <th
-                        class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7 bg-gradient-secondary"
+                        class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
                       >
                         No
                       </th>

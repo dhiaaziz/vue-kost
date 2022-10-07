@@ -251,6 +251,11 @@ const routes = [
     name: "Input Tagihan",
     component: CreateTagihan,
   },
+  {
+    path: "/dt-example",
+    name: "DT Example",
+    component: () => import("@/views/Admin/DTExample.vue"),
+  },
 ];
 
 const router = createRouter({
