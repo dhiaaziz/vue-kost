@@ -69,4 +69,7 @@ export default {
   padding: 0 30px !important;
   font-size: 14px !important;
 }
+.vue3-easy-data-table__header th {
+  background-color: #eee !important;
+}
 </style>

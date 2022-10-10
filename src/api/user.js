@@ -18,7 +18,9 @@ const getById = async (id) => {
     // const response = await axios.get(`/user/show-user?user_id=${id}`, {
     //   headers: authHeader(),
     // });
-    const response = await axios.get(`/user/show-detail-user/${id}`, {
+
+    // const response = await axios.get(`/user/show-detail-user/${id}`, {
+    const response = await axios.get(`/user/show-user?user_id=${id}`, {
       headers: authHeader(),
     });
     // console.log(response.data.data);

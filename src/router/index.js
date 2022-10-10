@@ -51,14 +51,18 @@ const EditUser = () => import("@/views/Admin/User/EditUser.vue");
 
 const IndexPaket = () => import("@/views/Admin/Paket/IndexPaket.vue");
 const CreatePaket = () => import("@/views/Admin/Paket/CreatePaket.vue");
+const EditPaket = () => import("@/views/Admin/Paket/EditPaket.vue");
 
 const IndexPembayaran = () =>
   import("@/views/Admin/Pembayaran/IndexPembayaran.vue");
 const CreatePembayaran = () =>
   import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
+const EditPembayaran = () =>
+  import("@/views/Admin/Pembayaran/EditPembayaran.vue");
 
 const IndexTagihan = () => import("@/views/Admin/Tagihan/IndexTagihan.vue");
 const CreateTagihan = () => import("@/views/Admin/Tagihan/CreateTagihan.vue");
+const EditTagihan = () => import("@/views/Admin/Tagihan/EditTagihan.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -229,6 +233,11 @@ const routes = [
     name: "Input Pembayaran",
     component: CreatePembayaran,
   },
+  {
+    path: "/pembayaran/:id/edit",
+    name: "Edit Pembayaran",
+    component: EditPembayaran,
+  },
   //route package
   {
     path: "/paket",
@@ -240,6 +249,11 @@ const routes = [
     name: "Input Paket",
     component: CreatePaket,
   },
+  {
+    path: "/paket/:id/edit",
+    name: "Edit Paket",
+    component: EditPaket,
+  },
   //route tagihan
   {
     path: "/tagihan",
@@ -250,6 +264,11 @@ const routes = [
     path: "/tagihan/create",
     name: "Input Tagihan",
     component: CreateTagihan,
+  },
+  {
+    path: "/tagihan/:id/edit",
+    name: "Edit Tagihan",
+    component: EditTagihan,
   },
   {
     path: "/dt-example",

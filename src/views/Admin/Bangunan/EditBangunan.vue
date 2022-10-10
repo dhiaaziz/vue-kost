@@ -39,7 +39,18 @@ export default {
       name: "",
       address: "",
     });
-    const listBangunan = ref([]);
+    // const listBangunan = ref([]);
+
+    const fetchBangunan = async (id) => {
+      try {
+        const response = await BangunanApi.getById(id);
+        // listBangunan.value = response.data;
+        console.log(response);
+        Object.assign(form, response.data_kamar[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     const handleSubmit = async () => {
       const submittedData = await submitForm();
@@ -55,7 +66,14 @@ export default {
       return response;
     };
 
-    onMounted(async () => {});
+    onMounted(async () => {
+      const id = router.currentRoute.value.params.id;
+      console.log(id);
+      await fetchBangunan(id);
+      console.log(form);
+      // form.name = listBangunan.value.name;
+      // form.address = listBangunan.value.address;
+    });
 
     return {
       form,

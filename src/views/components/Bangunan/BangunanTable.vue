@@ -1,80 +1,69 @@
 <template>
-  <!-- <vsud-alert icon="ni ni-like-2 ni-lg" dismissible>
-    <strong>Primary!</strong> This is a primary alert—check it out!
-  </vsud-alert> -->
-  <div class="mb-4 card">
+  <!-- <span>search value: </span>
+  <input v-model="searchValue" type="text" /> -->
+
+  <div class="mb-4 me-2 card">
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Bangunan table</h6>
-      <div>
-        <router-link
-          :to="{ name: 'Input Bangunan' }"
-          class="btn btn-sm btn-primary"
-        >
-          Tambah Bangunan <span class="">+</span>
-        </router-link>
+    </div>
+    <!-- button and search section -->
+    <div class="pt-4 pb-3 container-fluid">
+      <div class="row justify-content-between">
+        <div class="col-md-4">
+          <div class="gap-2 d-grid d-md-block">
+            <router-link
+              :to="{ name: 'Input Bangunan' }"
+              class="btn btn-sm btn-primary"
+            >
+              Tambah Bangunan <span class="">+</span>
+            </router-link>
+          </div>
+        </div>
+        <div class="mt-4 mt-md-0 col-12 col-md-4">
+          <search-component
+            v-model="searchValue"
+            :placeholder="'Cari bangunan...'"
+            @search="handleSearch"
+          />
+        </div>
       </div>
     </div>
+    <!-- end-button and search section  -->
     <div class="px-0 pt-0 pb-2 card-body">
-      <div class="p-0 table-responsive">
-        <table class="table mb-0 align-items-center">
-          <thead>
-            <tr>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Nama
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Alamat
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Tanggal Dibuat
-              </th>
-
-              <th class="text-secondary opacity-7"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in itemList" :key="item.id">
-              <td>
-                <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ item.name }}</p>
-                </div>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ item.address }}</p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.created_at }}
-                </p>
-              </td>
-              <td class="align-middle">
-                <router-link
-                  :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
-                  class="mx-2 text-xs text-secondary font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Edit Bangunan"
-                  >Edit</router-link
-                >
-                <a
-                  href="javascript:;"
-                  class="mx-2 text-xs text-danger font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Delete user"
-                  data-bs-toggle="modal"
-                  :data-bs-target="'#' + deleteModal.modalId"
-                  @click="setDeleteData(item)"
-                  >Delete</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="px-4 pb-8 table-responsive">
+        <easy-data-table
+          class=""
+          show-index
+          buttons-pagination
+          :search-field="searchField"
+          :search-value="searchValue"
+          :headers="headers"
+          :items="itemList"
+          :loading="loading"
+        >
+          <template #loading>
+            <img
+              src="https://i.pinimg.com/originals/94/fd/2b/94fd2bf50097ade743220761f41693d5.gif"
+              style="width: 100px; height: 80px"
+            />
+          </template>
+          <template #item-actions="item">
+            <router-link
+              class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
+              :to="{ name: 'Edit Bangunan', params: { id: item.id } }"
+              >Edit
+            </router-link>
+            <a
+              class="px-3 py-1 mx-1 my-2 btn btn-danger btn-sm"
+              :data-bs-target="'#' + deleteModal.modalId"
+              data-toggle="tooltip"
+              data-original-title="Delete user"
+              data-bs-toggle="modal"
+              @click="setDeleteData(item)"
+              >Delete</a
+            >
+          </template>
+        </easy-data-table>
       </div>
     </div>
   </div>
@@ -112,131 +101,94 @@
       </button>
     </template>
   </modal-component>
-
-  <!-- Modal
-  <div
-    id="deleteModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="exampleModalLabel" class="modal-title">Hapus Kamar</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          Apakah anda yakin akan menghapus bangunan {{ deleteModal.name }}?
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Batal
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-            @click="handleDelete(deleteModal.id)"
-          >
-            Hapus
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
-<script>
-import BangunanApi from "@/api/bangunan.js";
+<script setup>
+import { ref, reactive, defineEmits } from "vue";
+
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
-import { onMounted, reactive, ref } from "vue";
-import ModalComponent from "../shared/ModalComponent.vue";
+import BangunanApi from "@/api/bangunan.js";
 
-export default {
-  name: "BangunanTable",
-  components: { ModalComponent },
-  emits: ["alert-event"],
-  // eslint-disable-next-line no-unused-vars
-  setup(props, context) {
-    let itemList = ref([]);
-    let formCreate = reactive({
-      name: "",
-      size: "",
-      price: "",
-    });
+const emit = defineEmits(["alert-event"]);
 
-    let deleteModal = reactive({
-      id: "",
-      name: "",
-      modalId: "modalDelete",
-    });
+const searchField = ref("");
+const searchValue = ref("");
+const itemList = ref([]);
+const loading = ref(true);
+let deleteModal = reactive({
+  id: "",
+  name: "",
+  modalId: "modalDelete",
+});
 
-    const reformatList = (list) => {
-      return list.map((item) => {
-        item.created_at = dateFormatter(item.created_at);
-        return item;
-      });
-    };
+const headers = [
+  { text: "NAMA", value: "name", sortable: true },
+  { text: "ALAMAT", value: "address", sortable: true },
+  { text: "ACTIONS", value: "actions", sortable: false },
+];
 
-    const fetchData = async (search, page, limit) => {
-      const data = await BangunanApi.getAll(search, page, limit);
-      console.log(data);
-      itemList.value = reformatList(data.data_kamar);
-      // itemList.value = data;
-      // console.log(test);
-    };
-
-    const setDeleteData = (kamar) => {
-      deleteModal.id = kamar.id;
-      deleteModal.name = kamar.name;
-      // console.log("delete");
-    };
-
-    const handleDelete = async (id) => {
-      // const data = await BangunanApi.destroy(id);
-      await BangunanApi.destroy(id);
-
-      const deletedObj = removeFromList(id);
-      context.emit("alert-event", {
-        color: "success",
-        message: "Bangunan " + deletedObj.name + " berhasil dihapus",
-      });
-      // console.log(data);
-    };
-    const removeFromList = (id) => {
-      let deletedObj = itemList.value.find((item) => item.id == id);
-      itemList.value = itemList.value.filter((item) => item.id !== id);
-      // console.log(deletedObj);
-      context.emit("alert-event", {
-        color: "success",
-        message: "Data Kamar berhasil diperbaharui",
-      });
-      return deletedObj;
-    };
-
-    onMounted(async () => {
-      await fetchData(null, null, null);
-    });
-    return {
-      itemList,
-      formCreate,
-      deleteModal,
-      setDeleteData,
-      handleDelete,
-    };
-  },
+const reformatList = (list) => {
+  return list.map((item) => {
+    item.created_at = dateFormatter(item.created_at);
+    return item;
+  });
 };
+
+const setDeleteData = (objData) => {
+  console.log(objData);
+  deleteModal.id = objData.id;
+  deleteModal.name = objData.name;
+  // console.log("delete");
+};
+const handleDelete = async (id) => {
+  // const data = await BangunanApi.destroy(id);
+  await BangunanApi.destroy(id);
+
+  const deletedObj = removeFromList(id);
+  emit("alert-event", {
+    color: "success",
+    message: "Bangunan " + deletedObj.name + " berhasil dihapus",
+  });
+  fetchData();
+  // console.log(data);
+};
+const removeFromList = (id) => {
+  let deletedObj = itemList.value.find((item) => item.id == id);
+  // itemList.value = itemList.value.filter((item) => item.id !== id);
+  // console.log(deletedObj);
+  // emit("alert-event", {
+  //   color: "success",
+  //   message: "Data Kamar berhasil diperbaharui",
+  // });
+  return deletedObj;
+};
+const handleSearch = async (search) => {
+  searchValue.value = search;
+  // if (searchValue === "") {
+  //   fetchData(null, null, null);
+  // } else {
+  //   // console.log(e.target.value);
+  //   fetchData(searchValue, null, null);
+  // }
+};
+
+const fetchData = async (search, page, limit) => {
+  loading.value = true;
+  const data = await BangunanApi.getAll(search, page, limit);
+  // console.log(data);
+  itemList.value = reformatList(data.data_kamar);
+
+  loading.value = false;
+  // itemList.value = data;
+  // console.log(test);
+};
+fetchData();
 </script>
+
+<style>
+.vue3-easy-data-table__header th {
+  background-color: #eee !important;
+}
+</style>

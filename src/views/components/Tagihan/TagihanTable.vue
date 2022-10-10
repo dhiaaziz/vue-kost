@@ -1,137 +1,104 @@
 <template>
-  <!-- <vsud-alert icon="ni ni-like-2 ni-lg" dismissible>
-    <strong>Primary!</strong> This is a primary alert—check it out!
-  </vsud-alert> -->
+  <!-- <span>search value: </span>
+  <input v-model="searchValue" type="text" /> -->
 
-  <div class="mb-4 card">
+  <div class="mb-4 me-2 card">
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Tagihan table</h6>
-      <!-- <div>
-        <router-link
-          :to="{ name: 'Input Tagihan' }"
-          class="btn btn-sm btn-primary"
-        >
-          Tambah Tagihan <span class="">+</span>
-        </router-link>
-      </div> -->
-      <div>
-        <router-link
-          :to="{ name: 'Input Tagihan' }"
-          class="btn btn-sm btn-primary"
-        >
-          Buat Tagihan Baru <span class="">+</span>
-        </router-link>
+    </div>
+    <!-- button and search section -->
+    <div class="pt-4 pb-3 container-fluid">
+      <div class="row justify-content-between">
+        <div class="col-md-4">
+          <div class="gap-2 d-grid d-md-block">
+            <router-link
+              :to="{ name: 'Input Tagihan' }"
+              class="btn btn-sm btn-primary"
+            >
+              Tambah Tagihan <span class="">+</span>
+            </router-link>
+          </div>
+        </div>
+        <div class="mt-4 mt-md-0 col-12 col-md-4">
+          <search-component
+            v-model="searchValue"
+            :placeholder="'Cari Tagihan...'"
+            @search="handleSearch"
+          />
+        </div>
       </div>
     </div>
+    <!-- end-button and search section  -->
     <div class="px-0 pt-0 pb-2 card-body">
-      <div class="p-0 table-responsive">
-        <table class="table mb-0 align-items-center">
-          <thead>
-            <tr>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                ID Tagihan
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Email
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Nama Kos
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Ruangan
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Tagihan
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Kekurangan
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Berakhir Pada
-              </th>
+      <div class="px-4 pb-8 table-responsive">
+        <easy-data-table
+          class=""
+          show-index
+          buttons-pagination
+          :search-field="searchField"
+          :search-value="searchValue"
+          :headers="headers"
+          :items="itemList"
+          :loading="loading"
+        >
+          <template #loading>
+            <img
+              src="https://i.pinimg.com/originals/94/fd/2b/94fd2bf50097ade743220761f41693d5.gif"
+              style="width: 100px; height: 80px"
+            />
+          </template>
+          <template #item-start_kos="{ start_kos, end_kos }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ start_kos }} - {{ end_kos }}
+            </span>
+          </template>
+          <template #item-total_price="{ total_price_reformat }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ total_price_reformat }}
+            </span>
+          </template>
+          <template #item-deficiency="{ deficiency_reformat }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ deficiency_reformat }}
+            </span>
+          </template>
 
-              <th class="text-secondary opacity-7"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in itemList" :key="item.history_id">
-              <td>
-                <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">
-                    {{ item.history_id }}
-                  </p>
-                </div>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.email }}
-                </p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.build_name }}
-                </p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.room_name }}
-                </p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.total_price }}
-                </p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  <span v-if="item.deficiency > 0">{{ item.deficiency }}</span>
-                  <span v-else>{{ item.deficiency }}</span>
-                </p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ item.end_kos }}
-                </p>
-              </td>
-              <td class="align-middle">
-                <router-link
-                  :to="{
-                    name: 'Edit Bangunan',
-                    params: { id: item.history_id },
-                  }"
-                  class="mx-2 text-xs text-secondary font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Edit Bangunan"
-                  >Edit</router-link
-                >
-                <a
-                  href="javascript:;"
-                  class="mx-2 text-xs text-danger font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Delete data"
-                  data-bs-toggle="modal"
-                  :data-bs-target="'#' + deleteModal.modalId"
-                  @click="setDeleteData(item)"
-                  >Delete</a
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <template #item-actions="item">
+            <!-- <router-link
+              class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
+              :to="{ name: 'Edit Tagihan', params: { id: item.id } }"
+              >Edit
+            </router-link> -->
+            <!-- <router-link
+              v-if="item.status !== 'admin'"
+              :to="{ name: 'Detail Tagihan', params: { id: item.id } }"
+              class="px-3 py-1 mx-1 my-2 btn btn-info btn-sm"
+              data-toggle="tooltip"
+              data-original-title="Edit Bangunan"
+              >Detail</router-link
+            > -->
+            <router-link
+              v-if="item.status !== 'admin'"
+              :to="{ name: 'Edit Tagihan', params: { id: item.history_id } }"
+              class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
+              data-toggle="tooltip"
+              data-original-title="Edit Bangunan"
+              >Edit</router-link
+            >
+            <a
+              class="px-3 py-1 mx-1 my-2 btn btn-danger btn-sm"
+              :data-bs-target="'#' + deleteModal.modalId"
+              data-toggle="tooltip"
+              data-original-title="Delete user"
+              data-bs-toggle="modal"
+              @click="setDeleteData(item)"
+              >Delete</a
+            >
+          </template>
+        </easy-data-table>
       </div>
     </div>
   </div>
@@ -171,119 +138,103 @@
   </modal-component>
 </template>
 
-<script>
-import TagihanApi from "@/api/tagihan.js";
+<script setup>
+import { ref, reactive, defineEmits } from "vue";
+
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
+
+import TagihanApi from "@/api/tagihan.js";
 import priceFormater from "@/utils/priceFormatter";
 
-import { onMounted, reactive, ref } from "vue";
-// import ModalComponent from "@/views/components/shared/ModalComponent.vue";
-// import 'bootstrap';
+const emit = defineEmits(["alert-event"]);
 
-export default {
-  name: "TagihanTable",
-  // components: { ModalComponent },
-  emits: ["alert-event"],
-  // eslint-disable-next-line no-unused-vars
-  setup(props, context) {
-    let itemList = ref([]);
-    let formCreate = reactive({
-      name: "",
-      size: "",
-      price: "",
-    });
+const searchField = ref("");
+const searchValue = ref("");
+const itemList = ref([]);
+const loading = ref(true);
+let deleteModal = reactive({
+  id: "",
+  name: "",
+  modalId: "modalDelete",
+});
 
-    let deleteModal = reactive({
-      id: "",
-      name: "",
-      modalId: "modalDelete",
-    });
+const headers = [
+  { text: "ID TAGIHAN", value: "history_id", sortable: true },
+  { text: "EMAIL", value: "email", sortable: true },
+  { text: "NAMA KOS", value: "build_name", sortable: true },
+  { text: "RUANGAN", value: "room_name", sortable: true },
+  { text: "TAGIHAN", value: "total_price", sortable: true },
+  { text: "KEKURANGAN", value: "deficiency", sortable: true },
+  { text: "TANGGAL PENEMPATAN", value: "start_kos", sortable: true },
+  { text: "ACTIONS", value: "actions", sortable: false },
+];
 
-    let pagination = reactive({
-      count: 0,
-      limit: 0,
-      pageLast: 0,
-      pageNow: 1,
-    });
-
-    const reformatList = (list) => {
-      // console.log(list);
-      return list.map((item) => {
-        // item.created_at = dateFormatter(item.created_at);
-        item.end_kos = dateFormatter(item.end_kos);
-        item.total_price = priceFormater(item.total_price);
-        item.deficiency = priceFormater(item.deficiency);
-
-        return item;
-      });
-    };
-
-    const fetchData = async (search = "", page = "", limit = "") => {
-      let data;
-      // console.log(search);
-      if (!search) {
-        data = await TagihanApi.getAll(null, page, limit);
-      } else if (search) {
-        data = await TagihanApi.getAll(search, page, limit);
-      }
-      if (!data) {
-        itemList.value = [];
-        return;
-      }
-      // console.log(data.data_payment);
-      pagination.pageNow = data.pageNow;
-      pagination.count = data.count;
-      pagination.pageLast = data.pageLast;
-      pagination.limit = data.limit;
-      // console.log(data);
-      // console.log(pagination);
-
-      itemList.value = reformatList(data.data_history);
-
-      // console.log(test);
-    };
-
-    const setDeleteData = (tagihan) => {
-      console.log(tagihan);
-      deleteModal.id = tagihan.history_id;
-      deleteModal.name = tagihan.history_id;
-      // console.log("delete");
-    };
-
-    const handleDelete = async (id) => {
-      // const data = await BangunanApi.destroy(id);
-      await TagihanApi.destroy(id);
-
-      const deletedObj = removeFromList(id);
-      context.emit("alert-event", {
-        color: "success",
-        message: "Tagihan " + deletedObj.history_id + " berhasil dihapus",
-      });
-      // console.log(data);
-    };
-    const removeFromList = (id) => {
-      let deletedObj = itemList.value.find((item) => item.history_id == id);
-      itemList.value = itemList.value.filter((item) => item.history_id !== id);
-      // console.log(deletedObj);
-      // context.emit("alert-event", {
-      //   color: "success",
-      //   message: "Data Tagihan berhasil diperbaharui",
-      // });
-      return deletedObj;
-    };
-
-    onMounted(async () => {
-      await fetchData(null, null, null);
-      // console.log(bootstrap);
-    });
-    return {
-      itemList,
-      formCreate,
-      deleteModal,
-      setDeleteData,
-      handleDelete,
-    };
-  },
+const reformatList = (list) => {
+  return list.map((item) => {
+    // item.created_at = dateFormatter(item.created_at);
+    item.total_price_reformat = priceFormater(item.total_price);
+    item.deficiency_reformat = priceFormater(item.deficiency);
+    item.start_kos = dateFormatter(item.start_kos);
+    item.end_kos = dateFormatter(item.end_kos);
+    return item;
+  });
 };
+
+const setDeleteData = (objData) => {
+  console.log(objData);
+  deleteModal.id = objData.history_id;
+  deleteModal.name = objData.history_id;
+  // console.log("delete");
+};
+const handleDelete = async (id) => {
+  // const data = await TagihanApi.destroy(id);
+  await TagihanApi.destroy(id);
+
+  const deletedObj = removeFromList(id);
+  emit("alert-event", {
+    color: "success",
+    message:
+      "Tagihan dengan ID: " + deletedObj.history_id + " berhasil dihapus",
+  });
+  fetchData("", "", "");
+  // console.log(data);
+};
+const removeFromList = (id) => {
+  let deletedObj = itemList.value.find((item) => item.history_id == id);
+  // itemList.value = itemList.value.filter((item) => item.id !== id);
+  // console.log(deletedObj);
+  // emit("alert-event", {
+  //   color: "success",
+  //   message: "Data Kamar berhasil diperbaharui",
+  // });
+  return deletedObj;
+};
+const handleSearch = async (search) => {
+  searchValue.value = search;
+  // if (searchValue === "") {
+  //   fetchData(null, null, null);
+  // } else {
+  //   // console.log(e.target.value);
+  //   fetchData(searchValue, null, null);
+  // }
+};
+
+const fetchData = async (search, page, limit) => {
+  loading.value = true;
+  const data = await TagihanApi.getAll(search, page, limit);
+  console.log(data);
+  itemList.value = reformatList(data.data_history);
+
+  loading.value = false;
+  // itemList.value = data;
+  // console.log(test);
+};
+fetchData("", "", "");
 </script>
+
+<style>
+.vue3-easy-data-table__header th {
+  background-color: #eee !important;
+}
+</style>
