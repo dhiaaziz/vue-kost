@@ -38,6 +38,16 @@ const getAll = async (search, page, limit) => {
     // console.log("error")
   }
 };
+const getById = async (id) => {
+  try {
+    const response = await axios.get("/room/show-room?room_id=" + id, {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const getByCriteria = async (objParams, search, page, limit) => {
   try {
@@ -96,6 +106,7 @@ const destroy = async (id) => {
 export default {
   getAll,
   getByCriteria,
+  getById,
   create,
   edit,
   destroy,

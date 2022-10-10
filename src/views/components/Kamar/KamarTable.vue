@@ -1,8 +1,8 @@
 <template>
-  <!-- <vsud-alert icon="ni ni-like-2 ni-lg" dismissible>
-    <strong>Primary!</strong> This is a primary alert—check it out!
-  </vsud-alert> -->
-  <div class="mb-4 card">
+  <!-- <span>search value: </span>
+  <input v-model="searchValue" type="text" /> -->
+
+  <div class="mb-4 me-2 card">
     <div class="pb-0 card-header d-flex justify-content-between">
       <h6>Kamar table</h6>
     </div>
@@ -21,7 +21,8 @@
         </div>
         <div class="mt-4 mt-md-0 col-12 col-md-4">
           <search-component
-            :placeholder="'Cari kamar...'"
+            v-model="searchValue"
+            :placeholder="'Cari Kamar...'"
             @search="handleSearch"
           />
         </div>
@@ -29,176 +30,82 @@
     </div>
     <!-- end-button and search section  -->
     <div class="px-0 pt-0 pb-2 card-body">
-      <div class="p-0 table-responsive">
-        <table class="table mb-0 align-items-center">
-          <thead>
-            <tr>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Kamar
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Bangunan
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Ukuran
-              </th>
-              <th
-                class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-              >
-                Harga
-              </th>
-              <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Status
-              </th>
-              <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Dihuni Oleh
-              </th>
-              <th
-                class="text-center  text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-              >
-                Dihuni Hingga
-              </th>
-              <th class="text-secondary opacity-7"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="kamar in kamarList" :key="kamar.room_id">
-              <td>
-                <div class="px-3 py-1 d-flex">
-                  <p class="mb-0 text-xs font-weight-bold">{{ kamar.name }}</p>
-                </div>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">
-                  {{ kamar.build_name }}
-                </p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ kamar.size }}</p>
-              </td>
-              <td>
-                <p class="mb-0 text-xs font-weight-bold">{{ kamar.price }}</p>
-              </td>
-              <td class="text-sm text-center align-middle">
-                <vsud-badge
-                  v-if="!kamar.start_kos"
-                  color="success"
-                  variant="gradient"
-                  size="sm"
-                  >Tersedia</vsud-badge
-                >
-                <vsud-badge
-                  v-else
-                  color="secondary"
-                  variant="gradient"
-                  size="sm"
-                  >Dihuni</vsud-badge
-                >
-              </td>
-              <td class="align-middle">
-                <div class="px-2 py-1 align-items-center flex-column d-flex">
-                  <div class="px-2 py-1 d-flex justify-content-center">
-                    <!-- <div>
-                      <vsud-avatar
-                        :img="img1"
-                        size="sm"
-                        border-radius="lg"
-                        class="me-3"
-                        alt="user1"
-                      />
-                    </div> -->
-                    <div
-                      v-if="kamar.start_kos"
-                      class="d-flex flex-column justify-content-center"
-                    >
-                      <router-link
-                        :to="{
-                          name: 'Detail User',
-                          params: { id: kamar.user_id },
-                        }"
-                        class="text-center"
-                        href=""
-                      >
-                        <h6 class="mb-0 text-sm">{{ kamar.username }}</h6>
-                        <p class="mb-0 text-xs text-secondary">
-                          {{ kamar.email }}
-                        </p>
-                      </router-link>
-                    </div>
-                    <div
-                      v-else
-                      class="d-flex flex-column justify-content-center"
-                    >
-                      -
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-center align-middle">
-                <span
-                  v-if="kamar.end_kos"
-                  class="text-xs text-secondary font-weight-bold"
-                  >{{ kamar.end_kos }}</span
-                >
-                <span v-else class="text-xs text-secondary font-weight-bold">
-                  -
-                </span>
-              </td>
-              <td class="align-middle d-flex align-items-center">
-                <router-link
-                  :to="{ name: 'Edit Kamar', params: { id: kamar.room_id } }"
-                  class="px-2 py-1 mx-1 my-0 text-xs  text-secondary font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Edit user"
-                  >Edit</router-link
-                >
-                <a
-                  href="javascript:;"
-                  class="px-2 py-1 mx-1 my-0 text-xs rounded-lg  text-danger font-weight-bold"
-                  data-toggle="tooltip"
-                  data-original-title="Delete user"
-                  data-bs-toggle="modal"
-                  :data-bs-target="'#' + deleteModal.modalId"
-                  @click="setDeleteData(kamar)"
-                  >Delete</a
-                >
-              </td>
-            </tr>
-            <tr v-if="kamarList.length == 0">
-              <td colspan="7" class="text-center">List kamar kosong</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="mt-3 pe-3 d-flex justify-content-between container-fluid">
-        <div>test</div>
-        <!-- {{ pagination }} -->
-        <page-component
-          :total="pagination.count"
-          :per-page="pagination.limit"
-          :current-page="pagination.pageNow"
-          :last-page="pagination.pageLast"
-          @page-change="handlePageChange"
-        />
+      <div class="px-4 pb-8 table-responsive">
+        <easy-data-table
+          class=""
+          show-index
+          buttons-pagination
+          :search-field="searchField"
+          :search-value="searchValue"
+          :headers="headers"
+          :items="itemList"
+          :loading="loading"
+        >
+          <template #loading>
+            <img
+              src="https://i.pinimg.com/originals/94/fd/2b/94fd2bf50097ade743220761f41693d5.gif"
+              style="width: 100px; height: 80px"
+            />
+          </template>
+          <template #item-start_kos="{ start_kos, end_kos }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ start_kos }} - {{ end_kos }}
+            </span>
+          </template>
+          <template #item-price="{ price_reformat }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ price_reformat }}
+            </span>
+          </template>
+          <template #item-deficiency="{ deficiency_reformat }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ deficiency_reformat }}
+            </span>
+          </template>
+
+          <template #item-actions="item">
+            <!-- <router-link
+              class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
+              :to="{ name: 'Edit Kamar', params: { id: item.id } }"
+              >Edit
+            </router-link> -->
+            <!-- <router-link
+              v-if="item.status !== 'admin'"
+              :to="{ name: 'Detail Kamar', params: { id: item.id } }"
+              class="px-3 py-1 mx-1 my-2 btn btn-info btn-sm"
+              data-toggle="tooltip"
+              data-original-title="Edit Bangunan"
+              >Detail</router-link
+            > -->
+            <router-link
+              v-if="item.status !== 'admin'"
+              :to="{ name: 'Edit Kamar', params: { id: item.room_id } }"
+              class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
+              data-toggle="tooltip"
+              data-original-title="Edit Kamar"
+              >Edit</router-link
+            >
+            <a
+              class="px-3 py-1 mx-1 my-2 btn btn-danger btn-sm"
+              :data-bs-target="'#' + deleteModal.modalId"
+              data-toggle="tooltip"
+              data-original-title="Delete user"
+              data-bs-toggle="modal"
+              @click="setDeleteData(item)"
+              >Delete</a
+            >
+          </template>
+        </easy-data-table>
       </div>
     </div>
   </div>
-  <modal-component
-    :modal-id="deleteModal.modalId"
-    :modal-title="'Hapus Bangunan'"
-  >
+
+  <modal-component :modal-id="deleteModal.modalId" :modal-title="'Hapus Kamar'">
     <template #modal-body>
-      <p>Apakah anda yakin ingin menghapus bangunan {{ deleteModal.name }}?</p>
+      <p>Apakah anda yakin ingin menghapus kamar {{ deleteModal.name }}?</p>
     </template>
     <template #modal-footer>
       <button
@@ -226,222 +133,108 @@
       </button>
     </template>
   </modal-component>
-
-  <!-- Modal Add -->
-  <!-- <div
-    id="createModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 id="exampleModalLabel" class="modal-title">Tambah Kamar</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form @submit.prevent>
-            <div class="mb-3">
-              <label for="inputNama" class="form-label">Nama Kamar</label>
-              <input
-                v-model="formCreate.name"
-                type="text"
-                class="form-control"
-                id="inputNama"
-              />
-              <div class="form-text">contoh: 101</div>
-            </div>
-            <div class="mb-3">
-              <label for="inputUkuran" class="form-label">Ukuran Kamar</label>
-              <input
-                v-model="formCreate.size"
-                type="text"
-                class="form-control"
-                id="inputUkuran"
-              />
-              <div class="form-text">contoh: 4x4</div>
-            </div>
-            <div class="mb-3">
-              <label for="inputUkuran" class="form-label">Harga</label>
-              <input
-                v-model="formCreate.price"
-                type="number"
-                class="form-control"
-                id="inputUkuran"
-              />
-              <div class="form-text">contoh: 700000</div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="handleCreateSubmit"
-          >
-            Tambah Kamar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
-<script>
-import VsudBadge from "@/components/VsudBadge.vue";
-import KamarApi from "@/api/kamar.js";
-import priceFormatter from "@/utils/priceFormatter";
+<script setup>
+import { ref, reactive, defineEmits } from "vue";
+
+// import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
-import SearchComponent from "@/views/components/shared/SearchComponent.vue";
-import PageComponent from "@/views/components/shared/PageComponent.vue";
-import ModalComponent from "@/views/components/shared/ModalComponent.vue";
+import KamarApi from "@/api/kamar.js";
+import priceFormater from "@/utils/priceFormatter";
 
-import { onMounted, reactive, ref } from "vue";
+const emit = defineEmits(["alert-event"]);
 
-export default {
-  name: "KamarTable",
-  components: {
-    VsudBadge,
-    SearchComponent,
-    PageComponent,
-    ModalComponent,
-  },
-  emits: ["alert-event"],
-  // eslint-disable-next-line no-unused-vars
-  setup(props, context) {
-    let kamarList = ref([]);
-    let pagination = reactive({
-      count: 0,
-      limit: 0,
-      pageLast: 0,
-      pageNow: 1,
-    });
-    let formCreate = reactive({
-      name: "",
-      size: "",
-      price: "",
-    });
+const searchField = ref("");
+const searchValue = ref("");
+const itemList = ref([]);
+const loading = ref(true);
+let deleteModal = reactive({
+  id: "",
+  name: "",
+  modalId: "modalDelete",
+});
 
-    let deleteModal = reactive({
-      id: "",
-      name: "",
-      modalId: "deleteModal",
-    });
+const headers = [
+  { text: "NAMA KOS", value: "build_name", sortable: true },
+  { text: "RUANGAN", value: "name", sortable: true },
+  { text: "UKURAN", value: "size", sortable: true },
+  { text: "HARGA", value: "price", sortable: true },
+  { text: "PENGHUNI", value: "username", sortable: true },
+  { text: "TANGGAL PENEMPATAN", value: "start_kos", sortable: true },
+  { text: "ACTIONS", value: "actions", sortable: false },
+];
 
-    const reformatList = (list) => {
-      return list.map((item) => {
-        if (item.start_kos) {
-          item.start_kos = dateFormatter(item.start_kos);
-        }
-        if (item.end_kos) {
-          item.end_kos = dateFormatter(item.end_kos);
-        }
-        item.price = priceFormatter(item.price);
-        return item;
-      });
-    };
-
-    const fetchKamar = async (search, page, limit) => {
-      let data;
-      // console.log(search);
-      if (!search) {
-        data = await KamarApi.getAll(null, page, limit);
-      } else if (search) {
-        data = await KamarApi.getAll(search, page, limit);
-      }
-      if (!data) {
-        kamarList.value = [];
-        return;
-      }
-      // console.log(data.data_payment);
-      pagination.pageNow = data.pageNow;
-      pagination.count = data.count;
-      pagination.pageLast = data.pageLast;
-      pagination.limit = data.limit;
-      console.log(data);
-      console.log(pagination);
-
-      kamarList.value = reformatList(data.data_room);
-
-      // console.log(test);
-    };
-
-    const handleCreateSubmit = async () => {
-      const data = await KamarApi.create(formCreate);
-      kamarList.value.push(data[0]);
-      formCreate.name = "";
-      formCreate.size = "";
-      formCreate.price = "";
-    };
-    const setDeleteData = (kamar) => {
-      deleteModal.id = kamar.room_id;
-      deleteModal.name = kamar.name;
-      // console.log("delete");
-    };
-    const handlePageChange = (page) => {
-      // fetchKamar("", page, pagination.limit);
-      console.log("page", page);
-    };
-    const handleSearch = async (searchValue) => {
-      if (searchValue === "") {
-        fetchKamar(null, null, null);
-      } else {
-        // console.log(e.target.value);
-        fetchKamar(searchValue, null, null);
-      }
-    };
-
-    const handleDelete = async (id) => {
-      // const data = await KamarApi.destroy(id);
-      await KamarApi.destroy(id);
-
-      const deletedObj = removeFromList(id);
-      context.emit("alert-event", {
-        color: "success",
-        message: "Ruang " + deletedObj.name + " berhasil dihapus",
-      });
-      // console.log(data);
-    };
-    const removeFromList = (id) => {
-      let deletedObj = kamarList.value.find((item) => item.room_id == id);
-      kamarList.value = kamarList.value.filter((item) => item.room_id !== id);
-      // console.log(deletedObj);
-      context.emit("alert-event", {
-        color: "success",
-        message: "Data Kamar berhasil diperbaharui",
-      });
-      return deletedObj;
-    };
-
-    onMounted(async () => {
-      await fetchKamar(null, null, null);
-    });
-    return {
-      kamarList,
-      formCreate,
-      deleteModal,
-      setDeleteData,
-      handleCreateSubmit,
-      handleDelete,
-      handleSearch,
-      handlePageChange,
-      pagination,
-    };
-  },
+const reformatList = (list) => {
+  return list.map((item) => {
+    // item.created_at = dateFormatter(item.created_at);
+    if (!item.username) item.username = "-";
+    item.price_reformat = priceFormater(item.price);
+    if (item.start_kos) {
+      item.start_kos = dateFormatter(item.start_kos);
+    } else {
+      item.start_kos = "";
+    }
+    if (item.end_kos) item.end_kos = dateFormatter(item.end_kos);
+    else item.end_kos = "";
+    return item;
+  });
 };
+
+const setDeleteData = (objData) => {
+  console.log(objData);
+  deleteModal.id = objData.room_id;
+  deleteModal.name = objData.name;
+  // console.log("delete");
+};
+const handleDelete = async (id) => {
+  // const data = await KamarApi.destroy(id);
+  await KamarApi.destroy(id);
+
+  const deletedObj = removeFromList(id);
+  emit("alert-event", {
+    color: "success",
+    message: "Kamar " + deletedObj.name + " berhasil dihapus",
+  });
+  fetchData("", "", "");
+  // console.log(data);
+};
+const removeFromList = (id) => {
+  let deletedObj = itemList.value.find((item) => item.room_id == id);
+  // itemList.value = itemList.value.filter((item) => item.id !== id);
+  // console.log(deletedObj);
+  // emit("alert-event", {
+  //   color: "success",
+  //   message: "Data Kamar berhasil diperbaharui",
+  // });
+  return deletedObj;
+};
+const handleSearch = async (search) => {
+  searchValue.value = search;
+  // if (searchValue === "") {
+  //   fetchData(null, null, null);
+  // } else {
+  //   // console.log(e.target.value);
+  //   fetchData(searchValue, null, null);
+  // }
+};
+
+const fetchData = async (search, page, limit) => {
+  loading.value = true;
+  const data = await KamarApi.getAll(search, page, limit);
+  console.log(data);
+  itemList.value = reformatList(data.data_room);
+
+  loading.value = false;
+  // itemList.value = data;
+  // console.log(test);
+};
+fetchData("", "", "");
 </script>
+
+<style>
+.vue3-easy-data-table__header th {
+  background-color: #eee !important;
+}
+</style>
