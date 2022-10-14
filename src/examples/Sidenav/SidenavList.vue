@@ -19,7 +19,7 @@
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
           :class="$store.state.isRTL ? 'me-4' : 'ms-2'"
         >
-          Kelola Kos
+          Master Data
         </h6>
       </li>
       <li class="nav-item">
@@ -67,6 +67,14 @@
         </sidenav-collapse>
       </li>
 
+      <li class="nav-item">
+        <sidenav-collapse nav-text="Paket" :to="{ name: 'Paket' }">
+          <template #icon>
+            <icon name="billing" />
+          </template>
+        </sidenav-collapse>
+      </li>
+
       <li class="mt-4 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
@@ -74,13 +82,6 @@
         >
           Kelola Keuangan
         </h6>
-      </li>
-      <li class="nav-item">
-        <sidenav-collapse nav-text="Paket" :to="{ name: 'Paket' }">
-          <template #icon>
-            <icon name="billing" />
-          </template>
-        </sidenav-collapse>
       </li>
       <li class="nav-item">
         <sidenav-collapse nav-text="Tagihan" :to="{ name: 'Tagihan' }">
@@ -96,7 +97,7 @@
           </template>
         </sidenav-collapse>
       </li>
-   
+
       <li class="mt-4 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
@@ -109,6 +110,38 @@
         <sidenav-collapse
           nav-text="User Example"
           :to="{ name: 'User Example' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="History"
+          :to="{ name: 'History' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="Tetangga"
+          :to="{ name: 'Tetangga' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="User Profile"
+          :to="{ name: 'User Profile' }"
+        >
+          <template #icon>
+            <icon name="dashboard" />
+          </template>
+        </sidenav-collapse>
+        <sidenav-collapse
+          nav-text="User Dashboard"
+          :to="{ name: 'User Dashboard' }"
         >
           <template #icon>
             <icon name="dashboard" />

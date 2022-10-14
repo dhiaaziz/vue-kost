@@ -164,7 +164,7 @@ export default {
 
     const fetchProfile = async () => {
       const data = await UserApi.getById(currentId);
-      Object.assign(form, data);
+      Object.assign(form, data.data_user[0]);
       // user.image_ktp = "http://localhost:5000/image/ktp/default.jpg";
       // user.image_ktp = "http://localhost:5000/image/ktp/" + user.image_ktp;
       // form.image_ktp =

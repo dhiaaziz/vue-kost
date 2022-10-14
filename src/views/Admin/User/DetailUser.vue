@@ -217,7 +217,7 @@ export default {
     const fetchProfile = async () => {
       const data = await UserApi.getById(currentId);
       console.log(data);
-      Object.assign(user, data.dataUser);
+      Object.assign(user, data.data_user[0]);
       // user.image_ktp = "http://localhost:5000/image/ktp/default.jpg";
       user.image_ktp = "http://localhost:5000/image/ktp/" + user.image_ktp;
       // user.image_ktp =
@@ -235,7 +235,7 @@ export default {
       store.state.isNavFixed = false;
       setNavPills();
       setTooltip();
-      console.log(user);
+      // console.log(user);
     });
 
     return {

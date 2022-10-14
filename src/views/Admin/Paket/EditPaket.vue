@@ -4,11 +4,7 @@
       <div class="mb-5 row">
         <div class="mb-2 offset-lg-1 col-lg-10">
           <label>Nama</label>
-          <vsud-input
-            v-model="form.name"
-            type="text"
-            placeholder="Paket 1 Tahun"
-          />
+          <vsud-input v-model="form.name" type="text" placeholder="Kos Ijal" />
         </div>
         <div class="mb-2 offset-lg-1 col-lg-10">
           <!-- <vsud-input
@@ -60,7 +56,14 @@ export default {
       duration: "",
       discount: "",
     });
+    let id = router.currentRoute.value.params.id;
 
+    const fetchData = async () => {
+      let id = router.currentRoute.value.params.id;
+      const response = await PaketApi.getById(id);
+      console.log(response);
+      Object.assign(form, response.data_package[0]);
+    };
     const handleSubmit = async () => {
       const submittedData = await submitForm();
       // console.log("submittedData: " + submittedData);
@@ -70,12 +73,14 @@ export default {
     };
 
     const submitForm = async () => {
-      const response = await PaketApi.create(form);
+      const response = await PaketApi.update(id, form);
       // console.log(response);
       return response;
     };
 
-    onMounted(async () => {});
+    onMounted(async () => {
+      await fetchData();
+    });
 
     return {
       form,

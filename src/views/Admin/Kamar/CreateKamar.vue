@@ -72,14 +72,14 @@ export default {
     const listBangunan = ref([]);
     const fetchBangunan = async () => {
       const response = await BangunanApi.getAll();
-      listBangunan.value = response;
+      listBangunan.value = response.data_kamar;
       console.log(response);
     };
 
     const handleSubmit = async () => {
       const submittedData = await submitForm();
       console.log("submittedData: " + submittedData);
-      // router.push({ name: "Kamar" });
+      router.push({ name: "Kamar" });
     };
 
     const submitForm = async () => {

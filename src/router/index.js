@@ -21,11 +21,21 @@ const UserPage = () => import("@/views/User/UserExample.vue");
 // import DashboardKos from "@/views/Admin/Dashboard.vue";
 const DashboardKos = () => import("@/views/Admin/Dashboard.vue");
 
+// import UserPage from "@/views/User/UserExample.vue";
+// import historyUser from "@/views/User/history/index.vue";
+const historyUser = () => import("@/views/User/history/index.vue");
+// import tetanggaUser from "@/views/User/tetangga/index.vue";
+const tetanggaUser = () => import("@/views/User/tetangga/index.vue");
+// import profileUser from "@/views/User/profile/index.vue";
+const profileUser = () => import("@/views/User/profile/index.vue");
+// import dashboardUser from "@/views/User/dashboard/index.vue";
+const dashboardUser = () => import("@/views/User/dashboard/index.vue");
+// import DashboardKos from "@/views/Admin/Dashboard.vue";
 
 import store from "@/store";
 
 // lazyload
-const ContohComponent = () => import("@/views/Admin/ContohComponent.vue");
+// const ContohComponent = () => import("@/views/Admin/ContohComponent.vue");
 const IndexKamar = () => import("@/views/Admin/Kamar/IndexKamar.vue");
 const CreateKamar = () => import("@/views/Admin/Kamar/CreateKamar.vue");
 const EditKamar = () => import("@/views/Admin/Kamar/EditKamar.vue");
@@ -41,12 +51,18 @@ const EditUser = () => import("@/views/Admin/User/EditUser.vue");
 
 const IndexPaket = () => import("@/views/Admin/Paket/IndexPaket.vue");
 const CreatePaket = () => import("@/views/Admin/Paket/CreatePaket.vue");
+const EditPaket = () => import("@/views/Admin/Paket/EditPaket.vue");
 
-const IndexPembayaran = () => import("@/views/Admin/Pembayaran/IndexPembayaran.vue");
-const CreatePembayaran = () => import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
+const IndexPembayaran = () =>
+  import("@/views/Admin/Pembayaran/IndexPembayaran.vue");
+const CreatePembayaran = () =>
+  import("@/views/Admin/Pembayaran/CreatePembayaran.vue");
+const EditPembayaran = () =>
+  import("@/views/Admin/Pembayaran/EditPembayaran.vue");
 
 const IndexTagihan = () => import("@/views/Admin/Tagihan/IndexTagihan.vue");
 const CreateTagihan = () => import("@/views/Admin/Tagihan/CreateTagihan.vue");
+const EditTagihan = () => import("@/views/Admin/Tagihan/EditTagihan.vue");
 
 const APP_NAME = "KosBangIjal";
 
@@ -129,6 +145,26 @@ const routes = [
     name: "User Example",
     component: UserPage,
   },
+  {
+    path: "/user-history",
+    name: "History",
+    component: historyUser,
+  },
+  {
+    path: "/user-tetangga",
+    name: "Tetangga",
+    component: tetanggaUser,
+  },
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    component: profileUser,
+  },
+  {
+    path: "/user-dashboard",
+    name: "User Dashboard",
+    component: dashboardUser,
+  },
   // Route Kamar
   {
     path: "/kamar",
@@ -197,6 +233,11 @@ const routes = [
     name: "Input Pembayaran",
     component: CreatePembayaran,
   },
+  {
+    path: "/pembayaran/:id/edit",
+    name: "Edit Pembayaran",
+    component: EditPembayaran,
+  },
   //route package
   {
     path: "/paket",
@@ -208,6 +249,11 @@ const routes = [
     name: "Input Paket",
     component: CreatePaket,
   },
+  {
+    path: "/paket/:id/edit",
+    name: "Edit Paket",
+    component: EditPaket,
+  },
   //route tagihan
   {
     path: "/tagihan",
@@ -218,6 +264,16 @@ const routes = [
     path: "/tagihan/create",
     name: "Input Tagihan",
     component: CreateTagihan,
+  },
+  {
+    path: "/tagihan/:id/edit",
+    name: "Edit Tagihan",
+    component: EditTagihan,
+  },
+  {
+    path: "/dt-example",
+    name: "DT Example",
+    component: () => import("@/views/Admin/DTExample.vue"),
   },
 ];
 

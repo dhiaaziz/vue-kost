@@ -20,10 +20,13 @@ import "./assets/css/nucleo-svg.css";
 import SoftUIDashboard from "./soft-ui-dashboard";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import Vue3EasyDataTable from "vue3-easy-data-table";
+import "vue3-easy-data-table/dist/style.css";
 
 import axios from "axios";
 import moment from "moment";
-// import ModalComponent from "./views/components/shared/ModalComponent.vue";
+import ModalComponent from "./views/components/shared/ModalComponent.vue";
+import SearchComponent from "./views/components/shared/SearchComponent.vue";
 
 axios.interceptors.request.use((config) => {
   // config.baseURL = 'http://13.250.38.197:8800'
@@ -38,8 +41,10 @@ createApp(App)
   .use(SoftUIDashboard)
   .provide("$axios", axios)
   .provide("$moment", moment)
-  // .component("ModalComponent", ModalComponent)
+  .component("ModalComponent", ModalComponent)
+  .component("SearchComponent", SearchComponent)
   .component("v-select", vSelect)
+  .component("EasyDataTable", Vue3EasyDataTable)
   .mount("#app");
 
 // app.provide("$axios", axios);

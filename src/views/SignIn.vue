@@ -151,9 +151,12 @@ export default {
         await this.$store.dispatch("auth/login", this.form);
         const user = await this.$store.getters["auth/user"];
         if (!user) throw new Error("Masukkan data dengan benar.");
+        console.log(user)
 
         if (user.status_user === "admin") {
           this.$router.push({ name: "Dashboard" });
+        } else if(user.status_user === "user"){
+          this.$router.push({ name: "User Dashboard" });
         } else {
           // this.$router.push("/");
           console.log("not eligible");
