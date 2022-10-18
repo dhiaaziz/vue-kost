@@ -26,6 +26,12 @@ export default {
       delete response.data.token;
       commit("SET_USER", response.data);
     },
+    async updateProfile({ commit }, data) {
+      // const response = await AuthApi.login(email, password);
+      commit("SET_TOKEN", data.token);
+      delete data.token;
+      commit("SET_USER", data);
+    },
     logout({ commit }) {
       // console.log("logout guys");
       commit("SET_TOKEN", null);

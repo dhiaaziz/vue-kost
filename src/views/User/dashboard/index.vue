@@ -1,23 +1,13 @@
 <template>
   <div class="container-fluid">
-    <div
-      class="mt-4 page-header min-height-200 border-radius-xl"
-      :style="{ backgroundImage: `url(${bgImg})`, backgroundPositionY: '50%' }"
-    >
+    <div class="mt-4 page-header min-height-200 border-radius-xl" :style="{ backgroundImage: `url(${bgImg})`, backgroundPositionY: '50%' }">
       <span class="mask bg-gradient-success opacity-6"></span>
     </div>
     <div class="mx-4 overflow-hidden card card-body blur shadow-blur mt-n6">
       <div class="row gx-4">
         <div class="col-auto">
           <div class="avatar avatar-xl position-relative">
-            <a href="#/user-profile"
-              ><img
-                v-bind:src="
-                  'http://localhost:5000/image/profile/' + user.image_profile
-                "
-                alt="profile_image"
-                class="shadow-sm w-100 border-radius-lg"
-            /></a>
+            <a href="#/user-profile"><img v-bind:src="'http://localhost:5000/image/profile/' + user.image_profile" alt="profile_image" class="shadow-sm w-100 border-radius-lg"/></a>
           </div>
         </div>
         <div class="col-auto my-auto">
@@ -26,27 +16,12 @@
             <!-- <p class="mb-0 text-sm font-weight-bold">{{user.email}}</p> -->
           </div>
         </div>
-        <div
-          class="mx-auto mt-1 col-lg-1 col-md-1 my-sm-auto ms-sm-auto me-sm-0"
-        >
-          <div class="nav-wrapper position-relative end-0 text-end">
+        <div class="mx-auto mt-1 col-lg-1 col-md-1 my-sm-auto ms-sm-auto me-sm-0">
+          <div class="nav-wrapper position-relative end-0 text-center">
             <a class="d-block" @click="handleLogout">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="currentColor"
-                class="bi bi-box-arrow-right"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
               </svg>
             </a>
             <!-- <p class="p-0 m-0 text-sm text-center font-weight-bold">
@@ -104,7 +79,7 @@
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Keterangan:</strong> &nbsp;
-                {{ history.description }}
+                {{ history.description || '-' }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Tanggal Kos:</strong> &nbsp;
@@ -124,7 +99,7 @@
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Harga:</strong> &nbsp;
-                {{ history.pay }}
+                {{ ubahUang(history.pay) }}
               </li>
             </ul>
             <div class="pb-0 mt-4 text-center">
@@ -265,12 +240,12 @@
                     </td>
                     <td>
                       <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.gender }}
+                        {{ item.religion }}
                       </p>
                     </td>
                     <td>
                       <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.religion }}
+                        {{ item.gender }}
                       </p>
                     </td>
                     <td>
@@ -327,9 +302,6 @@ export default {
   async mounted() {
     const vm = this;
     try {
-      //user
-      vm.user.start_kos = moment(vm.user.start_kos).format("DD/MM/YYYY");
-      vm.user.end_kos = moment(vm.user.end_kos).format("DD/MM/YYYY");
       //history
       let history = (
         await axios.get("/history/show-history-now", {
@@ -340,9 +312,10 @@ export default {
         vm.history = undefined;
         vm.tetangga = [];
       } else {
+        console.log(history)
         history = history[0];
-        history.start_kos = moment(vm.user.start_kos).format("DD/MM/YYYY");
-        history.end_kos = moment(vm.user.end_kos).format("DD/MM/YYYY");
+        history.start_kos = moment(vm.history.start_kos).format("DD/MM/YYYY");
+        history.end_kos = moment(vm.history.end_kos).format("DD/MM/YYYY");
         vm.history = history;
         //payment
         vm.payment = (
@@ -352,8 +325,8 @@ export default {
         ).data.data.data_payment;
         for (let i = 0; i < vm.payment.length; i++) {
           const el = vm.payment[i];
-          console.log(el);
-          console.log(el.payment);
+          // console.log(el);
+          // console.log(el.payment);
           vm.payment[i].date = moment(el.date).format("DD/MM/YYYY");
           vm.payment[i].payment = this.ubahUang(el.payment);
         }
@@ -381,7 +354,7 @@ export default {
   },
   methods: {
     ubahUang(data) {
-      console.log(data);
+      // console.log(data);
       data = (data + "").split("");
       let con = data;
       let y = 0;

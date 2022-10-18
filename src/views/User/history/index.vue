@@ -116,7 +116,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, key) in wadah" :key="key">
+                  <tr v-for="(item, key) in wadah" :key="key" :class="{'text-warning': item.total_price == -1}">
                     <td>
                       <p class="mb-0 text-sm font-weight-bold">
                         {{ item.build_name }}
@@ -144,7 +144,7 @@
                     </td>
                     <td>
                       <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.total_price }}
+                        {{ item.total_price != '-1' ? item.total_price:item.total_payment }}
                       </p>
                     </td>
                     <td>
@@ -180,46 +180,46 @@
                   </tr>
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                  <li
-                    v-if="page > 2"
-                    class="page-item disabled"
-                    @click="pagination(1)"
-                  >
-                    <a class="page-link" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li
-                    v-if="page > 1"
-                    class="page-item"
-                    @click="pagination(page - 1)"
-                  >
-                    <a class="page-link">{{ page - 1 }}</a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link">{{ page }}</a>
-                  </li>
-                  <li
-                    v-if="page < totalPage"
-                    class="page-item"
-                    @click="pagination(page + 1)"
-                  >
-                    <a class="page-link">{{ page + 1 }}</a>
-                  </li>
-                  <li
-                    v-if="page < totalPage - 1"
-                    class="page-item"
-                    @click="pagination(totalPage)"
-                  >
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center mt-2 mb-0">
+                <li
+                  v-if="page > 2"
+                  class="page-item disabled"
+                  @click="pagination(1)"
+                >
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li
+                  v-if="page > 1"
+                  class="page-item"
+                  @click="pagination(page - 1)"
+                >
+                  <a class="page-link">{{ page - 1 }}</a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link">{{ page }}</a>
+                </li>
+                <li
+                  v-if="page < totalPage"
+                  class="page-item"
+                  @click="pagination(page + 1)"
+                >
+                  <a class="page-link">{{ page + 1 }}</a>
+                </li>
+                <li
+                  v-if="page < totalPage - 1"
+                  class="page-item"
+                  @click="pagination(totalPage)"
+                >
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -250,57 +250,57 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="mx-4 my-1 row">
-              <div class="col-4"><h6 class="p-0 m-0 box">Bangunan</h6></div>
-              <div class="col-8">
+            <div class="mx-2 my-1 row">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Bangunan</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.build_name }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Alamat</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Alamat</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.address }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Kamar</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Kamar</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.room_name }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Ukuran</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Ukuran</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.size }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Keterangan</h6></div>
-              <div class="col-8">
-                <p class="p-0 m-0 box">{{ detail.description }}</p>
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Keterangan</h6></div>
+              <div class="col-sm-8">
+                <p class="p-0 m-0 box">{{ detail.description || '-' }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Tanggal</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Tanggal</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">
                   {{ detail.start_kos + " - " + detail.end_kos }}
                 </p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Durasi</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Durasi</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.duration }} Bulan</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Discount</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Discount</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">
                   {{ discount(detail.discount, detail.type_discount) }}
                 </p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Harga Kamar</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Harga Kamar</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.price_room }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Tagihan</h6></div>
-              <div class="col-8">
-                <p class="p-0 m-0 box">{{ detail.total_price }}</p>
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Tagihan</h6></div>
+              <div class="col-sm-8">
+                <p class="p-0 m-0 box">{{ detail.total_price != '-1' ? detail.total_price:detail.total_payment  }}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Sudah Bayar</h6></div>
-              <div class="col-8">
-                <p class="p-0 m-0 box">{{ detail.total_payment }}</p>
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Sudah Bayar</h6></div>
+              <div class="col-sm-8">
+                <p class="p-0 m-0 box">{{ detail.total_payment}}</p>
               </div>
-              <div class="col-4"><h6 class="p-0 m-0 box">Kurang</h6></div>
-              <div class="col-8">
+              <div class="col-sm-4"><h6 class="p-0 m-0 box">Kurang</h6></div>
+              <div class="col-sm-8">
                 <p class="p-0 m-0 box">{{ detail.deficiency }}</p>
               </div>
             </div>
@@ -320,17 +320,17 @@
                 <thead>
                   <tr>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Tipe Pembayaran
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Bayar
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Tanggal
                     </th>
@@ -339,17 +339,17 @@
                 <tbody>
                   <tr v-for="(item, key) in payment" :key="key">
                     <td>
-                      <p class="mb-0 text-xs font-weight-bold">
+                      <p class="mb-0 text-sm font-weight-bold">
                         {{ item.type_payment }}
                       </p>
                     </td>
                     <td>
-                      <p class="mb-0 text-xs font-weight-bold">
+                      <p class="mb-0 text-sm font-weight-bold">
                         {{ item.payment }}
                       </p>
                     </td>
                     <td>
-                      <p class="mb-0 text-xs font-weight-bold">
+                      <p class="mb-0 text-sm font-weight-bold">
                         {{ item.date }}
                       </p>
                     </td>
@@ -407,9 +407,9 @@ export default {
     });
 
     const user = store.getters["auth/user"];
-    console.log(user);
+    // console.log(user);
     const token = store.getters["auth/token"];
-    console.log(token);
+    // console.log(token);
     const alertListener = (params) => {
       alert.show = true;
       alert.message = params.message;
@@ -453,7 +453,7 @@ export default {
         payment.value[i].date = moment(el.date).format("DD/MM/YYYY");
         payment.value[i].payment = ubahUang(el.payment);
       }
-      console.log(payment.value);
+      // console.log(payment.value);
     };
     const pagination = (x) => {
       wadah.value = itemList.value.slice(
@@ -480,11 +480,15 @@ export default {
       try {
         cek.value = "ubah cek";
         let history = await axios.get("/history/show-history");
-        console.log("history");
+        // console.log("history");
         console.log(history);
         itemList.value = history.data.data.data_history;
         for (let i = 0; i < itemList.value.length; i++) {
           const el = itemList.value[i];
+          if(el.total_price == -1) {
+            // itemList.value[i].total_price = el.total_payment
+            itemList.value[i].deficiency = 0
+          }
           itemList.value[i].start_kos = moment(el.start_kos).format(
             "DD/MM/YYYY"
           );
@@ -500,7 +504,6 @@ export default {
           jumlah.value * page.value - jumlah.value,
           jumlah.value * page.value
         );
-        console.log("mounted");
         // console.log(itemList.value)
       } catch (err) {
         console.log("error");

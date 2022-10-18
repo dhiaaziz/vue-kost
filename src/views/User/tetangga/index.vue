@@ -137,46 +137,46 @@
                   </tr>
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                  <li
-                    v-if="page > 2"
-                    class="page-item disabled"
-                    @click="pagination(1)"
-                  >
-                    <a class="page-link" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li
-                    v-if="page > 1"
-                    class="page-item"
-                    @click="pagination(page - 1)"
-                  >
-                    <a class="page-link">{{ page - 1 }}</a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link">{{ page }}</a>
-                  </li>
-                  <li
-                    v-if="page < totalPage"
-                    class="page-item"
-                    @click="pagination(page + 1)"
-                  >
-                    <a class="page-link">{{ page + 1 }}</a>
-                  </li>
-                  <li
-                    v-if="page < totalPage - 1"
-                    class="page-item"
-                    @click="pagination(totalPage)"
-                  >
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li
+                  v-if="page > 2"
+                  class="page-item disabled"
+                  @click="pagination(1)"
+                >
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li
+                  v-if="page > 1"
+                  class="page-item"
+                  @click="pagination(page - 1)"
+                >
+                  <a class="page-link">{{ page - 1 }}</a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link">{{ page }}</a>
+                </li>
+                <li
+                  v-if="page < totalPage"
+                  class="page-item"
+                  @click="pagination(page + 1)"
+                >
+                  <a class="page-link">{{ page + 1 }}</a>
+                </li>
+                <li
+                  v-if="page < totalPage - 1"
+                  class="page-item"
+                  @click="pagination(totalPage)"
+                >
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
