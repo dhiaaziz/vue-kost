@@ -98,15 +98,15 @@
         </sidenav-collapse>
       </li>
 
-      <li class="mt-4 nav-item">
+      <!-- <li class="mt-4 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
           :class="$store.state.isRTL ? 'me-4' : 'ms-2'"
         >
           Contoh Pages
         </h6>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <sidenav-collapse
           nav-text="User Example"
           :to="{ name: 'User Example' }"
@@ -179,8 +179,8 @@
             <icon name="rtl-page" />
           </template>
         </sidenav-collapse>
-      </li>
-      <li class="mt-3 nav-item">
+      </li> -->
+      <!-- <li class="mt-3 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
           :class="$store.state.isRTL ? 'me-4' : 'ms-2'"
@@ -208,10 +208,10 @@
             <icon name="sign-up" />
           </template>
         </sidenav-collapse>
-      </li>
+      </li> -->
     </ul>
   </div>
-  <div class="pt-3 mx-3 mt-3 sidenav-footer">
+  <!-- <div class="pt-3 mx-3 mt-3 sidenav-footer">
     <sidenav-card
       :class="cardBg"
       text-primary="Need Help?"
@@ -226,7 +226,7 @@
       type="button"
       >Upgrade to pro</a
     >
-  </div>
+  </div> -->
 </template>
 <script>
 import Icon from "@/components/Icon.vue";

@@ -275,7 +275,7 @@ export default {
       }
     });
     onMounted(async () => {
-      await fetchTagihan(null, null, null);
+      await fetchTagihan("", "", "");
       // console.log(activeTagihan.value);
     });
 

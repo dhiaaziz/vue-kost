@@ -50,13 +50,13 @@
                 v-if="includePast"
                 v-model="selectedTagihan.v_select"
                 :options="activeTagihanWithPast"
-                label="history_id"
+                label="username"
               >
                 <template v-slot:option="option">
                   <span style="text-sm " class="py-5 text-sm">
                     Id: {{ option.history_id }} <br />
-                    {{ option.email }} - {{ option.build_name }} -
-                    {{ option.room_name }} <br />
+                    {{ option.email }} - {{ option.username }} -
+                    {{ option.build_name }} - {{ option.room_name }} <br />
                     <span class="text-danger">{{
                       option.deficiency_reformat
                     }}</span>
@@ -67,12 +67,12 @@
                 v-else
                 v-model="selectedTagihan.v_select"
                 :options="activeTagihan"
-                label="history_id"
+                label="username"
               >
                 <template v-slot:option="option">
                   <span style="text-sm " class="py-5 text-sm">
                     Id: {{ option.history_id }} <br />
-                    {{ option.email }} - {{ option.build_name }} -
+                    {{ option.email }} - {{ option.username }} -
                     {{ option.room_name }} <br />
                     <span class="text-danger">{{
                       option.deficiency_reformat
@@ -236,8 +236,8 @@ export default {
     };
 
     const fetchTagihan = async (search, page, limit) => {
-      const response = await TagihanApi.getAll(search, page, limit);
-      listData.value = reformatList(response.data_history);
+      const response = await TagihanApi.getTagihanByUser(search, page, limit);
+      listData.value = reformatList(response.data_payment);
       console.log(listData.value);
     };
 
