@@ -3,9 +3,10 @@ import authHeader from "./_authHeader";
 
 const build_id = 1;
 
-const getAll = async (search, page, limit) => {
+const getAll = async (search, page, limit, start, end) => {
   // console.log(authHeader());
   // console.log(search);
+  console.log(start, end);
 
   try {
     // if(page < 1) page = 1;
@@ -14,6 +15,9 @@ const getAll = async (search, page, limit) => {
     let url = "/room/show-room";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
+    url = start ? url + `&start_date=${start}` : url;
+    url = end ? url + `&end_date=${end}` : url;
+
     // console.log("url: " + url);
     const response = await axios.get(url, {
       headers: authHeader(),
@@ -36,6 +40,16 @@ const getAll = async (search, page, limit) => {
   } catch (error) {
     // console.log(error);
     // console.log("error")
+  }
+};
+const getById = async (id) => {
+  try {
+    const response = await axios.get("/room/show-room?room_id=" + id, {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -93,10 +107,23 @@ const destroy = async (id) => {
   }
 };
 
+const countKamar = async () => {
+  try {
+    const response = await axios.get("/room/show-count-room", {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   getAll,
   getByCriteria,
+  getById,
   create,
   edit,
   destroy,
+  countKamar,
 };

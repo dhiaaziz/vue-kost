@@ -4,33 +4,25 @@
 
   <div class="mb-4 me-2 card">
     <div class="pb-0 card-header d-flex justify-content-between">
-      <h6>Pembayaran table</h6>
+      <h6>Kamar table</h6>
     </div>
     <!-- button and search section -->
     <div class="pt-4 pb-3 container-fluid">
       <div class="row justify-content-between">
-        <div class="col-md-8">
+        <div class="col-md-4">
           <div class="gap-2 d-grid d-md-block">
             <router-link
-              :to="{ name: 'Input Pembayaran' }"
-              class="btn btn-sm btn-primary me-2"
+              :to="{ name: 'Input Kamar' }"
+              class="btn btn-sm btn-primary"
             >
-              Tambah Pembayaran <span class="">+</span>
+              Tambah Kamar <span class="">+</span>
             </router-link>
-            <button
-              class="btn btn-sm btn-secondary me-2"
-              data-original-title="Export to Excel"
-              data-bs-toggle="modal"
-              :data-bs-target="'#exportModal'"
-            >
-              Export ke Excel
-            </button>
           </div>
         </div>
         <div class="mt-4 mt-md-0 col-12 col-md-4">
           <search-component
             v-model="searchValue"
-            :placeholder="'Cari Pembayaran...'"
+            :placeholder="'Cari Kamar...'"
             @search="handleSearch"
           />
         </div>
@@ -61,22 +53,28 @@
               {{ start_kos }} - {{ end_kos }}
             </span>
           </template>
-          <template #item-payment="{ payment_reformat }">
+          <template #item-price="{ price_reformat }">
             <span class="">
               <!-- {{ item }} -->
-              {{ payment_reformat }}
+              {{ price_reformat }}
+            </span>
+          </template>
+          <template #item-deficiency="{ deficiency_reformat }">
+            <span class="">
+              <!-- {{ item }} -->
+              {{ deficiency_reformat }}
             </span>
           </template>
 
           <template #item-actions="item">
             <!-- <router-link
               class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
-              :to="{ name: 'Edit Pembayaran', params: { id: item.id } }"
+              :to="{ name: 'Edit Kamar', params: { id: item.id } }"
               >Edit
             </router-link> -->
             <!-- <router-link
               v-if="item.status !== 'admin'"
-              :to="{ name: 'Detail Pembayaran', params: { id: item.id } }"
+              :to="{ name: 'Detail Kamar', params: { id: item.id } }"
               class="px-3 py-1 mx-1 my-2 btn btn-info btn-sm"
               data-toggle="tooltip"
               data-original-title="Edit Bangunan"
@@ -84,10 +82,10 @@
             > -->
             <router-link
               v-if="item.status !== 'admin'"
-              :to="{ name: 'Edit Pembayaran', params: { id: item.history_id } }"
+              :to="{ name: 'Edit Kamar', params: { id: item.room_id } }"
               class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
               data-toggle="tooltip"
-              data-original-title="Edit Bangunan"
+              data-original-title="Edit Kamar"
               >Edit</router-link
             >
             <a
@@ -105,20 +103,9 @@
     </div>
   </div>
 
-  <modal-component
-    :modal-id="deleteModal.modalId"
-    :modal-title="'Hapus Pembayaran'"
-  >
+  <modal-component :modal-id="deleteModal.modalId" :modal-title="'Hapus Kamar'">
     <template #modal-body>
-      <p>Detail Data:</p>
-      <ul>
-        <li>Id Tagihan: {{ deleteModal.history_id }}</li>
-        <li>Tanggal Bayar: {{ deleteModal.date }}</li>
-        <li>Email: {{ deleteModal.email }}</li>
-        <li>Name: {{ deleteModal.username }}</li>
-        <li>Name: {{ deleteModal.payment }}</li>
-      </ul>
-      <p>Apakah anda yakin ingin menghapus pembayaran dengan data tersebut?</p>
+      <p>Apakah anda yakin ingin menghapus kamar {{ deleteModal.name }}?</p>
     </template>
     <template #modal-footer>
       <button
@@ -146,38 +133,6 @@
       </button>
     </template>
   </modal-component>
-
-  <!-- Modal Export -->
-  <modal-component :modal-id="'exportModal'" :modal-title="'Export ke Excel'">
-    <template #modal-body>
-      <p>Export data ke excel</p>
-    </template>
-    <template #modal-footer>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-        @click="resetDeleteData"
-      >
-        Batal
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        :disabled="deleteModal.isLoading"
-        data-bs-dismiss="modal"
-        @click="handleExportXlsx()"
-      >
-        <span
-          v-if="deleteModal.isLoading"
-          class="spinner-border spinner-border-sm"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        <span v-else>Export</span>
-      </button>
-    </template>
-  </modal-component>
 </template>
 
 <script setup>
@@ -186,9 +141,7 @@ import { ref, reactive, defineEmits } from "vue";
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
 
-import { IP_BACKEND } from "@/config/ip.js";
-
-import PembayaranApi from "@/api/pembayaran.js";
+import KamarApi from "@/api/kamar.js";
 import priceFormater from "@/utils/priceFormatter";
 
 const emit = defineEmits(["alert-event"]);
@@ -204,52 +157,51 @@ let deleteModal = reactive({
 });
 
 const headers = [
-  { text: "ID TAGIHAN", value: "history_id", sortable: true },
-  { text: "NAMA", value: "username", sortable: true },
-  { text: "EMAIL", value: "email", sortable: true },
-  { text: "TIPE PEMBAYARAN", value: "type_payment", sortable: true },
-  { text: "TERBAYAR", value: "payment", sortable: true },
-  { text: "TANGGAL BAYAR", value: "date", sortable: true },
+  { text: "NAMA KOS", value: "build_name", sortable: true },
+  { text: "RUANGAN", value: "room_name", sortable: true },
+  { text: "UKURAN", value: "size", sortable: true },
+  { text: "HARGA", value: "price", sortable: true },
+  { text: "PENGHUNI", value: "username", sortable: true },
+  { text: "TANGGAL PENEMPATAN", value: "start_kos", sortable: true },
   { text: "ACTIONS", value: "actions", sortable: false },
 ];
 
 const reformatList = (list) => {
   return list.map((item) => {
     // item.created_at = dateFormatter(item.created_at);
-    if (item.date) item.date = dateFormatter(item.date);
-    if (item.payment) item.payment_reformat = priceFormater(item.payment);
+    if (!item.username) item.username = "-";
+    item.price_reformat = priceFormater(item.price);
+    if (item.start_kos) {
+      item.start_kos = dateFormatter(item.start_kos);
+    } else {
+      item.start_kos = "";
+    }
+    if (item.end_kos) item.end_kos = dateFormatter(item.end_kos);
+    else item.end_kos = "";
     return item;
   });
 };
 
 const setDeleteData = (objData) => {
   console.log(objData);
-  Object.assign(deleteModal, objData);
-  // deleteModal = {
-  //   ...objData,
-  //   id: objData.payment_id,
-  // };
-  deleteModal.id = objData.payment_id;
-  // deleteModal.name = objData.name;
-  deleteModal.name = `Tagihan ID: ${objData.history_id} / Tanggal: ${objData.date} / Tipe: ${objData.type_payment} / Pembayaran: ${objData.payment}`;
-
+  deleteModal.id = objData.room_id;
+  deleteModal.name = objData.name;
   // console.log("delete");
 };
 const handleDelete = async (id) => {
-  // const data = await PembayaranApi.destroy(id);
-  await PembayaranApi.destroy(id);
+  // const data = await KamarApi.destroy(id);
+  await KamarApi.destroy(id);
 
   const deletedObj = removeFromList(id);
   emit("alert-event", {
     color: "success",
-    message: "Pembayaran " + deletedObj.name + " berhasil dihapus",
+    message: "Kamar dengan ID: " + deletedObj.room_id + " berhasil dihapus",
   });
   fetchData("", "", "");
   // console.log(data);
 };
 const removeFromList = (id) => {
-  let deletedObj = itemList.value.find((item) => item.payment_id == id);
-  console.log(deletedObj);
+  let deletedObj = itemList.value.find((item) => item.room_id == id);
   // itemList.value = itemList.value.filter((item) => item.id !== id);
   // console.log(deletedObj);
   // emit("alert-event", {
@@ -270,20 +222,14 @@ const handleSearch = async (search) => {
 
 const fetchData = async (search, page, limit) => {
   loading.value = true;
-  const data = await PembayaranApi.getAll(search, page, limit);
+  const data = await KamarApi.getAll(search, page, limit);
   console.log(data);
-  itemList.value = reformatList(data.data_payment);
+  itemList.value = reformatList(data.data_room);
 
   loading.value = false;
   // itemList.value = data;
   // console.log(test);
 };
-
-const handleExportXlsx = () => {
-  const href = IP_BACKEND + "/payment/export-xlsx?mode=all";
-  window.open(href, "_blank").focus();
-};
-
 fetchData("", "", "");
 </script>
 
