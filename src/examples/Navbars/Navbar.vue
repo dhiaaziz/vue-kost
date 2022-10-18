@@ -17,7 +17,7 @@
           class="pe-md-3 d-flex align-items-center"
           :class="$store.state.isRTL ? 'me-md-auto' : 'ms-md-auto'"
         >
-          <div class="input-group">
+          <!-- <div class="input-group">
             <span class="input-group-text text-body">
               <i class="fas fa-search" aria-hidden="true"></i>
             </span>
@@ -26,7 +26,7 @@
               class="form-control"
               :placeholder="$store.state.isRTL ? 'أكتب هنا...' : 'Type here...'"
             />
-          </div>
+          </div> -->
         </div>
         <ul class="navbar-nav justify-content-end">
           <!-- {{
@@ -244,6 +244,7 @@ export default {
   data() {
     return {
       showMenu: false,
+      file1: "",
     };
   },
   computed: {
@@ -265,17 +266,19 @@ export default {
   },
   updated() {
     const navbar = document.getElementById("navbarBlur");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 10 && this.$store.state.isNavFixed) {
-        navbar.classList.add("blur");
-        navbar.classList.add("position-sticky");
-        navbar.classList.add("shadow-blur");
-      } else {
-        navbar.classList.remove("blur");
-        navbar.classList.remove("position-sticky");
-        navbar.classList.remove("shadow-blur");
-      }
-    });
+    if (navbar) {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 10 && this.$store.state.isNavFixed) {
+          navbar.classList.add("blur");
+          navbar.classList.add("position-sticky");
+          navbar.classList.add("shadow-blur");
+        } else {
+          navbar.classList.remove("blur");
+          navbar.classList.remove("position-sticky");
+          navbar.classList.remove("shadow-blur");
+        }
+      });
+    }
   },
   mounted() {
     // console.log(this.isAuthenticated);

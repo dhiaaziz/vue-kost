@@ -3,15 +3,18 @@
     <div class="row">
       <div class="mb-4 col-xl-4 col-sm-6 mb-xl-0">
         <card
-          :title="stats.money.title"
-          :value="stats.money.value"
-          :icon-class="stats.money.iconClass"
+          :is-loaded="isLoaded"
+          :title="stats.room.title"
+          :value="stats.room.value"
+          :icon-class="stats.room.iconClass"
           :icon-background="stats.iconBackground"
           direction-reverse
         ></card>
+        
       </div>
       <div class="mb-4 col-xl-4 col-sm-6 mb-xl-0">
         <card
+          :is-loaded="isLoaded"
           :title="stats.users.title"
           :value="stats.users.value"
           :icon-class="stats.users.iconClass"
@@ -21,6 +24,7 @@
       </div>
       <div class="col-xl-4 col-sm-6 mb-xl-0">
         <card
+          :is-loaded="isLoaded"
           :title="stats.sales.title"
           :value="stats.sales.value"
           :percentage="stats.sales.percentage"
@@ -113,66 +117,77 @@
       </div>
     </div> -->
     <div class="mt-4 row">
-      <div class="mb-4 col-lg-5 mb-lg-0">
+      <!-- <div class="mb-4 col-lg-5 mb-lg-0">
         <div class="card z-index-2">
-          <div class="p-3 card-body">
+          <div class="p-3 card-body"> -->
             <!-- chart -->
-            <active-users-chart />
+            <!-- <active-users-chart />
           </div>
         </div>
-      </div>
-      <div class="col-lg-7">
+      </div> -->
+      <div class="col-lg-12">
         <!-- line chart -->
         <div class="card z-index-2">
-          <gradient-line-chart />
+          <!-- <gradient-line-chart 
+          :dynamic-labels="dynamicLabels"
+          :dynamic-data="dynamicData"
+          /> -->
         </div>
       </div>
     </div>
-    <div class="my-4 row">
+    <!-- <div class="my-4 row">
       <div class="mb-4 col-lg-8 col-md-6 mb-md-0">
         <projects-card />
       </div>
       <div class="col-lg-4 col-md-6">
         <Orders-card />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 // import Card from "@/examples/Cards/Card.vue";
 import Card from "@/examples/Cards/CardKos.vue";
 
-import ActiveUsersChart from "@/examples/Charts/ActiveUsersChart.vue";
+// import ActiveUsersChart from "@/examples/Charts/ActiveUsersChart.vue";
 import GradientLineChart from "@/examples/Charts/GradientLineChart.vue";
-import OrdersCard from "@/views/components/OrdersCard.vue";
-import ProjectsCard from "@/views/components/ProjectsCard.vue";
+// import OrdersCard from "@/views/components/OrdersCard.vue";
+// import ProjectsCard from "@/views/components/ProjectsCard.vue";
 import US from "@/assets/img/icons/flags/US.png";
 import DE from "@/assets/img/icons/flags/DE.png";
 import GB from "@/assets/img/icons/flags/GB.png";
 import BR from "@/assets/img/icons/flags/BR.png";
 
+import priceFormatter from "@/utils/priceFormatter";
+
+import KamarApi from "@/api/kamar.js";
+import UserApi from "@/api/user.js";
+import PembayaranApi from "@/api/pembayaran.js";
+
+
 export default {
   name: "DashboardDefault",
   components: {
     Card,
-    ActiveUsersChart,
+    // ActiveUsersChart,
     GradientLineChart,
-    ProjectsCard,
-    OrdersCard,
+    // ProjectsCard,
+    // OrdersCard,
   },
+  inject: ["$moment"],
   data() {
     return {
       stats: {
         iconBackground: "bg-gradient-success",
-        money: {
+        room: {
           title: "Kamar Terisi",
-          value: "18/20",
+          value: "",
           percentage: "+55%",
           iconClass: "ni ni-building",
         },
         users: {
           title: "Total Users",
-          value: "120",
+          value: "",
           percentage: "+3%",
           iconClass: "ni ni-world",
         },
@@ -185,7 +200,7 @@ export default {
         },
         sales: {
           title: "Pemasukan",
-          value: "IDR 97.700.000",
+          value: "",
           percentage: "+7.000.000 Bulan ini",
           iconClass: "ni ni-paper-diploma",
         },
@@ -220,7 +235,89 @@ export default {
           flag: BR,
         },
       },
+
+      isLoaded: false,
+      kamar: {
+        filled: 0,
+        total: 0,
+      },
+
+      user: {
+        total: 0,
+      },
+      income: {
+        total: 0,
+        currentMonth: 0,
+      },
+      dynamicData: [],
+      dynamicLabels: [],
     };
   },
+  beforeMount() {
+    this.fetchData();
+    this.dynamicData = [10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.dynamicLabels = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+  },
+  mounted() {
+   
+  },
+
+  methods: {
+    // formatroom(value) {
+    //   return value.toLocaleString("en-US", {
+    //     style: "currency",
+    //     currency: "USD",
+    //   });
+    // },
+    async fetchData () {
+      this.isLoaded = false;
+      let response = await KamarApi.countKamar();
+      // console.log(response[0]);
+      
+
+      this.kamar.filled = response[0].fill_count;
+      this.kamar.total = response[0].total_count;
+      this.stats.room.value = this.kamar.filled + "/" + this.kamar.total;
+
+      response = await UserApi.getAll();
+      console.log(response);
+      this.user.total = response.count;
+      this.stats.users.value = this.user.total;
+
+
+      response = await PembayaranApi.getIncome();
+      // moment now
+      const now = this.$moment().format("YYYY-MM");
+      const incomeCurrentMonth = response.filter((item) => {
+        return item.bulan.includes(now);
+      });
+      const totalIncome = response.reduce((acc, item) => {
+        return acc + parseInt(item.sum);
+      }, 0);
+      this.income.total = priceFormatter(totalIncome);
+      this.income.currentMonth = priceFormatter(incomeCurrentMonth[0].sum);
+      this.stats.sales.value = this.income.total;
+      this.stats.sales.percentage = "+ " + this.income.currentMonth + " Bulan ini";
+
+      console.log(totalIncome);
+
+
+      this.isLoaded = true;
+    }
+  },
+ 
 };
 </script>
