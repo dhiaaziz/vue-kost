@@ -287,6 +287,13 @@
                         required
                         :type="'file'"
                       />
+                      <div>
+                        <img
+                          src="https://images.bisnis-cdn.com/thumb/posts/2019/02/27/894082/e-ktp-guohui-chen.jpg?w=600&h=400"
+                          alt=""
+                          class="img-fluid"
+                        />
+                      </div>
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Foto Profil</label>
@@ -295,6 +302,13 @@
                         required
                         :type="'file'"
                       />
+                      <div>
+                        <img
+                          src="https://images.bisnis-cdn.com/thumb/posts/2019/02/27/894082/e-ktp-guohui-chen.jpg?w=600&h=400"
+                          alt=""
+                          class="img-fluid"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
