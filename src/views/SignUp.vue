@@ -1,7 +1,7 @@
 <template>
   <navbar btn-background="bg-gradient-primary" />
   <div
-    class="pt-5 m-3  page-header align-items-start min-vh-50 pb-11 border-radius-lg"
+    class="pt-5 m-3 page-header align-items-start min-vh-50 pb-11 border-radius-lg"
     :style="{
       backgroundImage: `url(${bgImg})`,
     }"
@@ -137,6 +137,31 @@
           <div class="card-body">
             <!-- register-form -->
             <form role="form" @submit.prevent="handleRegister">
+              <div class="row">
+                <div class="mb-2 offset-lg-1">
+                  <span class="text-lg"><strong>Kredensial</strong></span>
+                </div>
+                <div class="mb-2 col-lg-10 offset-lg-1">
+                  <label>Email (digunakan untuk kredensial login)</label>
+                  <vsud-input v-model="form.email" required type="email" />
+                </div>
+                <div class="mb-2 col-lg-10 offset-lg-1">
+                  <label>Password</label>
+                  <vsud-input
+                    v-model="form.password"
+                    required
+                    :type="'password'"
+                  />
+                </div>
+                <div class="mb-2 col-lg-10 offset-lg-1">
+                  <label>Password Verify</label>
+                  <vsud-input
+                    v-model="form.repassword"
+                    required
+                    :type="'password'"
+                  />
+                </div>
+              </div>
               <div class="mb-5 row">
                 <div class="mb-2 offset-lg-1">
                   <span class="text-lg"><strong>Biodata</strong></span>
@@ -160,7 +185,7 @@
                   />
                 </div>
                 <div class="mb-2 offset-lg-1 col-lg-5">
-                  <label>Nama</label>
+                  <label>Tempat Lahir</label>
                   <vsud-input
                     v-model="form.birth_place"
                     required
@@ -195,10 +220,7 @@
                   <label>Telepon</label>
                   <vsud-input v-model="form.contact" required type="text" />
                 </div>
-                <div class="mb-2 col-lg-5">
-                  <label>Email</label>
-                  <vsud-input v-model="form.email" required type="email" />
-                </div>
+
                 <!-- Kontak Darurat -->
                 <div class="mt-4 mb-2 offset-lg-1">
                   <span class="text-lg"><strong>Kontak Darurat</strong></span>
@@ -282,31 +304,40 @@
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Foto KTP</label>
+                      <input ref="file_ktp" class="form-control" type="file" accept="image/*" @change="changeFileKtp">
+<!-- 
                       <vsud-input
+                        ref="file_ktp"
                         v-model="form.image_ktp"
                         required
                         :type="'file'"
-                      />
+                        @change="changeFileKtp"
+                      /> -->
                       <div>
                         <img
-                          src="https://images.bisnis-cdn.com/thumb/posts/2019/02/27/894082/e-ktp-guohui-chen.jpg?w=600&h=400"
-                          alt=""
-                          class="img-fluid"
+                          v-if="image_ktp"
+                          :src="image_ktp"
+                          alt="ktp"
+                          class="mt-4 img-fluid"
                         />
                       </div>
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Foto Profil</label>
-                      <vsud-input
+                      <input ref="file_profile" class="form-control" type="file" accept="image/*" @change="changeFileProfile">
+
+                      <!-- <vsud-input
+                        ref="file_profile"
                         v-model="form.image_profile"
                         required
                         :type="'file'"
-                      />
+                      /> -->
                       <div>
                         <img
-                          src="https://images.bisnis-cdn.com/thumb/posts/2019/02/27/894082/e-ktp-guohui-chen.jpg?w=600&h=400"
-                          alt=""
-                          class="img-fluid"
+                          v-if="image_profile"
+                          :src="image_profile"
+                          alt="profile"
+                          class="mt-4 img-fluid "
                         />
                       </div>
                     </div>
@@ -349,7 +380,10 @@ import VsudInput from "@/components/VsudInput.vue";
 // import VsudCheckbox from "@/components/VsudCheckbox.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved6.jpg";
-import { reactive } from "@vue/reactivity";
+import { reactive, ref } from "@vue/reactivity";
+
+import {IP_BACKEND} from "@/config/ip.js";
+
 export default {
   name: "SignUp",
   components: {
@@ -380,7 +414,36 @@ export default {
       major: "",
       generation: "",
       name_company: "",
+      image_ktp: "",
+      image_profile: "",
     });
+
+    // const api_endpoint = IP_BACKEND;
+    const image_profile = ref(null);
+    const image_ktp = ref(null);
+    
+    const file_profile = ref(null);
+    const file_ktp = ref(null);
+
+    const changeFileKtp = () => {
+      const file = file_ktp.value.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        image_ktp.value = reader.result;
+      };
+    };
+
+    const changeFileProfile = () => {
+      const file = file_profile.value.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        image_profile.value =  reader.result;
+      };
+    };
+
     const selectOptions = reactive({
       religion: [
         { value: "Islam", text: "Islam" },
@@ -406,6 +469,13 @@ export default {
       form,
       selectOptions,
       handleRegister,
+
+      image_profile,
+      image_ktp,
+      file_profile,
+      file_ktp,
+      changeFileKtp,
+      changeFileProfile,
     };
   },
 
@@ -414,6 +484,12 @@ export default {
     this.$store.state.showNavbar = false;
     this.$store.state.showSidenav = false;
     this.$store.state.showFooter = false;
+  },
+
+  mounted() {
+    // console.log(import.meta.env.VITE_API_ENDPOINT);
+    // console.log(process.env.BASE_URL);
+    console.log(IP_BACKEND);
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;

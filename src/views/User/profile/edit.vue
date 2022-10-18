@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="py-4 container-fluid">
-    <div class="mt-4 my-0">
+    <div class="my-0 mt-4">
       <div class="card h-100">
         <!-- <div class="px-2 py-0 m-0 card-header">
           <div class="row">
@@ -33,24 +33,24 @@
           </div>
         </div> -->
         <div class="px-6 py-4 card-body">
-          <div class="h-100 w-100 row m-0 p-0">
-            <div class="form-floating mb-0 col-md-12 col-sm-12">
+          <div class="p-0 m-0 h-100 w-100 row">
+            <div class="mb-0 form-floating col-md-12 col-sm-12">
               <input v-model="form.username" @keyup="validasi('username')" type="text" :class="{'is-invalid': !cek.username.status}" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Username</label>
-              <span class="text-xs text-danger px-2">{{cek.username.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.username.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.email" @keyup="validasi('email')" :class="{'is-invalid': !cek.email.status}" type="email" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Email</label>
-              <span class="text-xs text-danger px-2">{{cek.email.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.email.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.contact" @keyup="validasi('contact')" :class="{'is-invalid': !cek.contact.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Kontak Pribadi</label>
-              <span class="text-xs text-danger px-2">{{cek.contact.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.contact.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
-              <div class="form-floating mt-0 mb-3">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
+              <div class="mt-0 mb-3 form-floating">
                 <select v-model="form.gender" class="form-select" style="padding-left:35px;" id="floatingSelectGrid">
                   <option value="laki-laki">Laki-Laki</option>
                   <option value="perempuan">Perempuan</option>
@@ -58,8 +58,8 @@
                 <label for="floatingSelectGrid" class="px-2">Gender</label>
               </div>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
-              <div class="form-floating mt-0">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
+              <div class="mt-0 form-floating">
                 <select v-model="form.religion" class="form-select" style="padding-left:35px;" id="floatingSelectGrid">
                   <option value="islam">Islam</option>
                   <option value="kristen">Kristen</option>
@@ -71,28 +71,28 @@
                 <label for="floatingSelectGrid" class="px-2">Agama</label>
               </div>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.birth_place" @keyup="validasi('birth_place')" :class="{'is-invalid': !cek.birth_place.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Tempat Lahir</label>
-              <span class="text-xs text-danger px-2">{{cek.birth_place.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.birth_place.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.birth_date" @change="validasi('birth_date')" :class="{'is-invalid': !cek.birth_date.status}" id="startDate" class="form-control" type="date"/>
               <label for="floatingInput" class="px-4">Tanggal Lahir</label>
-              <span class="text-xs text-danger px-2">{{cek.birth_date.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.birth_date.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.emergency_contact" @keyup="validasi('emergency_contact')" :class="{'is-invalid': !cek.emergency_contact.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Kontak Darurat</label>
-              <span class="text-xs text-danger px-2">{{cek.emergency_contact.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.emergency_contact.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-6 col-sm-12">
+            <div class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.emergency_name" @keyup="validasi('emergency_name')" :class="{'is-invalid': !cek.emergency_name.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Nama Kontak Darurat</label>
-              <span class="text-xs text-danger px-2">{{cek.emergency_name.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.emergency_name.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-12 col-sm-12">
-              <div class="form-floating mt-0 mb-3">
+            <div class="mb-0 form-floating col-md-12 col-sm-12">
+              <div class="mt-0 mb-3 form-floating">
                 <select v-model="form.status" class="form-select" style="padding-left:35px;" id="floatingSelectGrid">
                   <option value="mahasiswa">Mahasiswa</option>
                   <option value="pekerja">Pekerja</option>
@@ -100,38 +100,38 @@
                 <label for="floatingSelectGrid" class="px-2">Status</label>
               </div>
             </div>
-            <div v-if="form.status=='pekerja'" class="form-floating mb-0 col-md-12 col-sm-12">
+            <div v-if="form.status=='pekerja'" class="mb-0 form-floating col-md-12 col-sm-12">
               <input v-model="form.name_company" @keyup="validasi('name_company')" :class="{'is-invalid': !cek.name_company.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Perusahaan</label>
-              <span class="text-xs text-danger px-2">{{cek.name_company.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.name_company.message}}</span>
             </div>
-            <div v-if="form.status=='mahasiswa'" class="form-floating mb-0 col-md-6 col-sm-12">
+            <div v-if="form.status=='mahasiswa'" class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.name_university" @keyup="validasi('name_university')" :class="{'is-invalid': !cek.name_university.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Universitas</label>
-              <span class="text-xs text-danger px-2">{{cek.name_university.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.name_university.message}}</span>
             </div>
-            <div v-if="form.status=='mahasiswa'" class="form-floating mb-0 col-md-6 col-sm-12">
+            <div v-if="form.status=='mahasiswa'" class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.degree" @keyup="validasi('degree')" :class="{'is-invalid': !cek.degree.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Jurusan</label>
-              <span class="text-xs text-danger px-2">{{cek.degree.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.degree.message}}</span>
             </div>
-            <div v-if="form.status=='mahasiswa'" class="form-floating mb-0 col-md-6 col-sm-12">
+            <div v-if="form.status=='mahasiswa'" class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.major" @keyup="validasi('major')" :class="{'is-invalid': !cek.major.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Tingkat</label>
-              <span class="text-xs text-danger px-2">{{cek.major.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.major.message}}</span>
             </div>
-            <div v-if="form.status=='mahasiswa'" class="form-floating mb-0 col-md-6 col-sm-12">
+            <div v-if="form.status=='mahasiswa'" class="mb-0 form-floating col-md-6 col-sm-12">
               <input v-model="form.generation" @input="validasi('generation')" :class="{'is-invalid': !cek.generation.status}" type="text" class="form-control" id="floatingInput">
               <label for="floatingInput" class="px-4">Tahun Masuk</label>
-              <span class="text-xs text-danger px-2">{{cek.generation.message}}</span>
+              <span class="px-2 text-xs text-danger">{{cek.generation.message}}</span>
             </div>
-            <div class="form-floating mb-0 col-md-12 col-sm-12">
-              <button type="button" class="btn mb-2 mx-2 btn-success" :class="{'btn-danger':!form.public}" @click="form.public=!form.public, form.public_gender = form.public, form.public_religion = form.public">Public</button>
-              <button v-if="form.public" type="button" class="btn mb-2 mx-2 btn-success" :class="{'btn-danger':!form.public_gender}" @click="form.public_gender=!form.public_gender">Gender</button>
-              <button v-if="form.public" type="button" class="btn mb-2 mx-2 btn-success" :class="{'btn-danger':!form.public_religion}" @click="form.public_religion=!form.public_religion">Religion</button>
-              <p class="text-sm p-0 m-0 mb-4">* data yang dapat dilihat oleh tetangga</p>
+            <div class="mb-0 form-floating col-md-12 col-sm-12">
+              <button type="button" class="mx-2 mb-2 btn btn-success" :class="{'btn-danger':!form.public}" @click="form.public=!form.public, form.public_gender = form.public, form.public_religion = form.public">Public</button>
+              <button v-if="form.public" type="button" class="mx-2 mb-2 btn btn-success" :class="{'btn-danger':!form.public_gender}" @click="form.public_gender=!form.public_gender">Gender</button>
+              <button v-if="form.public" type="button" class="mx-2 mb-2 btn btn-success" :class="{'btn-danger':!form.public_religion}" @click="form.public_religion=!form.public_religion">Religion</button>
+              <p class="p-0 m-0 mb-4 text-sm">* data yang dapat dilihat oleh tetangga</p>
             </div>
-            <div class="form-floating mb-0 col-md-12 col-sm-12 row">
+            <div class="mb-0 form-floating col-md-12 col-sm-12 row">
               <div class="col-md-6 col-sm-12">
                 <div class="mb-3">
                   <label for="formFile" class="form-label">Foto Profil</label>
@@ -147,9 +147,9 @@
                 <img class="mx-auto d-block" style="width: 90%" :src="image_ktp" alt="profile" srcset="">
               </div>
             </div>
-            <div class="form-floating mb-0 col-md-12 col-sm-12">
+            <div class="mb-0 form-floating col-md-12 col-sm-12">
               <div class="mx-4">
-                <button type="button" class="btn mb-2 btn-primary w-100" @click="simpan">Simpan</button>
+                <button type="button" class="mb-2 btn btn-primary w-100" @click="simpan">Simpan</button>
               </div>
             </div>
           </div>
@@ -176,6 +176,9 @@ import ProfileCard from "../../components/ProfileCard.vue";
 import VsudAvatar from "../../../components/VsudAvatar.vue";
 import ProjectsCard from "../../components/ProjectOverviewCard.vue";
 import bgImg from "@/assets/img/curved-images/curved14.jpg";
+
+import { IP_BACKEND } from "@/config/ip.js";
+
 export default {
   name: "UserPage",
   components: {
@@ -212,8 +215,13 @@ export default {
     form.birth_date = moment(user.birth_date).format("YYYY-MM-DD")
     // const token = store.getters["auth/token"];
     console.log(user)
-    const image_profil = ref('http://localhost:5000/image/profile/'+form.image_profile)
-    const image_ktp = ref('http://localhost:5000/image/ktp/'+form.image_ktp)
+    const api_endpoint = IP_BACKEND;
+    // const image_profil = ref('http://localhost:5000/image/profile/'+form.image_profile)
+    // const image_ktp = ref('http://localhost:5000/image/ktp/'+form.image_ktp)
+
+    const image_profil = ref(api_endpoint + '/image/profile/'+form.image_profile);
+
+    const image_ktp = ref(api_endpoint + '/image/ktp/'+form.image_ktp);
     const file_profil = ref(null)
     const file_ktp = ref(null)
     const check = ref(`
