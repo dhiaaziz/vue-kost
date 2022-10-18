@@ -22,13 +22,10 @@ const UserPage = () => import("@/views/User/UserExample.vue");
 const DashboardKos = () => import("@/views/Admin/Dashboard.vue");
 
 // import UserPage from "@/views/User/UserExample.vue";
-// import historyUser from "@/views/User/history/index.vue";
 const historyUser = () => import("@/views/User/history/index.vue");
-// import tetanggaUser from "@/views/User/tetangga/index.vue";
 const tetanggaUser = () => import("@/views/User/tetangga/index.vue");
-// import profileUser from "@/views/User/profile/index.vue";
 const profileUser = () => import("@/views/User/profile/index.vue");
-// import dashboardUser from "@/views/User/dashboard/index.vue";
+const editProfileUser = () => import("@/views/User/profile/edit.vue");
 const dashboardUser = () => import("@/views/User/dashboard/index.vue");
 // import DashboardKos from "@/views/Admin/Dashboard.vue";
 
@@ -159,6 +156,11 @@ const routes = [
     path: "/user-profile",
     name: "User Profile",
     component: profileUser,
+  },
+  {
+    path: "/user-profile/edit",
+    name: "Edit User Profile",
+    component: editProfileUser,
   },
   {
     path: "/user-dashboard",

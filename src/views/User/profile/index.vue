@@ -1,84 +1,45 @@
 <template>
   <div class="container-fluid">
-    <div
-      class="mt-4 page-header min-height-200 border-radius-xl"
-      :style="{ backgroundImage: `url(${bgImg})`, backgroundPositionY: '50%' }"
-    >
+    <div class="mt-4 page-header min-height-200 border-radius-xl" :style="{ backgroundImage: `url(${bgImg})`, backgroundPositionY: '50%' }">
       <span class="mask bg-gradient-success opacity-6"></span>
     </div>
     <div class="mx-4 overflow-hidden card card-body blur shadow-blur mt-n6">
-      <div class="row gx-4">
-        <div class="col-auto my-auto">
-          <div class="avatar avatar-x position-relative">
-            <a href="#/user-dashboard">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="36"
-                height="36"
-                fill="currentColor"
-                class="bi bi-house"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
-                />
-                <path
-                  fill-rule="evenodd"
-                  d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
-                />
-              </svg>
-              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-              </svg> -->
-            </a>
+      <div class="d-sm-flex justify-content-between">
+        <div class="row gx-4">
+          <div class="col-auto my-auto">
+            <div class="avatar avatar-x position-relative">
+              <a href="#/user-dashboard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg>
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                </svg> -->
+              </a>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img v-bind:src="'http://localhost:5000/image/profile/' + data.image_profile" alt="profile_image" class="shadow-sm w-100 border-radius-lg"/>
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">{{ data.username }}</h5>
+              <p class="mb-0 text-sm font-weight-bold">{{ data.email }}</p>
+            </div>
           </div>
         </div>
-        <div class="col-auto">
-          <div class="avatar avatar-xl position-relative">
-            <img
-              v-bind:src="
-                'http://localhost:5000/image/profile/' + data.image_profile
-              "
-              alt="profile_image"
-              class="shadow-sm w-100 border-radius-lg"
-            />
-          </div>
-        </div>
-        <div class="col-auto my-auto">
-          <div class="h-100">
-            <h5 class="mb-1">{{ data.username }}</h5>
-            <p class="mb-0 text-sm font-weight-bold">{{ data.email }}</p>
-          </div>
-        </div>
-        <div
-          class="mx-auto mt-3 col-lg-3 col-md-6 my-sm-auto ms-sm-auto me-sm-0"
-        >
-          <div class="nav-wrapper position-relative end-0">
-            <p class="p-0 m-0 text-center">
-              {{ data.start_kos + " - " + data.end_kos }}
-            </p>
-            <!-- <ul class="p-1 bg-transparent nav nav-pills nav-fill" role="tablist">
-              <li class="nav-item">
-                <a class="px-0 py-1 mb-0 nav-link active" data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                  <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" >
-                      <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero" >
-                        <g transform="translate(1716.000000, 291.000000)">
-                          <g transform="translate(603.000000, 0.000000)">
-                            <path class="color-background" d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z"/>
-                            <path class="color-background" d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z" opacity="0.7"/>
-                            <path class="color-background" d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z" opacity="0.7"/>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                  <span class="ms-1">App</span>
-                </a>
-              </li>
-            </ul> -->
+        <div class="my-auto">
+          <div class="my-auto">
+          <!-- <div class="mx-auto mt-1 col-lg-1 col-md-1 my-sm-auto ms-sm-auto me-sm-0"> -->
+            <div class="nav-wrapper position-relative end-0 text-center">
+              <a href="#/user-profile/edit">
+                <i class="text-sm fas fa-user-edit text-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Status"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -86,22 +47,12 @@
   </div>
   <div class="py-4 container-fluid">
     <div class="mt-3 row">
-      <div class="mt-4 col-12 col-md-6 col-xl-7 mt-md-0">
-        <div class="card h-100">
+      <div class="col-12 col-md-6 col-xl-7 my-auto">
+        <div class="card" style="max-height: 100%">
           <div class="px-2 py-0 m-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
                 <h6 class="mb-0">Profile</h6>
-              </div>
-              <div class="col-md-4 text-end">
-                <a href="javascript:;">
-                  <i
-                    class="text-sm fas fa-user-edit text-secondary"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Edit Profile"
-                  ></i>
-                </a>
               </div>
             </div>
           </div>
@@ -124,7 +75,7 @@
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Tempat, Tanggal Lahir:</strong> &nbsp;
-                {{ data.birth_place + ", " + data.birth_date }}
+                {{ data.birth_place + ", " + moment(data.birth_date).format('DD-MM-YYYY') }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
                 <strong class="text-dark">Agama:</strong> &nbsp;
@@ -137,23 +88,11 @@
             </ul>
           </div>
         </div>
-      </div>
-      <div class="col-12 col-md-6 col-xl-5">
         <div class="card" style="max-height: 100%">
           <div class="px-2 py-0 m-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
                 <h6 class="mb-0">Emegency</h6>
-              </div>
-              <div class="col-md-4 text-end">
-                <a href="javascript:;">
-                  <i
-                    class="text-sm fas fa-user-edit text-secondary"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Edit Profile"
-                  ></i>
-                </a>
               </div>
             </div>
           </div>
@@ -171,53 +110,100 @@
           </div>
         </div>
         <div class="mt-2 card" style="max-height: 100%">
+          <div class="px-2 py-0 row wrap">
+            <div class="col-auto w-auto text-sm">
+              <button class="btn btn-sm my-1 py-auto w-100 align-center" :disabled="data.verify_email" :class="{'btn-success': data.verify_email, 'btn-danger': !data.verify_email}" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <span v-html="data.verify_email?check:uncheck"></span> Verify Email
+              </button>
+            </div>
+            <div class="col-auto w-auto text-sm">
+              <button class="btn btn-sm my-1 py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public, 'btn-danger': !data.public}">
+                <span v-html="data.public?check:uncheck"></span>Public
+              </button>
+              <!-- <span v-html="data.public?check:uncheck"></span> Public -->
+            </div>
+            <div class="col-auto w-auto text-sm" v-if="data.public">
+              <button class="btn btn-sm my-1 py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public_religion, 'btn-danger': !data.public_religion}">
+                <span v-html="data.public_religion?check:uncheck"></span>Religion
+              </button>
+              <!-- <span v-html="data.public_religion?check:uncheck"></span> Gender -->
+            </div>
+            <div class="col-auto w-auto text-sm" v-if="data.public">
+              <button class="btn btn-sm my-1 py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public_gender, 'btn-danger': !data.public_gender}">
+                <span v-html="data.public_gender?check:uncheck"></span>Gender
+              </button>
+              <!-- <span v-html="data.public_gender?check:uncheck"></span> Religion -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl-5 my-auto">
+        <div class="mt-2 card" style="max-height: 100%">
           <div class="px-2 py-0 m-0 card-header">
             <div class="row">
               <div class="col-md-8 d-flex align-items-center">
                 <h6 class="mb-0">Status</h6>
-              </div>
-              <div class="col-md-4 text-end">
-                <a href="javascript:;">
-                  <i
-                    class="text-sm fas fa-user-edit text-secondary"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Edit Status"
-                  ></i>
-                </a>
               </div>
             </div>
           </div>
           <div class="px-4 py-0 card-body">
             <ul v-if="data.status == 'mahasiswa'" class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Status:</strong> &nbsp;
-                {{ data.status }}
+                <strong class="text-dark">Status:</strong> &nbsp; {{ data.status }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Universitas:</strong> &nbsp;
-                {{ data.name_university }}
+                <strong class="text-dark">Universitas:</strong> &nbsp; {{ data.name_university }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Mata Kuliah:</strong> &nbsp;
-                {{ data.major }}
+                <strong class="text-dark">Mata Kuliah:</strong> &nbsp; {{ data.major }}
               </li>
               <li class="text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Gelar:</strong> &nbsp;
-                {{ data.degree }}
+                <strong class="text-dark">Gelar:</strong> &nbsp; {{ data.degree }}
               </li>
             </ul>
             <ul v-else class="list-group">
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Status:</strong> &nbsp;
-                {{ data.status }}
+                <strong class="text-dark">Status:</strong> &nbsp; {{ data.status }}
               </li>
               <li class="pt-0 text-sm border-0 list-group-item ps-0">
-                <strong class="text-dark">Perusahaan:</strong> &nbsp;
-                {{ data.name_company }}
+                <strong class="text-dark">Perusahaan:</strong> &nbsp; {{ data.name_company }}
               </li>
             </ul>
           </div>
+        </div>
+        <div class="mt-2 card" style="max-height: 100%">
+          <div class="px-2 py-0 m-0 card-header">
+            <div class="row">
+              <div class="col-md-8 d-flex align-items-center">
+                <h6 class="mb-0">Foto KTP</h6>
+              </div>
+            </div>
+          </div>
+          <div class="px-4 py-0 card-body">
+            <img v-bind:src="'http://localhost:5000/image/ktp/' + data.image_ktp" alt="KTP" class="d-block mx-auto shadow-sm w-100 border-radius-lg"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Token:</label>
+            <input v-model="token" type="text" class="form-control" id="recipient-name">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-warning" @click="kirimToken">Kirim Token</button>
+          <button type="button" class="btn btn-primary" @click="cekToken">Cek Token</button>
         </div>
       </div>
     </div>
@@ -227,6 +213,7 @@
 <script>
 import { onMounted, onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import axios from "axios";
+import { useStore } from 'vuex'
 axios.defaults.headers.common["token"] = await store.getters["auth/token"];
 import moment from "moment";
 import UserTable from "@/views/components/User/UserTable.vue";
@@ -250,13 +237,41 @@ export default {
   },
   setup() {
     const body = document.getElementsByTagName("body")[0];
+    const store1 = useStore()
     let data = ref(store.getters["auth/user"]);
-
     const user = store.getters["auth/user"];
-    console.log(user);
-    console.log(data);
-    const token = store.getters["auth/token"];
-    console.log(token);
+    const token = ref('')
+    console.log(user)
+    const check = ref(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-square" viewBox="0 0 16 16">
+        <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
+        <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+      </svg>
+    `)
+    const uncheck = ref(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+    `)
+    const kirimToken = async()=>{
+      try {
+        let verify = await axios.post('otp/create-otp', {type: 'verify email'})
+        console.log(verify)
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    const cekToken = async()=>{
+      try {
+        // console.log(token.value)
+        let verify = await axios.post('otp/check-otp', {type: 'verify email', code_otp: token.value})
+        await store1.dispatch('auth/updateProfile', verify.data.data);
+        console.log(verify)
+      } catch (error) {
+        console.log(error)
+      }
+    };
     const alert = reactive({
       show: false,
       icon: "",
@@ -297,6 +312,11 @@ export default {
       alertListener,
       bgImg,
       data,
+      check, 
+      uncheck,
+      token, 
+      cekToken,
+      kirimToken,
       // toggleTest,
     };
   },
