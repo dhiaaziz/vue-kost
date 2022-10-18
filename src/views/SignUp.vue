@@ -1,7 +1,7 @@
 <template>
   <navbar btn-background="bg-gradient-primary" />
   <div
-    class="pt-5 m-3 page-header align-items-start min-vh-50 pb-11 border-radius-lg"
+    class="pt-5 m-3  page-header align-items-start min-vh-50 pb-11 border-radius-lg"
     :style="{
       backgroundImage: `url(${bgImg})`,
     }"
@@ -176,6 +176,18 @@
                   />
                 </div>
                 <div class="mb-2 col-lg-5">
+                  <label>NIK</label>
+                  <vsud-input
+                    v-model="form.nik"
+                    required
+                    type="text"
+                    placeholder="12321312121412"
+                    minlength="16"
+                    maxlength="16"
+                  />
+                </div>
+
+                <div class="mb-2 offset-lg-1 col-lg-5">
                   <label>Agama</label>
                   <vsud-input
                     v-model="form.religion"
@@ -183,6 +195,13 @@
                     type="text"
                     placeholder="Islam"
                   />
+                </div>
+                <div class="mb-2 col-lg-5">
+                  <label>Jenis Kelamin</label>
+                  <select id="" v-model="form.gender" class="form-control">
+                    <option value="laki-laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
+                  </select>
                 </div>
                 <div class="mb-2 offset-lg-1 col-lg-5">
                   <label>Tempat Lahir</label>
@@ -304,8 +323,14 @@
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Foto KTP</label>
-                      <input ref="file_ktp" class="form-control" type="file" accept="image/*" @change="changeFileKtp">
-<!-- 
+                      <input
+                        ref="file_ktp"
+                        class="form-control"
+                        type="file"
+                        accept="image/*"
+                        @change="changeFileKtp"
+                      />
+                      <!-- 
                       <vsud-input
                         ref="file_ktp"
                         v-model="form.image_ktp"
@@ -324,7 +349,13 @@
                     </div>
                     <div class="mb-2 col-lg-5">
                       <label>Foto Profil</label>
-                      <input ref="file_profile" class="form-control" type="file" accept="image/*" @change="changeFileProfile">
+                      <input
+                        ref="file_profile"
+                        class="form-control"
+                        type="file"
+                        accept="image/*"
+                        @change="changeFileProfile"
+                      />
 
                       <!-- <vsud-input
                         ref="file_profile"
@@ -337,7 +368,7 @@
                           v-if="image_profile"
                           :src="image_profile"
                           alt="profile"
-                          class="mt-4 img-fluid "
+                          class="mt-4 img-fluid"
                         />
                       </div>
                     </div>
@@ -382,7 +413,14 @@ import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved6.jpg";
 import { reactive, ref } from "@vue/reactivity";
 
-import {IP_BACKEND} from "@/config/ip.js";
+import { IP_BACKEND } from "@/config/ip.js";
+
+import axios from "axios";
+axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+import moment from "moment";
+import store from "@/store";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   name: "SignUp",
@@ -400,6 +438,8 @@ export default {
   // },
   setup() {
     // const bgImg = bgImg;
+    const store1 = useStore();
+    const router1 = useRouter();
     const form = reactive({
       name: "",
       birth_place: "",
@@ -407,6 +447,8 @@ export default {
       status: "",
       contact: "",
       email: "",
+      password: "",
+      nik: "",
       emergency_contact: "",
       emergency_name: "",
       name_university: "",
@@ -421,12 +463,14 @@ export default {
     // const api_endpoint = IP_BACKEND;
     const image_profile = ref(null);
     const image_ktp = ref(null);
-    
+
     const file_profile = ref(null);
     const file_ktp = ref(null);
 
     const changeFileKtp = () => {
+      form.image_ktp = true;
       const file = file_ktp.value.files[0];
+      form.image_ktp1 = file;
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -435,12 +479,15 @@ export default {
     };
 
     const changeFileProfile = () => {
+      form.image_profile = true;
+
       const file = file_profile.value.files[0];
+      form.image_profile1 = file;
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        image_profile.value =  reader.result;
+        image_profile.value = reader.result;
       };
     };
 
@@ -459,8 +506,43 @@ export default {
       ],
     });
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
       e.preventDefault();
+      console.log(form);
+      let formData = new FormData();
+      if (form.image_profile === true)
+        formData.append("image_profile", form.image_profile1);
+      if (form.image_ktp === true)
+        formData.append("image_ktp", form.image_ktp1);
+      formData.append("username", form.username);
+      if (form.email) formData.append("email", form.email);
+      if (form.password) formData.append("password", form.password);
+      formData.append("contact", form.contact);
+      formData.append("gender", form.gender);
+      formData.append("nik", form.nik);
+      formData.append("religion", form.religion);
+      formData.append("birth_place", form.birth_place);
+      formData.append("birth_date", form.birth_date);
+      formData.append("emergency_contact", form.emergency_contact);
+      formData.append("emergency_name", form.emergency_name);
+      formData.append("status", form.status);
+      formData.append("name_company", form.name_company);
+      formData.append("name_university", form.name_university);
+      formData.append("degree", form.degree);
+      formData.append("major", form.major);
+      formData.append("generation", form.generation);
+      // formData.append("public1", form.public);
+      // Display the key/value pairs
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+      let result = await axios.post("user/register", formData);
+      console.log("result", result);
+      if (result.status == 200) {
+        router1.push({ name: "Sign In" });
+      }
+      console.log("data", result, form);
+
       console.log(form);
     };
 
