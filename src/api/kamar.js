@@ -3,9 +3,10 @@ import authHeader from "./_authHeader";
 
 const build_id = 1;
 
-const getAll = async (search, page, limit) => {
+const getAll = async (search, page, limit, start, end) => {
   // console.log(authHeader());
   // console.log(search);
+  console.log(start, end);
 
   try {
     // if(page < 1) page = 1;
@@ -14,6 +15,9 @@ const getAll = async (search, page, limit) => {
     let url = "/room/show-room";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
+    url = start ? url + `&start_date=${start}` : url;
+    url = end ? url + `&end_date=${end}` : url;
+
     // console.log("url: " + url);
     const response = await axios.get(url, {
       headers: authHeader(),
@@ -112,7 +116,7 @@ const countKamar = async () => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export default {
   getAll,

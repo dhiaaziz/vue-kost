@@ -27,7 +27,33 @@
           />
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="" class="">Rentang Awal</label>
+            <input
+              v-model="rangeTanggal.start"
+              type="date"
+              name=""
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="" class="">Rentang Akhir</label>
+            <input
+              v-model="rangeTanggal.end"
+              :disabled="!rangeTanggal.start"
+              type="date"
+              name=""
+              class="form-control"
+            />
+          </div>
+        </div>
+      </div>
     </div>
+
     <!-- end-button and search section  -->
     <div class="px-0 pt-0 pb-2 card-body">
       <div class="px-4 pb-8 table-responsive">
@@ -229,7 +255,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, defineEmits } from "vue";
+import { ref, reactive, defineEmits, watchEffect } from "vue";
 
 // import priceFormatter from "@/utils/priceFormatter";
 import dateFormatter from "@/utils/dateFormatter";
@@ -255,7 +281,10 @@ let emptyModal = reactive({
   name: "",
   modalId: "modalEmpty",
 });
-
+const rangeTanggal = reactive({
+  start: "",
+  end: "",
+});
 const headers = [
   { text: "NAMA KOS", value: "build_name", sortable: true },
   { text: "RUANGAN", value: "name", sortable: true },
@@ -303,7 +332,7 @@ const handleDelete = async (id) => {
     color: "success",
     message: "Kamar " + deletedObj.name + " berhasil dihapus",
   });
-  fetchData("", "", "");
+  fetchData("", "", "", rangeTanggal.start, rangeTanggal.end);
   // console.log(data);
 };
 
@@ -342,12 +371,12 @@ const handleEmpty = async (id) => {
     color: "success",
     message: "Kamar " + deletedObj.name + " berhasil dikosongkan",
   });
-  fetchData("", "", "");
+  fetchData("", "", "", rangeTanggal.start, rangeTanggal.end);
 };
 
-const fetchData = async (search, page, limit) => {
+const fetchData = async (search, page, limit, start, end) => {
   loading.value = true;
-  const data = await KamarApi.getAll(search, page, limit);
+  const data = await KamarApi.getAll(search, page, limit, start, end);
   console.log(data);
   itemList.value = reformatList(data.data_room);
   // fetchData("", "", "");
@@ -356,7 +385,18 @@ const fetchData = async (search, page, limit) => {
   // itemList.value = data;
   // console.log(test);
 };
-fetchData("", "", "");
+
+watchEffect(() => {
+  if (rangeTanggal.start && rangeTanggal.end) {
+    console.log(rangeTanggal.start, rangeTanggal.end);
+
+    fetchData("", "", "", rangeTanggal.start, rangeTanggal.end);
+  }
+  if (rangeTanggal.start > rangeTanggal.end) {
+    rangeTanggal.end = rangeTanggal.start;
+  }
+});
+fetchData("", "", "", rangeTanggal.start, rangeTanggal.end);
 </script>
 
 <style>
