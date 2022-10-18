@@ -2,8 +2,9 @@
   <div class="pb-0 card-header">
     <h6>Sales overview</h6>
     <p class="text-sm">
-      <i class="fa fa-arrow-up text-success"></i>
-      <span class="font-weight-bold">4% more</span> in 2021
+      <!-- <i class="fa fa-arrow-up text-success"></i> -->
+      <!-- <span class="font-weight-bold">4% more</span> in 2021 -->
+      in 2021
     </p>
   </div>
   <div class="p-3 card-body">
@@ -18,7 +19,16 @@ import Chart from "chart.js/auto";
 
 export default {
   name: "GradientLineChart",
-
+  props: {
+    dynamicLabels: {
+      type: Array,
+      default: () => [],
+    },
+    dynamicData: {
+      type: Array,
+      default: () => [],
+    },
+  },
   mounted() {
     var ctx2 = document.getElementById("chart-line").getContext("2d");
 
@@ -34,13 +44,15 @@ export default {
     gradientStroke2.addColorStop(0.2, "rgba(72,72,176,0.0)");
     gradientStroke2.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
 
+    let dynamicLabels = [];
+    let dynamicData = [];
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: dynamicLabels,
         datasets: [
           {
-            label: "Mobile apps",
+            label: "Kos",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,
@@ -49,22 +61,22 @@ export default {
             borderWidth: 3,
             backgroundColor: gradientStroke1,
             fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+             data: dynamicData,
             maxBarThickness: 6,
           },
-          {
-            label: "Websites",
-            tension: 0.4,
-            borderWidth: 0,
-            pointRadius: 0,
-            borderColor: "#3A416F",
-            // eslint-disable-next-line no-dupe-keys
-            borderWidth: 3,
-            backgroundColor: gradientStroke2,
-            fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-            maxBarThickness: 6,
-          },
+          // {
+          //   label: "Websites",
+          //   tension: 0.4,
+          //   borderWidth: 0,
+          //   pointRadius: 0,
+          //   borderColor: "#3A416F",
+          //   // eslint-disable-next-line no-dupe-keys
+          //   borderWidth: 3,
+          //   backgroundColor: gradientStroke2,
+          //   fill: true,
+          //   data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+          //   maxBarThickness: 6,
+          // },
         ],
       },
       options: {

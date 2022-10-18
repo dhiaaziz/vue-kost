@@ -64,9 +64,21 @@ const destroy = async (id) => {
   }
 };
 
+const getIncome = async () => {
+  try {
+    const response = await axios.get("/payment/show-income", {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default {
   getAll,
   create,
   edit,
   destroy,
+  getIncome,
 };

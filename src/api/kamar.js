@@ -103,6 +103,17 @@ const destroy = async (id) => {
   }
 };
 
+const countKamar = async () => {
+  try {
+    const response = await axios.get("/room/show-count-room", {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default {
   getAll,
   getByCriteria,
@@ -110,4 +121,5 @@ export default {
   create,
   edit,
   destroy,
+  countKamar,
 };

@@ -22,7 +22,10 @@
             >
               {{ title }}
             </p>
-            <h5 class="mb-0 font-weight-bolder" :class="valueColor">
+            <div v-if="!isLoaded" class="mt-2 spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <h5 v-else class="mb-0 font-weight-bolder" :class="valueColor">
               {{ value }}
               <span
                 v-if="percentage"
@@ -52,7 +55,7 @@ export default {
       default: "",
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: "",
     },
     valueColor: {
@@ -78,6 +81,10 @@ export default {
     contentClass: {
       type: String,
       default: "",
+    },
+    isLoaded: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

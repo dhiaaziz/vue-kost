@@ -7,11 +7,11 @@ const getAll = async (search, page, limit) => {
   // console.log(authHeader());
   // console.log(search);
   // console.log('masuk');
-  
+
   try {
     // if(page < 1) page = 1;
     // if (limit < 1) limit = 10;
-    
+
     let url = "/history/show-history";
     url = url + "?page=" + page + "&limit=" + limit;
     url = search ? url + `&name=${search}` : url;
@@ -23,10 +23,24 @@ const getAll = async (search, page, limit) => {
       // },
     });
 
-    return response.data.data
+    return response.data.data;
   } catch (error) {
     // console.log(error);
     // console.log("error")
+  }
+};
+
+const getTagihanByUser = async (search, page, limit) => {
+  try {
+    let url = "/history/show-history-by-user";
+    url = url + "?page=" + page + "&limit=" + limit;
+    url = search ? url + `&name=${search}` : url;
+    const response = await axios.get(url, {
+      headers: authHeader(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -64,9 +78,25 @@ const destroy = async (id) => {
   }
 };
 
+const clearRoomByTagihanId = async (id) => {
+  try {
+    const response = await axios.delete(
+      "/history/clear-room-by-history/" + id,
+      {
+        headers: authHeader(),
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   getAll,
+  getTagihanByUser,
   create,
   edit,
   destroy,
+  clearRoomByTagihanId,
 };

@@ -80,28 +80,121 @@
               data-original-title="Edit Bangunan"
               >Detail</router-link
             > -->
+
             <router-link
               v-if="item.status !== 'admin'"
               :to="{ name: 'Edit Kamar', params: { id: item.room_id } }"
               class="px-3 py-1 mx-1 my-2 btn btn-secondary btn-sm"
-              data-toggle="tooltip"
-              data-original-title="Edit Kamar"
-              >Edit</router-link
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Edit Kamar"
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-square"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                />
+              </svg>
+            </router-link>
+
             <a
               class="px-3 py-1 mx-1 my-2 btn btn-danger btn-sm"
               :data-bs-target="'#' + deleteModal.modalId"
-              data-toggle="tooltip"
-              data-original-title="Delete user"
+              data-bs-placement="top"
+              title="Delete Kamar"
               data-bs-toggle="modal"
               @click="setDeleteData(item)"
-              >Delete</a
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-trash"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                />
+              </svg>
+            </a>
+
+            <button
+              v-if="item.history_id"
+              :data-bs-target="'#' + emptyModal.modalId"
+              data-bs-toggle="modal"
+              class="px-3 py-1 mx-1 my-2 btn btn-primary btn-sm"
+              data-bs-placement="top"
+              title="Kosongkan Kamar"
+              @click="setEmptyKamar(item)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-door-closed-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1h8zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                />
+              </svg>
+            </button>
           </template>
         </easy-data-table>
       </div>
     </div>
   </div>
+
+  <modal-component
+    :modal-title="'Kosongkan Kamar'"
+    :modal-id="emptyModal.modalId"
+  >
+    <template #modal-body>
+      <p>Apakah anda yakin ingin mengosongkan kamar {{ emptyModal.name }}?</p>
+    </template>
+
+    <template #modal-footer>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        @click="resetDeleteData"
+      >
+        Batal
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        :disabled="emptyModal.isLoading"
+        data-bs-dismiss="modal"
+        @click="handleEmpty(emptyModal.id)"
+      >
+        <span
+          v-if="emptyModal.isLoading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span v-else>Kosongkan</span>
+      </button>
+    </template>
+  </modal-component>
 
   <modal-component :modal-id="deleteModal.modalId" :modal-title="'Hapus Kamar'">
     <template #modal-body>
@@ -142,6 +235,7 @@ import { ref, reactive, defineEmits } from "vue";
 import dateFormatter from "@/utils/dateFormatter";
 
 import KamarApi from "@/api/kamar.js";
+import TagihanApi from "@/api/tagihan.js";
 import priceFormater from "@/utils/priceFormatter";
 
 const emit = defineEmits(["alert-event"]);
@@ -154,6 +248,12 @@ let deleteModal = reactive({
   id: "",
   name: "",
   modalId: "modalDelete",
+});
+
+let emptyModal = reactive({
+  id: "",
+  name: "",
+  modalId: "modalEmpty",
 });
 
 const headers = [
@@ -188,6 +288,12 @@ const setDeleteData = (objData) => {
   deleteModal.name = objData.name;
   // console.log("delete");
 };
+
+const setEmptyKamar = (objData) => {
+  console.log(objData);
+  emptyModal.id = objData.history_id;
+  emptyModal.name = objData.name;
+};
 const handleDelete = async (id) => {
   // const data = await KamarApi.destroy(id);
   await KamarApi.destroy(id);
@@ -199,6 +305,13 @@ const handleDelete = async (id) => {
   });
   fetchData("", "", "");
   // console.log(data);
+};
+
+const removeFromListByHistory = (id) => {
+  const deletedObj = itemList.value.find((item) => item.history_id == id);
+  console.log(deletedObj, "ini deleted obj");
+  itemList.value = itemList.value.filter((item) => item.id != id);
+  return deletedObj;
 };
 const removeFromList = (id) => {
   let deletedObj = itemList.value.find((item) => item.room_id == id);
@@ -220,11 +333,24 @@ const handleSearch = async (search) => {
   // }
 };
 
+const handleEmpty = async (id) => {
+  console.log(id);
+  const response = await TagihanApi.clearRoomByTagihanId(id);
+  console.log(response);
+  const deletedObj = removeFromListByHistory(id);
+  emit("alert-event", {
+    color: "success",
+    message: "Kamar " + deletedObj.name + " berhasil dikosongkan",
+  });
+  fetchData("", "", "");
+};
+
 const fetchData = async (search, page, limit) => {
   loading.value = true;
   const data = await KamarApi.getAll(search, page, limit);
   console.log(data);
   itemList.value = reformatList(data.data_room);
+  // fetchData("", "", "");
 
   loading.value = false;
   // itemList.value = data;

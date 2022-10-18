@@ -162,7 +162,7 @@ let deleteModal = reactive({
 const headers = [
   { text: "ID TAGIHAN", value: "history_id", sortable: true },
   { text: "EMAIL", value: "email", sortable: true },
-  { text: "NAMA KOS", value: "build_name", sortable: true },
+  { text: "NAMA", value: "username", sortable: true },
   { text: "RUANGAN", value: "room_name", sortable: true },
   { text: "TAGIHAN", value: "total_price", sortable: true },
   { text: "KEKURANGAN", value: "deficiency", sortable: true },
@@ -222,9 +222,9 @@ const handleSearch = async (search) => {
 
 const fetchData = async (search, page, limit) => {
   loading.value = true;
-  const data = await TagihanApi.getAll(search, page, limit);
+  const data = await TagihanApi.getTagihanByUser(search, page, limit);
   console.log(data);
-  itemList.value = reformatList(data.data_history);
+  itemList.value = reformatList(data.data_payment);
 
   loading.value = false;
   // itemList.value = data;
