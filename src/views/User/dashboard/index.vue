@@ -34,7 +34,8 @@
     </div>
   </div>
   <div class="py-4 container-fluid">
-    <div class="mt-3 row">
+    <div v-if="!user.verify_email"><h3 class="card py-4 text-center text-primary">Harap Lakukan Verifikasi Email</h3></div>
+    <div v-else class="mt-3 row">
       <div class="mt-4 col-12 col-md-7 col-xl-7 mt-md-0">
         <div class="card h-100">
           <div class="px-2 py-0 m-0 card-header">
@@ -44,20 +45,9 @@
               </div>
               <div class="col-md-4 text-end">
                 <a href="#/user-history">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    class="bi bi-card-list"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"
-                    />
-                    <path
-                      d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                    <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
                   </svg>
                 </a>
               </div>
@@ -117,40 +107,16 @@
               <table class="table mb-0 text-center align-items-center">
                 <thead>
                   <tr>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Tipe Pembayaran
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Bayar
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Tanggal
-                    </th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Tipe Pembayaran</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Bayar</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Tanggal</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(item, key) in payment" :key="key">
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.type_payment }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.payment }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.date }}
-                      </p>
-                    </td>
+                    <td><p class="mb-0 text-sm font-weight-bold"> {{ item.type_payment }} </p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold"> {{ item.payment }} </p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold"> {{ item.date }} </p></td>
                   </tr>
                 </tbody>
               </table>
@@ -167,17 +133,8 @@
               </div>
               <div class="col-md-4 text-end">
                 <a href="#/user-tetangga">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                    class="bi bi-people"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
                   </svg>
                 </a>
               </div>

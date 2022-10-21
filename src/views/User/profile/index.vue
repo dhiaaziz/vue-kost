@@ -45,6 +45,7 @@
       </div>
     </div>
   </div>
+  
   <div class="py-4 container-fluid">
     <div class="mt-3 row">
       <div class="col-12 col-md-6 col-xl-7 my-auto">
@@ -236,27 +237,22 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="closeVerifikasiEmail" data-bs-dismiss="modal">Tutup</button>
           <button type="button" class="btn btn-warning" @click="kirimToken('verify email')">Kirim Token</button>
-          <button type="button" class="btn btn-primary" @click="cekToken('verify email')">Verifikasi</button>
+          <button type="button" class="btn btn-primary" @click="verifikasiEmail('verify email')">Verifikasi</button>
         </div>
       </div>
     </div>
   </div>
-  <vsud-alert
-    :show="alert.show"
-    :color="alert.color"
-    icon="ni ni-like-2 ni-lg"
-    dismissible
-    @update:show="alert.show = $event"
-  >
-    <span v-html="alert.message"></span>
-  </vsud-alert>
-  <!-- <button @alert-event="alertListener">klick</buttom> -->
+
+  <div v-if="alert.show" class="py-3 position-fixed top-0 start-50 translate-middle-x w-100 rounded-bottom" :class="'btn-'+alert.color" style="z-index:1000000">
+    <p class="m-0 text-center">{{alert.message}}</p>
+  </div>
 </template>
 
 <script>
 import { onMounted, onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import axios from "axios";
 import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
 axios.defaults.headers.common["token"] = await store.getters["auth/token"];
 import moment from "moment";
 import VsudAlert from "@/components/VsudAlert.vue";
@@ -279,6 +275,7 @@ export default {
   setup() {
     const body = document.getElementsByTagName("body")[0];
     const store1 = useStore()
+    const router1 = useRouter()
     let data = ref(store.getters["auth/user"]);
     const user = store.getters["auth/user"];
     const token = ref('')
@@ -298,45 +295,52 @@ export default {
     `)
     const kirimToken = async(type)=>{
       try {
-        let verify = await axios.post('otp/create-otp', {type})
-        // console.log(verify)
+        await axios.post('otp/create-otp', {type})
+        alertListener({message: 'Berhasil Mengirim Token Ke '+user.email, color: 'success'})
       } catch (error) {
+        alertListener({message: error.response.data.message, color: 'danger'})
         console.log(error)
       }
     };
-    const cekToken = async(type)=>{
+    const verifikasiEmail = async(type)=>{
       try {
-        // console.log(token.value)
         let verify = await axios.post('otp/check-otp', {type, code_otp: token.value})
         await store1.dispatch('auth/updateProfile', verify.data.data);
         document.querySelector('#closeVerifikasiEmail').click()
-        // console.log(verify)
+        data.value.verify_email = true
+        alertListener({message: 'Berhasil Verifikasi Email', color: 'success'})
       } catch (error) {
+        alertListener({message: error.response.data.message, color: 'danger'})
         console.log(error)
       }
     };
     const gantiPassword = async(type)=>{
       try {
-        console.log(newPassword.value)
+        // console.log(newPassword.value)
         let verify = await axios.post('otp/check-otp', {type, code_otp: token.value, password: newPassword.value})
         await store1.dispatch('auth/updateProfile', verify.data.data);
         document.querySelector('#closeGantiPassword').click()
-        console.log(verify)
+        alertListener({message: 'Berhasil Mengganti Password', color: 'success'})
       } catch (error) {
+        alertListener({message: error.response.data.message, color: 'danger'})
         console.log(error)
       }
     };
     const alert = reactive({
       show: false,
       icon: "",
-      message:
-        "<strong>Primary!</strong> This is a primary alert—check it out!",
+      message:"",
       color: "",
     });
     const alertListener = (params) => {
       alert.show = true;
       alert.message = params.message;
       alert.color = params.color;
+      console.log(alert)
+      setTimeout(() => {
+        alert.show = false
+        console.log(alert)
+      }, 3000);
     };
     onBeforeMount(() => {
       store.state.hideConfigButton = true;
@@ -370,7 +374,7 @@ export default {
       uncheck,
       token, 
       newPassword,
-      cekToken,
+      verifikasiEmail,
       kirimToken,
       gantiPassword,
       // toggleTest,

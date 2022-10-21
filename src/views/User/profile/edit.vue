@@ -245,8 +245,8 @@ export default {
     });
     const fProfil = ()=>{
       form.image_profile = true
+      form.image_profil1 = file_profil.value.files[0]
       const reader = new FileReader();
-      form.image_profile1 = file_profil.value.files[0]
       reader.readAsDataURL(file_profil.value.files[0]);
       reader.onload = (e) => {
         image_profil.value = e.target.result;
@@ -273,6 +273,7 @@ export default {
         if(run){
           console.log(form)
           let formData = new FormData()
+          console.log(form)
           if(form.image_profile === true) formData.append('image_profile', form.image_profil1)
           if(form.image_ktp === true) formData.append('image_ktp', form.image_ktp1)
           formData.append('username', form.username)
