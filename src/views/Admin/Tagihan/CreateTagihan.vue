@@ -413,9 +413,9 @@ export default {
             start_date: form.start_kos,
             end_date: form.end_kos,
           },
-          null,
-          null,
-          null
+          "",
+          "",
+          ""
         );
       }
     });
@@ -430,10 +430,10 @@ export default {
     });
 
     onMounted(async () => {
-      await fetchNama(null, null, null);
-      await fetchPaket(null, null, null);
-      // await fetchKamar(null, null, null);
-      await fetchBangunan(null, null, null);
+      await fetchNama("", "", "");
+      await fetchPaket("", "", "");
+      // await fetchKamar("", "", "");
+      await fetchBangunan("", "", "");
       // console.log(activeTagihan.value);
       // console.log(moment);
     });
