@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="mx-auto mt-1 col-lg-1 col-md-1 my-sm-auto ms-sm-auto me-sm-0">
-          <div class="nav-wrapper position-relative end-0 text-center">
+          <div class="text-center nav-wrapper position-relative end-0">
             <a class="d-block" @click="handleLogout">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
@@ -118,17 +118,17 @@
                 <thead>
                   <tr>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Tipe Pembayaran
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Bayar
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Tanggal
                     </th>
@@ -197,25 +197,25 @@
                 <thead>
                   <tr>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     ></th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Nama
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Religion
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Gender
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Kamar
                     </th>
@@ -267,7 +267,7 @@
 <script>
 import moment from "moment";
 import axios from "axios";
-axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+axios.defaults.headers.common["token"] = store.getters["auth/token"];
 import store from "../../../store";
 import bgImg from "@/assets/img/curved-images/curved14.jpg";
 const body = document.getElementsByTagName("body")[0];

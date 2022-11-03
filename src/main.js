@@ -28,9 +28,11 @@ import moment from "moment";
 import ModalComponent from "./views/components/shared/ModalComponent.vue";
 import SearchComponent from "./views/components/shared/SearchComponent.vue";
 
+import {IP_BACKEND} from "./config/ip.js";
+
 axios.interceptors.request.use((config) => {
   // config.baseURL = 'http://13.250.38.197:8800'
-  config.baseURL = "http://localhost:5000";
+  config.baseURL = IP_BACKEND;
   // config.withCredentials = true
   return config;
 });

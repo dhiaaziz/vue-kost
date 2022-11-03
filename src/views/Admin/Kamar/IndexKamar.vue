@@ -42,7 +42,7 @@
 import moment from "moment";
 import axios from "axios";
 import { reactive } from "vue";
-axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+axios.defaults.headers.common["token"] = store.getters["auth/token"];
 // import AuthorsTable from "@/views/components/AuthorsTable.vue";
 // import ProjectsTable from "@/views/components/ProjectsTable.vue";
 import KamarTable from "@/views/components/Kamar/KamarTable.vue";

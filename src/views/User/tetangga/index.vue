@@ -187,7 +187,7 @@
 <script>
 import { onMounted, onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import axios from "axios";
-axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+axios.defaults.headers.common["token"] =  store.getters["auth/token"];
 import moment from "moment";
 import UserTable from "@/views/components/User/UserTable.vue";
 import VsudAlert from "@/components/VsudAlert.vue";

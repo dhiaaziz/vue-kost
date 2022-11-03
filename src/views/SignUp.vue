@@ -1,7 +1,7 @@
 <template>
   <navbar btn-background="bg-gradient-primary" />
   <div
-    class="pt-5 m-3  page-header align-items-start min-vh-50 pb-11 border-radius-lg"
+    class="pt-5 m-3 page-header align-items-start min-vh-50 pb-11 border-radius-lg"
     :style="{
       backgroundImage: `url(${bgImg})`,
     }"
@@ -416,7 +416,7 @@ import { reactive, ref } from "@vue/reactivity";
 import { IP_BACKEND } from "@/config/ip.js";
 
 import axios from "axios";
-axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+axios.defaults.headers.common["token"] = store.getters["auth/token"];
 import moment from "moment";
 import store from "@/store";
 import { useStore } from "vuex";

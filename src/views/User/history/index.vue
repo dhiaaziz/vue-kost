@@ -78,37 +78,37 @@
                 <thead>
                   <tr>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Bangunan
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Kamar
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Ukuran
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Mulai
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Akhir
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Harga
                     </th>
                     <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
+                      class="text-xs text-uppercase text-secondary font-weight-bolder opacity-7"
                     >
                       Kurang
                     </th>
@@ -182,7 +182,7 @@
               </table>
             </div>
             <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center mt-2 mb-0">
+              <ul class="mt-2 mb-0 pagination justify-content-center">
                 <li
                   v-if="page > 2"
                   class="page-item disabled"
@@ -376,7 +376,7 @@
 <script>
 import { onMounted, onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import axios from "axios";
-axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+axios.defaults.headers.common["token"] = store.getters["auth/token"];
 import moment from "moment";
 import UserTable from "@/views/components/User/UserTable.vue";
 import VsudAlert from "@/components/VsudAlert.vue";

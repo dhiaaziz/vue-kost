@@ -35,7 +35,7 @@
         <div class="my-auto">
           <div class="my-auto">
           <!-- <div class="mx-auto mt-1 col-lg-1 col-md-1 my-sm-auto ms-sm-auto me-sm-0"> -->
-            <div class="nav-wrapper position-relative end-0 text-center">
+            <div class="text-center nav-wrapper position-relative end-0">
               <a href="#/user-profile/edit">
                 <i class="text-sm fas fa-user-edit text-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Status"></i>
               </a>
@@ -47,7 +47,7 @@
   </div>
   <div class="py-4 container-fluid">
     <div class="mt-3 row">
-      <div class="col-12 col-md-6 col-xl-7 my-auto">
+      <div class="my-auto col-12 col-md-6 col-xl-7">
         <div class="card" style="max-height: 100%">
           <div class="px-2 py-0 m-0 card-header">
             <div class="row">
@@ -111,25 +111,25 @@
         </div>
         <div class="mt-2 card" style="max-height: 100%">
           <div class="px-2 py-0 row wrap">
-            <div class="col-auto w-auto text-sm">
-              <button class="btn btn-sm my-1 py-auto w-100 align-center" :disabled="data.verify_email" :class="{'btn-success': data.verify_email, 'btn-danger': !data.verify_email}" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <div class="w-auto col-auto text-sm">
+              <button class="my-1 btn btn-sm py-auto w-100 align-center" :disabled="data.verify_email" :class="{'btn-success': data.verify_email, 'btn-danger': !data.verify_email}" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <span v-html="data.verify_email?check:uncheck"></span> Verify Email
               </button>
             </div>
-            <div class="col-auto w-auto text-sm">
-              <button class="btn btn-sm my-1 py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public, 'btn-danger': !data.public}">
+            <div class="w-auto col-auto text-sm">
+              <button class="my-1 btn btn-sm py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public, 'btn-danger': !data.public}">
                 <span v-html="data.public?check:uncheck"></span>Public
               </button>
               <!-- <span v-html="data.public?check:uncheck"></span> Public -->
             </div>
-            <div class="col-auto w-auto text-sm" v-if="data.public">
-              <button class="btn btn-sm my-1 py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public_religion, 'btn-danger': !data.public_religion}">
+            <div class="w-auto col-auto text-sm" v-if="data.public">
+              <button class="my-1 btn btn-sm py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public_religion, 'btn-danger': !data.public_religion}">
                 <span v-html="data.public_religion?check:uncheck"></span>Religion
               </button>
               <!-- <span v-html="data.public_religion?check:uncheck"></span> Gender -->
             </div>
-            <div class="col-auto w-auto text-sm" v-if="data.public">
-              <button class="btn btn-sm my-1 py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public_gender, 'btn-danger': !data.public_gender}">
+            <div class="w-auto col-auto text-sm" v-if="data.public">
+              <button class="my-1 btn btn-sm py-auto w-100 align-center" disabled type="button" :class="{'btn-success': data.public_gender, 'btn-danger': !data.public_gender}">
                 <span v-html="data.public_gender?check:uncheck"></span>Gender
               </button>
               <!-- <span v-html="data.public_gender?check:uncheck"></span> Religion -->
@@ -137,7 +137,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-6 col-xl-5 my-auto">
+      <div class="my-auto col-12 col-md-6 col-xl-5">
         <div class="mt-2 card" style="max-height: 100%">
           <div class="px-2 py-0 m-0 card-header">
             <div class="row">
@@ -180,7 +180,7 @@
             </div>
           </div>
           <div class="px-4 py-0 card-body">
-            <img v-bind:src="'http://localhost:5000/image/ktp/' + data.image_ktp" alt="KTP" class="d-block mx-auto shadow-sm w-100 border-radius-lg"/>
+            <img v-bind:src="'http://localhost:5000/image/ktp/' + data.image_ktp" alt="KTP" class="mx-auto shadow-sm d-block w-100 border-radius-lg"/>
           </div>
         </div>
       </div>
@@ -214,7 +214,7 @@
 import { onMounted, onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import axios from "axios";
 import { useStore } from 'vuex'
-axios.defaults.headers.common["token"] = await store.getters["auth/token"];
+axios.defaults.headers.common["token"] = store.getters["auth/token"];
 import moment from "moment";
 import UserTable from "@/views/components/User/UserTable.vue";
 import VsudAlert from "@/components/VsudAlert.vue";
