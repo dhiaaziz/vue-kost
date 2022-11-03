@@ -26,22 +26,9 @@
           <div class="col-auto">
             <div class="avatar avatar-x position-relative">
               <a href="#/user-dashboard">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="36"
-                  height="36"
-                  fill="currentColor"
-                  class="bi bi-house"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                  <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
                 </svg>
                 <!-- <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
@@ -77,103 +64,30 @@
               <table class="table mb-0 text-center align-items-center">
                 <thead>
                   <tr>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Bangunan
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Kamar
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Ukuran
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Mulai
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Akhir
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Harga
-                    </th>
-                    <th
-                      class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7"
-                    >
-                      Kurang
-                    </th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Bangunan</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Kamar</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Ukuran</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Mulai</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Akhir</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Harga</th>
+                    <th class="text-xs  text-uppercase text-secondary font-weight-bolder opacity-7">Kurang</th>
                     <th class="text-secondary opacity-7"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, key) in wadah" :key="key" :class="{'text-warning': item.total_price == -1}">
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.build_name }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.room_name }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.size }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.start_kos }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.end_kos }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.total_price != '-1' ? item.total_price:item.total_payment }}
-                      </p>
-                    </td>
-                    <td>
-                      <p class="mb-0 text-sm font-weight-bold">
-                        {{ item.deficiency }}
-                      </p>
-                    </td>
+                  <tr v-for="(item, key) in wadah" :key="key" :class="{'text-warning': item.keluar}">
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.build_name }}</p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.room_name }}</p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.size }}</p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.start_kos }}</p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.end_kos }}</p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.total_price != '-1' ? item.total_price:item.total_payment }}</p></td>
+                    <td><p class="mb-0 text-sm font-weight-bold">{{ item.deficiency }}</p></td>
                     <td class="align-middle">
-                      <button
-                        type="button"
-                        class="px-3 py-1 m-0 btn btn-sm btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalDetail"
-                        @click="openDetail(item)"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-card-list"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"
-                          />
-                          <path
-                            d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"
-                          />
+                      <button type="button" class="px-3 py-1 m-0 btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetail" @click="openDetail(item)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                          <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                          <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
                         </svg>
                       </button>
                     </td>
@@ -183,37 +97,21 @@
             </div>
             <nav aria-label="Page navigation example">
               <ul class="pagination justify-content-center mt-2 mb-0">
-                <li
-                  v-if="page > 2"
-                  class="page-item disabled"
-                  @click="pagination(1)"
-                >
+                <li v-if="page > 2" class="page-item disabled" @click="pagination(1)">
                   <a class="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li
-                  v-if="page > 1"
-                  class="page-item"
-                  @click="pagination(page - 1)"
-                >
+                <li v-if="page > 1" class="page-item" @click="pagination(page - 1)">
                   <a class="page-link">{{ page - 1 }}</a>
                 </li>
                 <li class="page-item active">
                   <a class="page-link">{{ page }}</a>
                 </li>
-                <li
-                  v-if="page < totalPage"
-                  class="page-item"
-                  @click="pagination(page + 1)"
-                >
+                <li v-if="page < totalPage" class="page-item" @click="pagination(page + 1)">
                   <a class="page-link">{{ page + 1 }}</a>
                 </li>
-                <li
-                  v-if="page < totalPage - 1"
-                  class="page-item"
-                  @click="pagination(totalPage)"
-                >
+                <li v-if="page < totalPage - 1" class="page-item" @click="pagination(totalPage)">
                   <a class="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
@@ -480,7 +378,7 @@ export default {
       try {
         cek.value = "ubah cek";
         let history = await axios.get("/history/show-history");
-        // console.log("history");
+        console.log("history");
         console.log(history);
         itemList.value = history.data.data.data_history;
         for (let i = 0; i < itemList.value.length; i++) {

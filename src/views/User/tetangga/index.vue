@@ -71,7 +71,7 @@
               </div>
             </div>
             <h6 v-else-if="wadah.length == 0" class="text-center">
-              Tidak Menyewa Kamar
+              Tidak Memiliki Tetangga
             </h6>
             <div v-else class="p-0 table-responsive">
               <table class="table mb-0 text-center align-items-center">
